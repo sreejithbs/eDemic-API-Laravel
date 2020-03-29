@@ -16,7 +16,7 @@ class HealthInstitutionTableSeeder extends Seeder
     public function run()
     {
         $institution_head = new HealthInstitution();
-        $institution_head->name = 'National Centre for Disease Control (NCDC)';
+        $institution_head->name = 'Centre for Disease Control (NCDC)';
         $institution_head->institutionCode = 'HIN0001';
         $institution_head->email = 'ncdc@institution.com';
         $institution_head->password = bcrypt('123456');
@@ -24,7 +24,7 @@ class HealthInstitutionTableSeeder extends Seeder
         $institution_head->save();
 
         $institution = new HealthInstitution();
-        $institution->name = 'Cosmopolitan Hospital Pvt Ltd';
+        $institution->name = 'Cosmopolitan Hospital';
         $institution->institutionCode = 'HIN0002';
         $institution->email = 'cosmo@institution.com';
         $institution->password = bcrypt('123456');

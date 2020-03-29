@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\UuidTrait;
 
@@ -11,12 +12,33 @@ use App\Models\LicenseSubscription;
 use App\Models\DoctorProfile;
 use App\Models\AlertMessage;
 
-class HealthInstitution extends Model
+class HealthInstitution extends Authenticatable
 {
+    use Notifiable;
     use SoftDeletes;  // enable Soft Delete
     use UuidTrait;  // assign UUID value by default on model creation
 
+    protected $guard = 'health_institution';
+
     protected $table = 'health_institutions';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     /**
      * The health_institution_profile that belong to the health_institution.

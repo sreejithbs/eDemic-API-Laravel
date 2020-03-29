@@ -41,6 +41,18 @@ return [
             'provider' => 'users',
         ],
 
+        // Admin guard for facilitating multiple authentication
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+
+        // Health Institution guard for facilitating multiple authentication
+        'health_institution' => [
+            'driver' => 'session',
+            'provider' => 'health_institutions',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -68,7 +80,19 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Models\User::class,
+        ],
+
+        // Admin provider
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+
+        // Health Institution provider
+        'health_institutions' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\HealthInstitution::class,
         ],
 
         // 'users' => [
@@ -97,6 +121,20 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
+        ],
+
+        // Password resets using existing password_resets table
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 15,
+        ],
+
+        // Password resets using existing password_resets table
+        'health_institutions' => [
+            'provider' => 'health_institutions',
+            'table' => 'password_resets',
+            'expire' => 15,
         ],
     ],
 

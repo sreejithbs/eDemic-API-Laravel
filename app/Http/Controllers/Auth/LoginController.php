@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '';
 
     /**
      * Create a new controller instance.
@@ -34,6 +36,58 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        // $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest:health_institution')->except('logout');
+    }
+
+    /**
+     * COMMON : Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
+    /**
+     * COMMON : Handle a login request to the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
+     */
+    public function handleLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email'   => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        if( Auth::guard('admin')->attempt($request->only('email', 'password'), $request->get('remember')) ){
+            return redirect()->intended('/admin/dashboard');
+
+        } else if( Auth::guard('health_institution')->attempt($request->only('email', 'password'), $request->get('remember')) ){
+            return redirect()->intended('/institution/dashboard');
+        }
+
+        return redirect()->back()
+            ->withInput($request->only('email', 'remember'))
+            ->withErrors(['error' => 'These credentials do not match our records.']);
+    }
+
+    /**
+     * Log the user out of the application - Override logout() method
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+        $request->session()->flush();
+        $request->session()->regenerate();
+
+        return redirect()->route('home');
     }
 }

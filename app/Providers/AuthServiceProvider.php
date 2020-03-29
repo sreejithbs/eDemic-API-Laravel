@@ -25,6 +25,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        /* define a institution head role */
+        Gate::define('isCountryHead', function($admin) {
+            return $admin->isHead == 1;
+        });
     }
 }
