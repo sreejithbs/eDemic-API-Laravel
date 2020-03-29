@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\UuidTrait;
+
+use App\Models\HealthInstitutionProfile;
+use App\Models\LicenseSubscription;
+use App\Models\DoctorProfile;
+use App\Models\AlertMessage;
+
+class HealthInstitution extends Model
+{
+    use SoftDeletes;  // enable Soft Delete
+    use UuidTrait;  // assign UUID value by default on model creation
+
+    protected $table = 'health_institutions';
+
+    /**
+     * The health_institution_profile that belong to the health_institution.
+     */
+    public function health_institution_profile(){
+        return $this->hasOne(HealthInstitutionProfile::class, 'health_institution_id');
+    }
+
+    /**
+     * The license_subscription that belong to the health_institution.
+     */
+    public function license_subscription(){
+        return $this->hasOne(LicenseSubscription::class, 'health_institution_id');
+    }
+
+    /**
+     * The doctor_profile that belong to the health_institution.
+     */
+    public function doctor_profile(){
+        return $this->hasMany(DoctorProfile::class, 'health_institution_id');
+    }
+
+    /**
+     * The alert_messages that belong to the health_institution.
+     */
+    public function alert_messages(){
+        return $this->hasMany(AlertMessage::class, 'health_institution_id');
+    }
+}
