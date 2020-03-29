@@ -1,6 +1,6 @@
 @extends('_health_institution.partials.master')
-@section('page_title', 'Super-Admin Dashboard | e-Demic')
-@section('page_heading', 'Super-Admin Dashboard')
+@section('page_title', 'Health Institution Dashboard | e-Demic')
+@section('page_heading', 'Health Institution Dashboard')
 
 @section('content')
 
