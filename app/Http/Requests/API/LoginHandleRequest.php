@@ -48,10 +48,10 @@ class LoginHandleRequest extends FormRequest
      *
      * @return array
      */
-    public function attributes()
-    {
-        return [
-            'phone_number' => 'Phone Number',
-        ];
-    }
+    // public function attributes()
+    // {
+    //     return [
+    //         'phone_number' => 'Phone Number',
+    //     ];
+    // }
 }

@@ -14,7 +14,7 @@ class AdminTableSeeder extends Seeder
     {
         $admin = new Admin();
         $admin->name = 'TBA Super-Admin';
-        $admin->email = 'admin@tba.com';
+        $admin->email = 'superadmin@demo.com';
         $admin->password = bcrypt('123456');
         $admin->save();
     }

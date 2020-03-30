@@ -1,6 +1,11 @@
 @extends('_health_institution.partials.master')
-@section('page_title', 'Health Institution Dashboard | e-Demic')
-@section('page_heading', 'Health Institution Dashboard')
+@can('isCountryHead')
+	@section('page_title', 'Country Health Head Dashboard | e-Demic')
+	@section('page_heading', 'Country Health Head Dashboard')
+@else
+	@section('page_title', 'Health Institution Dashboard | e-Demic')
+	@section('page_heading', 'Health Institution Dashboard')
+@endcan
 
 @section('content')
 

@@ -28,9 +28,14 @@ class AuthServiceProvider extends ServiceProvider
 
         Passport::routes();
 
-        /* define a institution head role */
-        Gate::define('isCountryHead', function($admin) {
-            return $admin->isHead == 1;
+        /* define whether Licence purchased by Institute */
+        Gate::define('isLicencePurchased', function($health_institution) {
+            return $health_institution->license_subscription()->exists();
+        });
+
+        /* define a Country Head role */
+        Gate::define('isCountryHead', function($health_institution) {
+            return $health_institution->isHead == 1;
         });
     }
 }

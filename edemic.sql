@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2020 at 11:04 AM
+-- Generation Time: Mar 30, 2020 at 01:54 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -44,7 +44,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `uuid`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, '4faae375-10e9-453e-9ac6-63b2825f2046', 'TBA Super-Admin', 'admin@tba.com', '$2y$10$7RtF3dwdeucn8XWh.Von9O9JLN3fXcV6t49yNujeWd2aoAyzRf9EG', NULL, '2020-03-30 03:32:55', '2020-03-30 03:32:55');
+(1, '95d442dd-d73f-42b9-be99-ae51ec4299d1', 'TBA Super-Admin', 'superadmin@demo.com', '$2y$10$CkVh0e08GLMZ/RBrI.0WROYdpKuPllTYOAuAPGq4iJ1IOV.UT8mmK', NULL, '2020-03-30 06:23:54', '2020-03-30 06:23:54');
 
 -- --------------------------------------------------------
 
@@ -146,8 +146,8 @@ CREATE TABLE `health_institutions` (
 --
 
 INSERT INTO `health_institutions` (`id`, `uuid`, `name`, `institutionCode`, `email`, `password`, `isHead`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'efc3be43-a049-4c3a-9902-6f8fa05fd22a', 'Centre for Disease Control (NCDC)', 'HIN0001', 'ncdc@institution.com', '$2y$10$hyMPcUhw0pp7xzztmT1wFeZ63dePEuuE5sbXFFeDf1bupA88EYa42', 1, NULL, NULL, '2020-03-30 03:32:56', '2020-03-30 03:32:56'),
-(2, '610ab80c-2ae2-4007-b48a-25ffae29b8a5', 'Cosmopolitan Hospital', 'HIN0002', 'cosmo@institution.com', '$2y$10$Hs.wVBsjayP.gkh9Agi0eug1efeSn..f1GVYFblKlMJGqUk3ZsoY2', 0, NULL, NULL, '2020-03-30 03:32:56', '2020-03-30 03:32:56');
+(1, '87fce109-934e-444d-b888-77e650b02cea', 'Demo Country Head', 'HIN0001', 'countryhead@demo.com', '$2y$10$.BEy5zo0hDiXMwsNMymuBeM4aF63C4kovpH8qjXmMGJ.L.VGG47qq', 1, NULL, NULL, '2020-03-30 06:23:55', '2020-03-30 06:23:55'),
+(2, '745b5728-1fc9-4313-bb44-5f8d1468dc52', 'Demo Hospital Institution', 'HIN0002', 'institution@demo.com', '$2y$10$rLJqgmLOzEVTeRgyh.U/d..VqiCAqrLW9H6WYOXE1pfq6UApfnaZO', 0, NULL, NULL, '2020-03-30 06:23:55', '2020-03-30 06:23:55');
 
 -- --------------------------------------------------------
 
@@ -173,7 +173,7 @@ CREATE TABLE `health_institution_profiles` (
 --
 
 INSERT INTO `health_institution_profiles` (`id`, `health_institution_id`, `phone`, `address`, `country_id`, `year`, `purchasedDoctorConnects`, `remainingDoctorConnects`, `created_at`, `updated_at`) VALUES
-(1, 2, '9219592195', 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala 695004', 1, 2020, 20, 10, '2020-03-30 03:32:56', '2020-03-30 03:32:56');
+(1, 2, '9219592195', 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala 695004', 1, 2020, 20, 10, '2020-03-30 06:23:55', '2020-03-30 06:23:55');
 
 -- --------------------------------------------------------
 
@@ -197,7 +197,8 @@ CREATE TABLE `license_subscriptions` (
 --
 
 INSERT INTO `license_subscriptions` (`id`, `health_institution_id`, `feeAmount`, `startDate`, `endDate`, `status`, `created_at`, `updated_at`) VALUES
-(1, 2, '999.00', '2020-03-20', '2021-03-20', 1, '2020-03-30 03:32:56', '2020-03-30 03:32:56');
+(1, 1, '999.00', '2020-03-30', '2021-03-30', 1, '2020-03-30 06:23:55', '2020-03-30 06:23:55'),
+(2, 2, '499.00', '2020-03-30', '2021-03-30', 1, '2020-03-30 06:23:55', '2020-03-30 06:23:55');
 
 -- --------------------------------------------------------
 
@@ -290,8 +291,8 @@ CREATE TABLE `oauth_clients` (
 --
 
 INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Laravel Personal Access Client', 'WW2KFX5a8DRS94dqF5l3BjCtBWFDFjIZPfSzudCJ', 'http://localhost', 1, 0, 0, '2020-03-30 03:33:07', '2020-03-30 03:33:07'),
-(2, NULL, 'Laravel Password Grant Client', 'mAdHdLip3Vu2pAZGdc00cZEmPSgzq47rcGWJZrNL', 'http://localhost', 0, 1, 0, '2020-03-30 03:33:07', '2020-03-30 03:33:07');
+(1, NULL, 'Laravel Personal Access Client', 'CerDyvG1RgsLyunph1aWoYb2Lu7T7pQYHRB89Pff', 'http://localhost', 1, 0, 0, '2020-03-30 06:24:05', '2020-03-30 06:24:05'),
+(2, NULL, 'Laravel Password Grant Client', 't0cIoqq1olGZHcH1pmJkPBi91UTdfQDsmMEhhCha', 'http://localhost', 0, 1, 0, '2020-03-30 06:24:05', '2020-03-30 06:24:05');
 
 -- --------------------------------------------------------
 
@@ -311,7 +312,7 @@ CREATE TABLE `oauth_personal_access_clients` (
 --
 
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2020-03-30 03:33:07', '2020-03-30 03:33:07');
+(1, 1, '2020-03-30 06:24:05', '2020-03-30 06:24:05');
 
 -- --------------------------------------------------------
 
@@ -555,7 +556,7 @@ ALTER TABLE `health_institution_profiles`
 -- AUTO_INCREMENT for table `license_subscriptions`
 --
 ALTER TABLE `license_subscriptions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
