@@ -240,6 +240,7 @@ return [
          */
         'StringHelper' => App\Helpers\StringHelper::class,
         'ArrayHelper' => App\Helpers\ArrayHelper::class,
+        'ConstantHelper' => App\Helpers\ConstantHelper::class,
 
     ],
 
