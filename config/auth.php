@@ -41,6 +41,12 @@ return [
             'provider' => 'users',
         ],
 
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+            'hash' => false,
+        ],
+
         // Admin guard for facilitating multiple authentication
         'admin' => [
             'driver' => 'session',
@@ -51,12 +57,6 @@ return [
         'health_institution' => [
             'driver' => 'session',
             'provider' => 'health_institutions',
-        ],
-
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
         ],
     ],
 
