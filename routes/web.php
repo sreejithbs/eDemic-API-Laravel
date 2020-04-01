@@ -18,19 +18,39 @@ Route::get('/clear', function(){
 	Artisan::call('config:cache');
 });
 
-Route::get('/', 'Auth\LoginController@showLoginForm')->name('home');
-Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login_form.show');
-Route::post('/login', 'Auth\LoginController@handleLogin')->name('login_form.handle');
-Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+Route::group(['namespace' => 'Auth'], function(){
+	Route::get('/', 'LoginController@showLoginForm')->name('home');
+	Route::get('/login', 'LoginController@showLoginForm')->name('login_form.show');
+	Route::post('/login', 'LoginController@handleLogin')->name('login_form.handle');
+	Route::post('/logout', 'LoginController@logout')->name('logout');
+});
 
 
 // ************************* Start of ADMIN ROUTES ******************************
-Route::prefix('admin')->group(function () {
-	Route::get('/dashboard', 'Admin\DashboardController@index')->name('admin_dashboard.show');
+Route::group(['prefix' => 'admin', 'as' => 'admin_', 'namespace' => 'Admin'], function(){
+	Route::get('/dashboard', 'DashboardController@index')->name('dashboard.show');
 });
 
 
 // ************************* Start of HEALTH INSTITUTION ROUTES ******************************
-Route::prefix('institution')->group(function () {
-	Route::get('/dashboard', 'HealthInstitution\DashboardController@index')->name('institution_dashboard.show');
+Route::group(['prefix' => 'institution', 'as' => 'institution_', 'namespace' => 'HealthInstitution'], function(){
+	Route::get('/dashboard', 'DashboardController@index')->name('dashboard.show');
+
+	Route::group(['prefix' => 'institutions', 'as' => 'institutions.'], function(){
+	    Route::get('/all', 'HealthInstitutionController@index')->name('list');
+	    Route::get('/create', 'HealthInstitutionController@create')->name('create');
+	    Route::post('/store', 'HealthInstitutionController@store')->name('store');
+	    Route::get('/edit/{uuid}', 'HealthInstitutionController@edit')->name('edit');
+	    Route::patch('/update/{uuid}', 'HealthInstitutionController@update')->name('update');
+	    Route::delete('/delete/{uuid}', 'HealthInstitutionController@destroy')->name('delete');
+	});
+
+	Route::group(['prefix' => 'diseases', 'as' => 'diseases.'], function(){
+	    Route::get('/all', 'DiseaseController@index')->name('list');
+	    Route::get('/create', 'DiseaseController@create')->name('create');
+	    Route::post('/store', 'DiseaseController@store')->name('store');
+	    Route::get('/edit/{uuid}', 'DiseaseController@edit')->name('edit');
+	    Route::patch('/update/{uuid}', 'DiseaseController@update')->name('update');
+	    Route::delete('/delete/{uuid}', 'DiseaseController@destroy')->name('delete');
+	});
 });

@@ -18,10 +18,10 @@ class CreateDiseasesTable extends Migration
             $table->uuid('uuid')->index();
             $table->string('name');
             $table->string('diseaseCode', 50)->index();
-            $table->string('infectedQrCode');
-            $table->string('recoveredQrCode');
-            $table->string('deadQrCode');
-            $table->string('selfQuarantineQrCode');
+            $table->string('infectionQrCode')->nullable();
+            $table->string('recoveredQrCode')->nullable();
+            $table->string('deadQrCode')->nullable();
+            $table->string('selfQuarantineQrCode')->nullable();
             $table->tinyInteger('riskLevel');
             $table->softDeletes();
             $table->timestamps();

@@ -21,9 +21,17 @@ class CreateHealthInstitutionsTable extends Migration
             $table->string('email');
             $table->string('password');
             $table->boolean('isHead')->default(0);
+            $table->unsignedBigInteger('country_id');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
+        });
+
+        /**
+         * Foreign Key Constraint
+         */
+        Schema::table('health_institutions', function (Blueprint $table) {
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
         });
     }
 

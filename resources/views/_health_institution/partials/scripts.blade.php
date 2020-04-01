@@ -68,6 +68,12 @@
 			allowClear: true
 		});
 
+		$('.skin-square input').iCheck({
+		     // radioClass: 'iradio_square-green',
+		     radioClass: 'iradio_square-blue',
+		     checkboxClass: 'icheckbox_square-blue',
+		 });
+
 		// SweetAlert in all DELETE BUTTONS
 		$('.delSwal').on('click',function(event){
 			event.preventDefault();

@@ -22,7 +22,7 @@ class RedirectIfAuthenticated
                 return redirect(route('admin_dashboard.show'));
             }
             if ($guard == "health_institution"){
-                return redirect(route('health_institution_dashboard.show'));
+                return redirect(route('institution_dashboard.show'));
             }
         }
 

@@ -18,10 +18,8 @@ class CreateHealthInstitutionProfilesTable extends Migration
             $table->unsignedBigInteger('health_institution_id');
             $table->string('phone', 50);
             $table->text('address');
-            $table->unsignedBigInteger('country_id');
-            $table->integer('year');
-            $table->integer('purchasedDoctorConnects');
-            $table->integer('remainingDoctorConnects');
+            $table->integer('purchasedDoctorConnects')->default(0);
+            $table->integer('remainingDoctorConnects')->default(0);
             $table->timestamps();
         });
 
@@ -30,7 +28,6 @@ class CreateHealthInstitutionProfilesTable extends Migration
          */
         Schema::table('health_institution_profiles', function (Blueprint $table) {
             $table->foreign('health_institution_id')->references('id')->on('health_institutions')->onDelete('cascade');
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
         });
     }
 

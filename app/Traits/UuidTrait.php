@@ -19,7 +19,7 @@ trait UuidTrait
     }
 
     // Return model instance or null by checking `uuid` data
-    public static function fetchModelByUnqId($uuid)
+    public static function fetchModelByUuId($uuid)
     {
         return static::where('uuid', $uuid)->first();
     }

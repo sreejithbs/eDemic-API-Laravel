@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
     	]);
 
     	$this->call(HealthInstitutionTableSeeder::class);
+        $this->call(UserTableSeeder::class);
     }
 }

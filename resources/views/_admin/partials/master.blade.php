@@ -20,6 +20,8 @@
 
 <body class="vertical-layout vertical-content-menu 2-columns menu-expanded fixed-navbar" data-open="click" data-menu="vertical-content-menu" data-col="2-columns">
 
+	<div class="css_loader">Loading&#8230;</div>
+
 	<!-- NAVBAR -->
 	@include('_admin.partials.navbar')
 

@@ -31,6 +31,17 @@ class StringHelper {
     }
 
     /**
+     * Generate a URL friendly "slug" from a given string
+     *
+     * @param  string  $str
+     * @return string
+     */
+    public static function uniqueSlugString($str)
+    {
+        return str_slug($str, "_") . '_' . time();
+    }
+
+    /**
      * Set css class if the specific URI is current URI
      *
      * @param array $path

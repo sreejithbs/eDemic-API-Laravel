@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes();
 
         /* define whether Licence purchased by Institute */
-        Gate::define('isLicencePurchased', function($health_institution) {
+        Gate::define('hasLicencePurchased', function($health_institution) {
             return $health_institution->license_subscription()->exists();
         });
 
