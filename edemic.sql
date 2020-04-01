@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2020 at 01:54 PM
+-- Generation Time: Apr 01, 2020 at 11:13 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -44,7 +44,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `uuid`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, '95d442dd-d73f-42b9-be99-ae51ec4299d1', 'TBA Super-Admin', 'superadmin@demo.com', '$2y$10$CkVh0e08GLMZ/RBrI.0WROYdpKuPllTYOAuAPGq4iJ1IOV.UT8mmK', NULL, '2020-03-30 06:23:54', '2020-03-30 06:23:54');
+(1, '95ff6442-5c4a-460b-92d2-1976791b17a4', 'TBA Super-Admin', 'superadmin@demo.com', '$2y$10$uEADpghudBDiv8DrcBMNEOB4of/GURHazVYemEYFFQkcetvYysPYu', NULL, '2020-04-01 03:43:33', '2020-04-01 03:43:33');
 
 -- --------------------------------------------------------
 
@@ -94,10 +94,10 @@ CREATE TABLE `diseases` (
   `uuid` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `diseaseCode` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `infectedQrCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `recoveredQrCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deadQrCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `selfQuarantineQrCode` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `infectionQrCode` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `recoveredQrCode` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deadQrCode` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `selfQuarantineQrCode` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `riskLevel` tinyint(4) NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -135,6 +135,7 @@ CREATE TABLE `health_institutions` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `isHead` tinyint(1) NOT NULL DEFAULT '0',
+  `country_id` bigint(20) UNSIGNED NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -145,9 +146,8 @@ CREATE TABLE `health_institutions` (
 -- Dumping data for table `health_institutions`
 --
 
-INSERT INTO `health_institutions` (`id`, `uuid`, `name`, `institutionCode`, `email`, `password`, `isHead`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, '87fce109-934e-444d-b888-77e650b02cea', 'Demo Country Head', 'HIN0001', 'countryhead@demo.com', '$2y$10$.BEy5zo0hDiXMwsNMymuBeM4aF63C4kovpH8qjXmMGJ.L.VGG47qq', 1, NULL, NULL, '2020-03-30 06:23:55', '2020-03-30 06:23:55'),
-(2, '745b5728-1fc9-4313-bb44-5f8d1468dc52', 'Demo Hospital Institution', 'HIN0002', 'institution@demo.com', '$2y$10$rLJqgmLOzEVTeRgyh.U/d..VqiCAqrLW9H6WYOXE1pfq6UApfnaZO', 0, NULL, NULL, '2020-03-30 06:23:55', '2020-03-30 06:23:55');
+INSERT INTO `health_institutions` (`id`, `uuid`, `name`, `institutionCode`, `email`, `password`, `isHead`, `country_id`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'e65edb8d-65a2-44c7-964c-c8388f51c347', 'Demo Country Head', 'HIN0001', 'countryhead@demo.com', '$2y$10$B/Bl2qTjovK4lboi2Wkd/OBA27eAYwe0f2J9On.26saAOJkfidiNa', 1, 1, NULL, NULL, '2020-04-01 03:43:33', '2020-04-01 03:43:33');
 
 -- --------------------------------------------------------
 
@@ -160,20 +160,11 @@ CREATE TABLE `health_institution_profiles` (
   `health_institution_id` bigint(20) UNSIGNED NOT NULL,
   `phone` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `country_id` bigint(20) UNSIGNED NOT NULL,
-  `year` int(11) NOT NULL,
-  `purchasedDoctorConnects` int(11) NOT NULL,
-  `remainingDoctorConnects` int(11) NOT NULL,
+  `purchasedDoctorConnects` int(11) NOT NULL DEFAULT '0',
+  `remainingDoctorConnects` int(11) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `health_institution_profiles`
---
-
-INSERT INTO `health_institution_profiles` (`id`, `health_institution_id`, `phone`, `address`, `country_id`, `year`, `purchasedDoctorConnects`, `remainingDoctorConnects`, `created_at`, `updated_at`) VALUES
-(1, 2, '9219592195', 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala 695004', 1, 2020, 20, 10, '2020-03-30 06:23:55', '2020-03-30 06:23:55');
 
 -- --------------------------------------------------------
 
@@ -191,14 +182,6 @@ CREATE TABLE `license_subscriptions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `license_subscriptions`
---
-
-INSERT INTO `license_subscriptions` (`id`, `health_institution_id`, `feeAmount`, `startDate`, `endDate`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, '999.00', '2020-03-30', '2021-03-30', 1, '2020-03-30 06:23:55', '2020-03-30 06:23:55'),
-(2, 2, '499.00', '2020-03-30', '2021-03-30', 1, '2020-03-30 06:23:55', '2020-03-30 06:23:55');
 
 -- --------------------------------------------------------
 
@@ -291,8 +274,8 @@ CREATE TABLE `oauth_clients` (
 --
 
 INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Laravel Personal Access Client', 'CerDyvG1RgsLyunph1aWoYb2Lu7T7pQYHRB89Pff', 'http://localhost', 1, 0, 0, '2020-03-30 06:24:05', '2020-03-30 06:24:05'),
-(2, NULL, 'Laravel Password Grant Client', 't0cIoqq1olGZHcH1pmJkPBi91UTdfQDsmMEhhCha', 'http://localhost', 0, 1, 0, '2020-03-30 06:24:05', '2020-03-30 06:24:05');
+(1, NULL, 'Laravel Personal Access Client', 'dLz8wDfYolY9q6nuxuaFVuTXy2coZzZR5BlkS7zo', 'http://localhost', 1, 0, 0, '2020-04-01 03:43:33', '2020-04-01 03:43:33'),
+(2, NULL, 'Laravel Password Grant Client', 'JoL1HEZY5DFZibcknsvAUCyocAFmlhLxhNKcJUAV', 'http://localhost', 0, 1, 0, '2020-04-01 03:43:33', '2020-04-01 03:43:33');
 
 -- --------------------------------------------------------
 
@@ -312,7 +295,7 @@ CREATE TABLE `oauth_personal_access_clients` (
 --
 
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2020-03-30 06:24:05', '2020-03-30 06:24:05');
+(1, 1, '2020-04-01 03:43:33', '2020-04-01 03:43:33');
 
 -- --------------------------------------------------------
 
@@ -339,11 +322,19 @@ CREATE TABLE `users` (
   `userCode` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `isDoctor` tinyint(1) NOT NULL DEFAULT '0',
-  `deviceToken` text COLLATE utf8mb4_unicode_ci,
+  `androidDeviceToken` text COLLATE utf8mb4_unicode_ci,
+  `iosDeviceToken` text COLLATE utf8mb4_unicode_ci,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `uuid`, `userCode`, `phone`, `isDoctor`, `androidDeviceToken`, `iosDeviceToken`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'ddde890c-d094-4eee-9002-9c827cf329fb', 'U0001', '+919219592195', 0, NULL, NULL, NULL, '2020-04-01 03:43:33', '2020-04-01 03:43:33');
 
 -- --------------------------------------------------------
 
@@ -425,15 +416,15 @@ ALTER TABLE `doctor_profiles`
 ALTER TABLE `health_institutions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `health_institutions_uuid_index` (`uuid`),
-  ADD KEY `health_institutions_institutioncode_index` (`institutionCode`);
+  ADD KEY `health_institutions_institutioncode_index` (`institutionCode`),
+  ADD KEY `health_institutions_country_id_foreign` (`country_id`);
 
 --
 -- Indexes for table `health_institution_profiles`
 --
 ALTER TABLE `health_institution_profiles`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `health_institution_profiles_health_institution_id_foreign` (`health_institution_id`),
-  ADD KEY `health_institution_profiles_country_id_foreign` (`country_id`);
+  ADD KEY `health_institution_profiles_health_institution_id_foreign` (`health_institution_id`);
 
 --
 -- Indexes for table `license_subscriptions`
@@ -544,19 +535,19 @@ ALTER TABLE `doctor_profiles`
 -- AUTO_INCREMENT for table `health_institutions`
 --
 ALTER TABLE `health_institutions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `health_institution_profiles`
 --
 ALTER TABLE `health_institution_profiles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `license_subscriptions`
 --
 ALTER TABLE `license_subscriptions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -580,7 +571,7 @@ ALTER TABLE `oauth_personal_access_clients`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `user_diagnosis_logs`
@@ -612,10 +603,15 @@ ALTER TABLE `doctor_profiles`
   ADD CONSTRAINT `doctor_profiles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `health_institutions`
+--
+ALTER TABLE `health_institutions`
+  ADD CONSTRAINT `health_institutions_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `health_institution_profiles`
 --
 ALTER TABLE `health_institution_profiles`
-  ADD CONSTRAINT `health_institution_profiles_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `health_institution_profiles_health_institution_id_foreign` FOREIGN KEY (`health_institution_id`) REFERENCES `health_institutions` (`id`) ON DELETE CASCADE;
 
 --

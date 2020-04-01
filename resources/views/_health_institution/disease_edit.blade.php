@@ -68,19 +68,19 @@
                                                     <div class="card-deck-wrapper">
                                                         <div class="card-deck">
                                                             <figure class="card card-img-top border-grey border-lighten-2">
-                                                                <img class="gallery-thumbnail card-img-top" src="{{ asset($disease->infectionQrCode) }}" alt="Image description" />
+                                                                <img class="gallery-thumbnail card-img-top" src="{{ asset($disease->infectionQrCode) }}" alt="QrCode" />
                                                                 <h4 class="card-title">Infection</h4>
                                                             </figure>
                                                             <figure class="card card-img-top border-grey border-lighten-2">
-                                                                <img class="gallery-thumbnail card-img-top" src="{{ asset($disease->recoveredQrCode) }}" alt="Image description" />
+                                                                <img class="gallery-thumbnail card-img-top" src="{{ asset($disease->recoveredQrCode) }}" alt="QrCode" />
                                                                 <h4 class="card-title">Recovered</h4>
                                                             </figure>
                                                             <figure class="card card-img-top border-grey border-lighten-2">
-                                                                <img class="gallery-thumbnail card-img-top" src="{{ asset($disease->deadQrCode) }}" alt="Image description" />
+                                                                <img class="gallery-thumbnail card-img-top" src="{{ asset($disease->deadQrCode) }}" alt="QrCode" />
                                                                 <h4 class="card-title">Dead</h4>
                                                             </figure>
                                                             <figure class="card card-img-top border-grey border-lighten-2">
-                                                                <img class="gallery-thumbnail card-img-top" src="{{ asset($disease->selfQuarantineQrCode) }}" alt="Image description" />
+                                                                <img class="gallery-thumbnail card-img-top" src="{{ asset($disease->selfQuarantineQrCode) }}" alt="QrCode" />
                                                                 <h4 class="card-title">Self Quarantine</h4>
                                                             </figure>
                                                         </div>

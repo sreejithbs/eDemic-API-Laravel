@@ -24,34 +24,34 @@ class HealthInstitutionTableSeeder extends Seeder
         $institution_head->country_id = 1;
         $institution_head->save();
 
-        $license_subscription = new LicenseSubscription();
-        $license_subscription->feeAmount = '999.00';
-        $license_subscription->startDate = '2020-03-30';
-        $license_subscription->endDate = '2021-03-30';
-        $license_subscription->status = 1;
-        $institution_head->license_subscription()->save($license_subscription);
+        // $license_subscription = new LicenseSubscription();
+        // $license_subscription->feeAmount = '999.00';
+        // $license_subscription->startDate = '2020-03-30';
+        // $license_subscription->endDate = '2021-03-30';
+        // $license_subscription->status = 1;
+        // $institution_head->license_subscription()->save($license_subscription);
 
 
-        $institution = new HealthInstitution();
-        $institution->name = 'Demo Hospital Institution';
-        $institution->institutionCode = 'HIN0002';
-        $institution->email = 'institution@demo.com';
-        $institution->password = bcrypt('123456');
-        $institution->country_id = $institution_head->country_id;
-        $institution->save();
+        // $institution = new HealthInstitution();
+        // $institution->name = 'Demo Hospital Institution';
+        // $institution->institutionCode = 'HIN0002';
+        // $institution->email = 'institution@demo.com';
+        // $institution->password = bcrypt('123456');
+        // $institution->country_id = $institution_head->country_id;
+        // $institution->save();
 
-        $institution_profile = new HealthInstitutionProfile();
-        $institution_profile->phone = '9219592195';
-        $institution_profile->address = 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala 695004';
-        $institution_profile->purchasedDoctorConnects = 20;
-        $institution_profile->remainingDoctorConnects = 10;
-        $institution->health_institution_profile()->save($institution_profile);
+        // $institution_profile = new HealthInstitutionProfile();
+        // $institution_profile->phone = '9219592195';
+        // $institution_profile->address = 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala 695004';
+        // $institution_profile->purchasedDoctorConnects = 0;
+        // $institution_profile->remainingDoctorConnects = 0;
+        // $institution->health_institution_profile()->save($institution_profile);
 
-        $license_subscription = new LicenseSubscription();
-        $license_subscription->feeAmount = '499.00';
-        $license_subscription->startDate = '2020-03-30';
-        $license_subscription->endDate = '2021-03-30';
-        $license_subscription->status = 1;
-        $institution->license_subscription()->save($license_subscription);
+        // $license_subscription = new LicenseSubscription();
+        // $license_subscription->feeAmount = '999.00';
+        // $license_subscription->startDate = '2020-03-30';
+        // $license_subscription->endDate = '2021-03-30';
+        // $license_subscription->status = 1;
+        // $institution->license_subscription()->save($license_subscription);
     }
 }

@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
 
         /* define whether Licence purchased by Institute */
         Gate::define('hasLicencePurchased', function($health_institution) {
-            return $health_institution->license_subscription()->exists();
+            return $health_institution->license_subscription()->exists() && $health_institution->license_subscription->status == 1;
         });
 
         /* define a Country Head role */
