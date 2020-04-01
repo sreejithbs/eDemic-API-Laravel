@@ -10,6 +10,7 @@ use ConstantHelper;
 
 use App\Models\HealthInstitution;
 use App\Models\HealthInstitutionProfile;
+use App\Events\HealthInstitutionWasCreatedEvent;
 
 class HealthInstitutionController extends Controller
 {
@@ -71,6 +72,9 @@ class HealthInstitutionController extends Controller
             $institution->health_institution_profile()->save($institution_profile);
 
             DB::commit();
+
+            // Trigger Mail
+            event( new HealthInstitutionWasCreatedEvent($institution, $request->password) );
 
         } catch (\Exception $e) {
             DB::rollback();
