@@ -1,0 +1,99 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "e-Demic API Documentation",
+        "description": "API endpoints and descriptions for e-Demic Laravel API",
+        "contact": {
+            "name": "Developer : Sreejith B S",
+            "email": "sreejith.bs@quinoid.in"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/api/v1",
+            "description": "API Server"
+        }
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Check if a user is an existing or new one",
+                "description": "API to check if a user is an existing or new one, using phone number.",
+                "operationId": "login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "phone_number": {
+                                        "type": "string"
+                                    },
+                                    "android_device_token": {
+                                        "type": "string"
+                                    },
+                                    "ios_device_token": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "phone_number": "+919219592195",
+                                    "android_device_token": "",
+                                    "ios_device_token": ""
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "headers": {
+                            "Content-Type: application/json": {
+                                "description": "Content Type which needs to be added",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "Authorization: Bearer <token>": {
+                                "description": "Authorization Token to be passed, generated duing /login API",
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "api_key": {
+                "type": "apiKey",
+                "name": "API Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Users",
+            "description": "API Endpoints of Users"
+        }
+    ]
+}

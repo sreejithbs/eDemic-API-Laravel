@@ -16,10 +16,52 @@ use App\Models\User;
 class UserController extends Controller
 {
     /**
-     * Handles Login Request
-     *
-     * @param LoginHandleRequest $request
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(path="/login",
+     *     tags={"Users"},
+     *     summary="Check if a user is an existing or new one",
+     *     description="API to check if a user is an existing or new one, using phone number.",
+     *     operationId="login",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="phone_number",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="android_device_token",
+     *                     type="string",
+     *                 ),
+     *                 @OA\Property(
+     *                     property="ios_device_token",
+     *                     type="string",
+     *                 ),
+     *                 example={ "phone_number": "+919219592195", "android_device_token" : "", "ios_device_token" : "" },
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful Operation",
+     *         @OA\JsonContent(),
+     *         @OA\Header(
+     *             header="Content-Type: application/json",
+     *             @OA\Schema(
+     *                 type="string",
+     *             ),
+     *             description="Content Type which needs to be added"
+     *         ),
+     *         @OA\Header(
+     *             header="Authorization: Bearer <token>",
+     *             @OA\Schema(
+     *                 type="string",
+     *             ),
+     *             description="Authorization Token to be passed, generated duing /login API"
+     *         ),
+     *     )
+     * )
      */
     public function login(LoginHandleRequest $request)
     {

@@ -28,6 +28,8 @@ class LoginHandleRequest extends FormRequest
     {
         return [
             'phone_number' => 'required',
+            // 'android_device_token' => 'required',
+            'ios_device_token' => 'required_without:android_device_token',
         ];
     }
 
@@ -36,12 +38,12 @@ class LoginHandleRequest extends FormRequest
      *
      * @return array
      */
-    // public function messages()
-    // {
-    //     return [
-    //         'phone_number.required' => 'Phone Number is required',
-    //     ];
-    // }
+    public function messages()
+    {
+        return [
+            'ios_device_token.required_without' => 'Either iOS device token field or Android device token is required',
+        ];
+    }
 
     /**
      * Get custom attributes for validator errors.
