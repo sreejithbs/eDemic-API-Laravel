@@ -22,6 +22,15 @@ class User extends Authenticatable
     protected $table = 'users';
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'phone',
+    ];
+
+    /**
      * The doctor_profile that belong to the users.
      */
     public function doctor_profile(){

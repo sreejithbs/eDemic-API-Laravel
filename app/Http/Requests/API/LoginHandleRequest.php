@@ -28,6 +28,7 @@ class LoginHandleRequest extends FormRequest
     {
         return [
             'phone_number' => 'required',
+            'user_verified' => 'required|boolean',
             // 'android_device_token' => 'required',
             'ios_device_token' => 'required_without:android_device_token',
         ];

@@ -12,7 +12,9 @@
 */
 
 Route::group(['prefix' => 'v1'], function(){
-	Route::post('login', 'API\v1\UserController@login');
+	Route::post('user/validate', 'API\v1\UserController@userValidate');
+	Route::post('user/sendSmsOtp', 'API\v1\UserController@sendSmsOtp');
+	Route::post('user/registerAndLogin', 'API\v1\UserController@registerAndLogin');
 
 	Route::group(['middleware' => 'auth:api'], function(){
 		//

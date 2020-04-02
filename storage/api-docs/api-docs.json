@@ -20,14 +20,14 @@
         }
     ],
     "paths": {
-        "/login": {
+        "/user/validate": {
             "post": {
                 "tags": [
                     "Users"
                 ],
-                "summary": "Check if a user is an existing or new one",
-                "description": "API to check if a user is an existing or new one, using phone number.",
-                "operationId": "login",
+                "summary": "Check if a user is an existing or a new one",
+                "description": "API to check if a user is an existing or a new one, using their phone number. <br><br>Returns either `existing` or `new` user status.",
+                "operationId": "userValidate",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -36,6 +36,75 @@
                                 "properties": {
                                     "phone_number": {
                                         "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "phone_number": "+919219592195"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    }
+                }
+            }
+        },
+        "/user/sendSmsOtp": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Send SMS verification code for new users",
+                "description": "API to send SMS verification code for new users. <br><br>Returns `code` for OTP verification purpose.",
+                "operationId": "sendSmsOtp",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "phone_number": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "phone_number": "+919219592195"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation"
+                    }
+                }
+            }
+        },
+        "/user/registerAndLogin": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Login an existing user as well as new user, after successful registration of a new user",
+                "description": "API to login an existing user as well as new user. In-case of new one, user is registered before attempting login. Boolean `user_verified` value is needed for both existing and new user. <br><br>Returns `token` for later user authorization purpose.",
+                "operationId": "registerAndLogin",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "phone_number": {
+                                        "type": "string"
+                                    },
+                                    "user_verified": {
+                                        "type": "boolean"
                                     },
                                     "android_device_token": {
                                         "type": "string"
@@ -47,7 +116,8 @@
                                 "type": "object",
                                 "example": {
                                     "phone_number": "+919219592195",
-                                    "android_device_token": "",
+                                    "user_verified": true,
+                                    "android_device_token": "08a2f5d1-c567-4334-b156-e037c63f8a41",
                                     "ios_device_token": ""
                                 }
                             }
@@ -56,26 +126,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Successful Operation",
-                        "headers": {
-                            "Content-Type: application/json": {
-                                "description": "Content Type which needs to be added",
-                                "schema": {
-                                    "type": "string"
-                                }
-                            },
-                            "Authorization: Bearer <token>": {
-                                "description": "Authorization Token to be passed, generated duing /login API",
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
+                        "description": "Successful Operation"
                     }
                 }
             }
