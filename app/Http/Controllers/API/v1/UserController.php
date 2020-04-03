@@ -24,7 +24,7 @@ class UserController extends Controller
      * @OA\Post(path="/user/validate",
      *     tags={"Users"},
      *     summary="Check if a user is an existing or a new one",
-     *     description="API to check if a user is an existing or a new one, using their phone number. <br><br>Returns either `existing` or `new` user status.",
+     *     description="API to check if a user is an existing or a new one, using their phone number. <br><br>Returns either `existing` or `new` as user type.",
      *     operationId="userValidate",
      *     @OA\RequestBody(
      *         required=true,
@@ -67,7 +67,7 @@ class UserController extends Controller
      *             @OA\Schema(
      *                 @OA\Property(property="phone_number", type="string"),
      *                 example={
-     *                     "phone_number": "+355683370083",
+     *                     "phone_number": "+15005550006",
      *                 },
      *             )
      *         )

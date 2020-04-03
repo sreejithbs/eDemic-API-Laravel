@@ -26,7 +26,7 @@
                     "Users"
                 ],
                 "summary": "Check if a user is an existing or a new one",
-                "description": "API to check if a user is an existing or a new one, using their phone number. <br><br>Returns either `existing` or `new` user status.",
+                "description": "API to check if a user is an existing or a new one, using their phone number. <br><br>Returns either `existing` or `new` as user type.",
                 "operationId": "userValidate",
                 "requestBody": {
                     "required": true,
@@ -73,7 +73,7 @@
                                 },
                                 "type": "object",
                                 "example": {
-                                    "phone_number": "+355683370083"
+                                    "phone_number": "+15005550006"
                                 }
                             }
                         }
