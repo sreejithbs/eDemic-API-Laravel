@@ -74,7 +74,7 @@ class DiseaseController extends Controller
             {
                 $encode_data = json_encode( array("id" => $disease->id, "uuid" => $disease->uuid, "stage" => $stage) );
                 $qrCodeName = StringHelper::uniqueSlugString($disease->name .'-'. $stage);
-                $targetPath = 'uploads/qrcodes/'.$qrCodeName.'.png';
+                $targetPath = 'storage/qrcodes/'.$qrCodeName.'.png';
 
                 QrCode::size(350)
                     ->format('png')
