@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use App\Http\Requests\API\UserValidateRequest;
 use App\Http\Requests\API\LoginHandleRequest;
 use App\Http\Controllers\Controller;
@@ -12,6 +12,9 @@ use Validator;
 use Carbon\Carbon;
 use ConstantHelper;
 use StringHelper;
+use Twilio\Rest\Client;
+use Twilio\Exceptions\TwilioException;
+// use Exception;
 
 use App\Models\User;
 
@@ -64,7 +67,7 @@ class UserController extends Controller
      *             @OA\Schema(
      *                 @OA\Property(property="phone_number", type="string"),
      *                 example={
-     *                     "phone_number": "+919219592195",
+     *                     "phone_number": "+355683370083",
      *                 },
      *             )
      *         )
@@ -77,13 +80,49 @@ class UserController extends Controller
      */
     public function sendSmsOtp(UserValidateRequest $request)
     {
-        $phone_number = $request->phone_number;
-        try {
-            // Handle Twilio Here
+        $recipient = $request->phone_number;
 
-            return response()->json(['status' => true, 'code'=> 'ABCDE', "message" => "Verification Code has been sent to your mobile number"], ConstantHelper::STATUS_OK);
-        } catch (\Exception $e) {
+        try {
+            $twilioCreds = $this->_fetchTwilioCreds();
+            $twilioNumber = $twilioCreds['from'];
+            $code = mt_rand(100000, 999999);
+
+            $client = new Client($twilioCreds['account_sid'], $twilioCreds['auth_token']);
+            $client->messages->create(
+                $recipient,
+                [
+                    "from" => $twilioNumber,
+                    "body" => "Welcome to e-Demic. Your Verification Code is " . $code
+                ]
+            );
+
+            return response()->json(['status' => true, 'code'=> $code, "message" => "Verification Code has been sent to your mobile number"], ConstantHelper::STATUS_OK);
+
+        } catch (TwilioException $e) {
+            // return $e->getMessage();
             return response()->json(['status' => false, 'message'=> 'Error sending verification Code to your mobile number'], ConstantHelper::STATUS_UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    /**
+     * Fetch Twilio's programmable sms client credentials
+     */
+    private function _fetchTwilioCreds()
+    {
+        $twilioCreds = config('services.twilio' );
+
+        if( $twilioCreds['mode'] === 'test'){
+            return array(
+                "auth_token" => $twilioCreds['test_auth_token'],
+                "account_sid" => $twilioCreds['test_account_sid'],
+                "from" => $twilioCreds['test_from']
+            );
+        } elseif( $twilioCreds['mode'] === 'live' ){
+            return array(
+                "auth_token" => $twilioCreds['live_auth_token'],
+                "account_sid" => $twilioCreds['live_account_sid'],
+                "from" => $twilioCreds['live_from']
+            );
         }
     }
 

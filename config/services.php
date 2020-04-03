@@ -34,6 +34,16 @@ return [
         'secret' => env('SPARKPOST_SECRET'),
     ],
 
+    'twilio' => [
+        'mode' => env('TWILIO_MODE', 'test'),
+        'test_auth_token' => env('TWILIO_TEST_AUTH_TOKEN'),
+        'test_account_sid' => env('TWILIO_TEST_ACCOUNT_SID'),
+        'test_from' => env('TWILIO_TEST_FROM'),
+        'live_auth_token' => env('TWILIO_LIVE_AUTH_TOKEN'),
+        'live_account_sid' => env('TWILIO_LIVE_ACCOUNT_SID'),
+        'live_from' => env('TWILIO_LIVE_FROM'),
+    ],
+
     'stripe' => [
         'model' => App\Models\HealthInstitution::class,
         'mode' => env('STRIPE_MODE'),
