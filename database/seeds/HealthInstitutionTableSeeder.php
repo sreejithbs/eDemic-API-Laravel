@@ -32,20 +32,21 @@ class HealthInstitutionTableSeeder extends Seeder
         // $institution_head->license_subscription()->save($license_subscription);
 
 
-        // $institution = new HealthInstitution();
-        // $institution->name = 'Demo Hospital Institution';
-        // $institution->institutionCode = 'HIN0002';
-        // $institution->email = 'institution@demo.com';
+        $institution = new HealthInstitution();
+        $institution->name = 'Demo Hospital Institution';
+        $institution->institutionCode = 'HIN0002';
+        $institution->email = 'institution@demo.com';
         // $institution->password = bcrypt('123456');
-        // $institution->country_id = $institution_head->country_id;
-        // $institution->save();
+        $institution->password = bcrypt('L7wMgpUh');
+        $institution->country_id = $institution_head->country_id;
+        $institution->save();
 
-        // $institution_profile = new HealthInstitutionProfile();
-        // $institution_profile->phone = '9219592195';
-        // $institution_profile->address = 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala 695004';
-        // $institution_profile->purchasedDoctorConnects = 0;
-        // $institution_profile->remainingDoctorConnects = 0;
-        // $institution->health_institution_profile()->save($institution_profile);
+        $institution_profile = new HealthInstitutionProfile();
+        $institution_profile->phone = '9219592195';
+        $institution_profile->address = 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala 695004';
+        $institution_profile->purchasedDoctorConnects = 0;
+        $institution_profile->remainingDoctorConnects = 0;
+        $institution->health_institution_profile()->save($institution_profile);
 
         // $license_subscription = new LicenseSubscription();
         // $license_subscription->feeAmount = '999.00';
