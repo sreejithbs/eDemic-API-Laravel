@@ -91,7 +91,7 @@
                                                                 <h4 class="card-title">Dead</h4>
                                                             </figure>
                                                             <figure class="card card-img-top border-grey border-lighten-2">
-                                                                <img class="gallery-thumbnail card-img-top" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->color(255, 173, 51)->errorCorrection('H')->generate('Self Quarantine QRCode')) !!}" alt="QrCode" />
+                                                                <img class="gallery-thumbnail card-img-top" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->color(255, 165, 0)->errorCorrection('H')->generate('Self Quarantine QRCode')) !!}" alt="QrCode" />
                                                                 <h4 class="card-title">Self Quarantine</h4>
                                                             </figure>
                                                         </div>

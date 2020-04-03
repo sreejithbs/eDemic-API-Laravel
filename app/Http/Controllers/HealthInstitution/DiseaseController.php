@@ -67,19 +67,19 @@ class DiseaseController extends Controller
                 'infection' => array(255, 0, 0),
                 'recovered' => array(0, 255, 0),
                 'dead' => array(0, 0, 0),
-                'selfQuarantine' => array(255, 173, 51),
+                'selfQuarantine' => array(255, 165, 0),
             );
 
             foreach ($stages as $stage => $color)
             {
-                $encode_data = json_encode( array("id" => $disease->id, "uuid" => $disease->uuid, "stage" => $stage) );
+                $encode_data = json_encode( array("id" => $disease->id, "stage" => $stage) );
                 $qrCodeName = StringHelper::uniqueSlugString($disease->name .'-'. $stage);
                 $targetPath = 'storage/qrcodes/'.$qrCodeName.'.png';
 
-                QrCode::size(350)
-                    ->format('png')
-                    ->color($color[0], $color[1], $color[2])
+                QrCode::format('png')
                     ->errorCorrection('H')
+                    ->color($color[0], $color[1], $color[2])
+                    ->size(350)
                     ->generate($encode_data, public_path($targetPath));
 
                 $disease->{$stage.'QrCode'} = $targetPath;
