@@ -132,7 +132,7 @@ class UserController extends Controller
      *                 @OA\Property(property="otp_code", type="integer"),
      *                 example={
      *                     "phone_number": "+918943406910",
-     *                     "otp_code": "123456",
+     *                     "otp_code": 123456,
      *                 },
      *             )
      *         )
@@ -160,7 +160,7 @@ class UserController extends Controller
                 $data['token_type'] = "Bearer";
                 $data['token'] = $objToken->accessToken;
                 $data['token_expiry'] = $objToken->token->expires_at;
-                $data['codes'] = config('app-codes');
+                $data['codes'] = config('status_codes');
                 $data['user_details']['diseases'] = [];
 
                 return response()->json([
