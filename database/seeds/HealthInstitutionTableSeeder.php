@@ -24,12 +24,12 @@ class HealthInstitutionTableSeeder extends Seeder
         $institution_head->country_id = 1;
         $institution_head->save();
 
-        // $license_subscription = new LicenseSubscription();
-        // $license_subscription->feeAmount = '999.00';
-        // $license_subscription->startDate = '2020-03-30';
-        // $license_subscription->endDate = '2021-03-30';
-        // $license_subscription->status = 1;
-        // $institution_head->license_subscription()->save($license_subscription);
+        $license_subscription = new LicenseSubscription();
+        $license_subscription->feeAmount = '999.00';
+        $license_subscription->startDate = '2020-03-30';
+        $license_subscription->endDate = '2021-03-30';
+        $license_subscription->status = 1;
+        $institution_head->license_subscription()->save($license_subscription);
 
 
         $institution = new HealthInstitution();
