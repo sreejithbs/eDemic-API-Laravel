@@ -12,9 +12,8 @@
 */
 
 Route::group(['prefix' => 'v1'], function(){
-	Route::post('user/validate', 'API\v1\UserController@userValidate');
-	Route::post('user/sendSmsOtp', 'API\v1\UserController@sendSmsOtp');
-	Route::post('user/registerAndLogin', 'API\v1\UserController@registerAndLogin');
+	Route::post('user/sendOtp', 'API\v1\UserController@sendOtp');
+	Route::post('user/verifyOtp', 'API\v1\UserController@verifyOtp');
 
 	Route::group(['middleware' => 'auth:api'], function(){
 		//

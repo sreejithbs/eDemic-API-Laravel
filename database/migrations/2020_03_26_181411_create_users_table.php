@@ -19,8 +19,12 @@ class CreateUsersTable extends Migration
             $table->string('userCode', 50)->index();
             $table->string('phone', 50);
             $table->boolean('isDoctor')->default(0);
-            $table->text('androidDeviceToken')->nullable();
-            $table->text('iosDeviceToken')->nullable();
+            $table->text('androidDeviceId')->nullable();
+            $table->text('androidPushToken')->nullable();
+            $table->text('iosDeviceId')->nullable();
+            $table->text('iosPushToken')->nullable();
+            $table->boolean('isVerified')->default(0);
+            $table->integer('verificationNonce')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

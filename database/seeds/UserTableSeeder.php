@@ -15,10 +15,10 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = new User();
-        $user->userCode = 'U0001';
-        $user->phone = '+919219592195';
-        $user->save();
+        // $user = new User();
+        // $user->userCode = 'U0001';
+        // $user->phone = '+919219592195';
+        // $user->save();
 
         // $user_diagnosis_log = new UserDiagnosisLog();
         // $user_diagnosis_log->doctor_id = ;

@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\API\v1;
 
 // use Illuminate\Http\Request;
-use App\Http\Requests\API\UserValidateRequest;
-use App\Http\Requests\API\LoginHandleRequest;
+use App\Http\Requests\API\UserOtpRequest;
 use App\Http\Controllers\Controller;
 
 use Auth;
@@ -14,6 +13,7 @@ use ConstantHelper;
 use StringHelper;
 use Twilio\Rest\Client;
 use Twilio\Exceptions\TwilioException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 // use Exception;
 
 use App\Models\User;
@@ -21,19 +21,23 @@ use App\Models\User;
 class UserController extends Controller
 {
     /**
-     * @OA\Post(path="/user/validate",
+     * @OA\Post(path="/user/sendOtp",
      *     tags={"Users"},
-     *     summary="Check if a user is an existing or a new one",
-     *     description="API to check if a user is an existing or a new one, using their phone number. <br><br>Returns either `existing` or `new` as user type.",
-     *     operationId="userValidate",
+     *     summary="Send SMS verification OTP code for users",
+     *     description="API to send SMS verification OTP code for users. <br><br>Accepts `phone_number` and either `android_device_id` or `ios_device_id`.",
+     *     operationId="sendOtp",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
      *             mediaType="application/json",
      *             @OA\Schema(
      *                 @OA\Property(property="phone_number", type="string"),
+     *                 @OA\Property(property="android_device_id", type="string"),
+     *                 @OA\Property(property="ios_device_id", type="string"),
      *                 example={
-     *                     "phone_number": "+919219592195",
+     *                     "phone_number": "+918943406910",
+     *                     "android_device_id": "08a2f5d1-c567-4334-b156-e037c63f8a41",
+     *                     "ios_device_id": "",
      *                 },
      *             )
      *         )
@@ -41,47 +45,12 @@ class UserController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Successful Operation",
+     *         @OA\JsonContent()
      *     )
      * )
      */
-    public function userValidate(UserValidateRequest $request)
+    public function sendOtp(UserOtpRequest $request)
     {
-        $user = User::where('phone', $request->phone_number)->first();
-        if ($user){
-            return response()->json(['status' => true, 'user_type'=> 'existing'], ConstantHelper::STATUS_OK);
-        } else{
-            return response()->json(['status' => true, 'user_type'=> 'new'], ConstantHelper::STATUS_OK);
-        }
-    }
-
-    /**
-     * @OA\Post(path="/user/sendSmsOtp",
-     *     tags={"Users"},
-     *     summary="Send SMS verification code for new users",
-     *     description="API to send SMS verification code for new users. <br><br>Returns `code` for OTP verification purpose.",
-     *     operationId="sendSmsOtp",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="application/json",
-     *             @OA\Schema(
-     *                 @OA\Property(property="phone_number", type="string"),
-     *                 example={
-     *                     "phone_number": "+15005550006",
-     *                 },
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="Successful Operation",
-     *     )
-     * )
-     */
-    public function sendSmsOtp(UserValidateRequest $request)
-    {
-        $recipient = $request->phone_number;
-
         try {
             $twilioCreds = $this->_fetchTwilioCreds();
             $twilioNumber = $twilioCreds['from'];
@@ -89,18 +58,40 @@ class UserController extends Controller
 
             $client = new Client($twilioCreds['account_sid'], $twilioCreds['auth_token']);
             $client->messages->create(
-                $recipient,
+                $request->phone_number,
                 [
                     "from" => $twilioNumber,
-                    "body" => "Welcome to e-Demic. Your Verification Code is " . $code
+                    "body" => "Welcome to e-Demic. Your OTP Verification Code is " . $code
                 ]
             );
 
-            return response()->json(['status' => true, 'code'=> $code, "message" => "Verification Code has been sent to your mobile number"], ConstantHelper::STATUS_OK);
+            $user = User::firstOrNew(['phone' => $request->phone_number]);
+            if(! $user->exists){
+                $user->userCode = 'U' . StringHelper::randString(7);
+            }
+            if($request->has('android_device_id')){
+                $user->androidDeviceId = $request->android_device_id;
+            } else{
+                $user->iosDeviceId = $request->ios_device_id;
+            }
+            $user->isVerified = 0;
+            $user->verificationNonce = $code;
+            $user->save();
+
+            return response()->json([
+                'status' => ConstantHelper::STATUS_OK,
+                'message' => 'Verification code has been sent to your mobile number'
+            ], ConstantHelper::STATUS_OK);
 
         } catch (TwilioException $e) {
-            // return $e->getMessage();
-            return response()->json(['status' => false, 'message'=> 'Error sending verification Code to your mobile number'], ConstantHelper::STATUS_UNPROCESSABLE_ENTITY);
+            logger("sendOtp : " . $e->getMessage());
+            return response()->json([
+                'status' => ConstantHelper::STATUS_UNPROCESSABLE_ENTITY,
+                'error' => [
+                    'code' => 2000,
+                    'message'=> 'Error sending verification code to your mobile number'
+                ],
+            ], ConstantHelper::STATUS_UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -109,7 +100,7 @@ class UserController extends Controller
      */
     private function _fetchTwilioCreds()
     {
-        $twilioCreds = config('services.twilio' );
+        $twilioCreds = config('services.twilio');
 
         if( $twilioCreds['mode'] === 'test'){
             return array(
@@ -127,25 +118,21 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Post(path="/user/registerAndLogin",
+     * @OA\Post(path="/user/verifyOtp",
      *     tags={"Users"},
-     *     summary="Login an existing user as well as new user, after successful registration of a new user",
-     *     description="API to login an existing user as well as new user. In-case of new one, user is registered before attempting login. Boolean `user_verified` value is needed for both existing and new user. <br><br>Returns `token` for later user authorization purpose.",
-     *     operationId="registerAndLogin",
+     *     summary="Verify user entered OTP code",
+     *     description="API to verify user entered OTP code. <br><br>Accepts `phone_number` and `code`. Returns `token` for user authorization purpose.",
+     *     operationId="verifyOtp",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\MediaType(
      *             mediaType="application/json",
      *             @OA\Schema(
      *                 @OA\Property(property="phone_number", type="string"),
-     *                 @OA\Property(property="user_verified", type="boolean"),
-     *                 @OA\Property(property="android_device_token", type="string"),
-     *                 @OA\Property(property="ios_device_token", type="string"),
+     *                 @OA\Property(property="otp_code", type="integer"),
      *                 example={
-     *                     "phone_number": "+919219592195",
-     *                     "user_verified": true,
-     *                     "android_device_token" : "08a2f5d1-c567-4334-b156-e037c63f8a41",
-     *                     "ios_device_token" : ""
+     *                     "phone_number": "+918943406910",
+     *                     "otp_code": "123456",
      *                 },
      *             )
      *         )
@@ -153,30 +140,55 @@ class UserController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Successful Operation",
+     *         @OA\JsonContent()
      *     )
      * )
      */
-    public function registerAndLogin(LoginHandleRequest $request)
+    public function verifyOtp(UserOtpRequest $request)
     {
-        if($request->user_verified){
-            $user = User::firstOrNew(['phone' => $request->phone_number]);
-            $user->userCode = 'U' . StringHelper::randString(7);
-            if( $request->has('android_device_token') ){
-                $user->androidDeviceToken = $request->android_device_token;
-                $os = 'Android';
+        try {
+            $user = User::where('phone', $request->phone_number)->firstOrFail();
+
+            if($user->verificationNonce == $request->otp_code){
+                $user->verificationNonce = null;
+                $user->isVerified = 1;
+                $user->save();
+
+                Auth::loginUsingId($user->id);
+                $objToken = $user->createToken('API Access Token');
+
+                $data['token_type'] = "Bearer";
+                $data['token'] = $objToken->accessToken;
+                $data['token_expiry'] = $objToken->token->expires_at;
+                $data['codes'] = config('app-codes');
+                $data['user_details']['diseases'] = [];
+
+                return response()->json([
+                    'status' => ConstantHelper::STATUS_OK,
+                    'message' => 'You are successfully authenticated',
+                    'data' => $data
+                ], ConstantHelper::STATUS_OK);
+
             } else{
-                $user->iosDeviceToken = $request->ios_device_token;
-                $os = 'iOS';
+                return response()->json([
+                    'status' => ConstantHelper::STATUS_UNPROCESSABLE_ENTITY,
+                    'error' => [
+                        'code' => 1003,
+                        'message'=> 'Incorrect verification code'
+                    ],
+                ], ConstantHelper::STATUS_UNPROCESSABLE_ENTITY);
+
             }
-            $user->save();
 
-            Auth::loginUsingId($user->id);
-            $data['token'] = $user->createToken('eDemic Access' .$os. ' Token')->accessToken;
-            $data['user_id'] = $user->id;
-
-            return response()->json(['status' => true, 'message'=> 'You are successfully authenticated', 'data'=> $data], ConstantHelper::STATUS_OK);
-        } else{
-            return response()->json(['status' => false, 'message'=> 'User verification failed'], ConstantHelper::STATUS_UNAUTHORIZED);
+        } catch (ModelNotFoundException $e) {
+            logger("verifyOtp : " . $e->getMessage());
+            return response()->json([
+                'status' => ConstantHelper::STATUS_UNPROCESSABLE_ENTITY,
+                'error' => [
+                    'code' => 1002,
+                    'message'=> 'No matching phone number exists'
+                ],
+            ], ConstantHelper::STATUS_UNPROCESSABLE_ENTITY);
         }
     }
 
