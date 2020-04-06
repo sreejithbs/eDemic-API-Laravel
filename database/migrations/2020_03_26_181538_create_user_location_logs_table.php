@@ -17,8 +17,8 @@ class CreateUserLocationLogsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_diagnosis_log_id');
             $table->timestamp('reportedDateTime')->useCurrent();
-            $table->string('latitude', 50);
-            $table->string('longitude', 50);
+            $table->string('latitude', 20);
+            $table->string('longitude', 20);
             $table->timestamps();
         });
 

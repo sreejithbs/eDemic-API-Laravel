@@ -16,7 +16,7 @@ class CreateHealthInstitutionProfilesTable extends Migration
         Schema::create('health_institution_profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('health_institution_id');
-            $table->string('phone', 50);
+            $table->string('phone', 20);
             $table->text('address');
             $table->integer('purchasedDoctorConnects')->default(0);
             $table->integer('remainingDoctorConnects')->default(0);

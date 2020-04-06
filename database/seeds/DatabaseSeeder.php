@@ -12,14 +12,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
     	$this->call(AdminTableSeeder::class);
-
-    	DB::table('countries')->insert([
-    		array('name' => 'India', 'isoCode' => 'IN'),
-    		array('name' => 'United States of America', 'isoCode' => 'US'),
-    		array('name' => 'United Kingdom', 'isoCode' => 'UK'),
-    	]);
-
-    	$this->call(HealthInstitutionTableSeeder::class);
+    	$this->call(CountriesTableSeeder::class);
+        $this->call(HealthInstitutionTableSeeder::class);
         $this->call(DiseaseTableSeeder::class);
         $this->call(UserTableSeeder::class);
     }

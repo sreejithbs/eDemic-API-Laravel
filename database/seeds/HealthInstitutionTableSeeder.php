@@ -21,7 +21,7 @@ class HealthInstitutionTableSeeder extends Seeder
         $institution_head->email = 'countryhead@demo.com';
         $institution_head->password = bcrypt('123456');
         $institution_head->isHead = 1;
-        $institution_head->country_id = 1;
+        $institution_head->country_id = DB::table('countries')->where('isoAlphaCode', 'IN')->value('id');
         $institution_head->save();
 
         $license_subscription = new LicenseSubscription();

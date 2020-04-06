@@ -17,11 +17,11 @@ class CreateHealthInstitutionsTable extends Migration
             $table->bigIncrements('id');
             $table->uuid('uuid')->index();
             $table->string('name');
-            $table->string('institutionCode', 50)->index();
+            $table->string('institutionCode', 10)->index();
             $table->string('email');
             $table->string('password');
             $table->boolean('isHead')->default(0);
-            $table->unsignedBigInteger('country_id');
+            $table->unsignedBigInteger('country_id')->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
@@ -31,7 +31,7 @@ class CreateHealthInstitutionsTable extends Migration
          * Foreign Key Constraint
          */
         Schema::table('health_institutions', function (Blueprint $table) {
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');
         });
     }
 

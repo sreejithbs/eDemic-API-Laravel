@@ -17,7 +17,7 @@ class CreateDiseasesTable extends Migration
             $table->bigIncrements('id');
             $table->uuid('uuid')->index();
             $table->string('name');
-            $table->string('diseaseCode', 50)->index();
+            $table->string('diseaseCode', 10)->index();
             $table->string('infectionQrCode')->nullable();
             $table->string('recoveredQrCode')->nullable();
             $table->string('deadQrCode')->nullable();

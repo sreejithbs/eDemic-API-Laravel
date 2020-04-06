@@ -6,7 +6,7 @@ namespace App\Http\Controllers\API\v1;
 use App\Http\Requests\API\UserOtpRequest;
 use App\Http\Controllers\Controller;
 
-use Auth;
+use Auth, DB;
 use Validator;
 use Carbon\Carbon;
 use ConstantHelper;
@@ -51,6 +51,7 @@ class UserController extends Controller
      */
     public function sendOtp(UserOtpRequest $request)
     {
+        $recipient = $request->phone_number;
         try {
             $twilioCreds = $this->_fetchTwilioCreds();
             $twilioNumber = $twilioCreds['from'];
@@ -58,16 +59,25 @@ class UserController extends Controller
 
             $client = new Client($twilioCreds['account_sid'], $twilioCreds['auth_token']);
             $client->messages->create(
-                $request->phone_number,
+                $recipient,
                 [
                     "from" => $twilioNumber,
                     "body" => "Welcome to e-Demic. Your OTP Verification Code is " . $code
                 ]
             );
 
-            $user = User::firstOrNew(['phone' => $request->phone_number]);
+            $user = User::firstOrNew(['phone' => $recipient]);
             if(! $user->exists){
                 $user->userCode = 'U' . StringHelper::randString(7);
+
+                $phoneUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+                try {
+                    $isoAlphaCode = $phoneUtil->getRegionCodeForNumber( $phoneUtil->parse($recipient) );
+                    $user->country_id = DB::table('countries')->where('isoAlphaCode', $isoAlphaCode)->value('id');
+
+                } catch (\libphonenumber\NumberParseException $e) {
+                    //
+                }
             }
             if($request->has('android_device_id')){
                 $user->androidDeviceId = $request->android_device_id;
@@ -146,9 +156,7 @@ class UserController extends Controller
      */
     public function verifyOtp(UserOtpRequest $request)
     {
-        try {
-            $user = User::where('phone', $request->phone_number)->firstOrFail();
-
+        if( $user = User::where('phone', $request->phone_number)->firstOrFail() ){
             if($user->verificationNonce == $request->otp_code){
                 $user->verificationNonce = null;
                 $user->isVerified = 1;
@@ -158,8 +166,8 @@ class UserController extends Controller
                 $objToken = $user->createToken('API Access Token');
 
                 $data['token_type'] = "Bearer";
-                $data['token'] = $objToken->accessToken;
                 $data['token_expiry'] = $objToken->token->expires_at;
+                $data['token'] = $objToken->accessToken;
                 $data['codes'] = config('status_codes');
                 $data['user_details']['diseases'] = [];
 
@@ -174,14 +182,12 @@ class UserController extends Controller
                     'status' => ConstantHelper::STATUS_UNPROCESSABLE_ENTITY,
                     'error' => [
                         'code' => 1003,
-                        'message'=> 'Incorrect verification code'
+                        'message'=> 'Invalid verification code'
                     ],
                 ], ConstantHelper::STATUS_UNPROCESSABLE_ENTITY);
 
             }
-
-        } catch (ModelNotFoundException $e) {
-            logger("verifyOtp : " . $e->getMessage());
+        } else {
             return response()->json([
                 'status' => ConstantHelper::STATUS_UNPROCESSABLE_ENTITY,
                 'error' => [

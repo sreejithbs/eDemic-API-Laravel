@@ -90,7 +90,7 @@
                                 "type": "object",
                                 "example": {
                                     "phone_number": "+918943406910",
-                                    "otp_code": "123456"
+                                    "otp_code": 123456
                                 }
                             }
                         }
