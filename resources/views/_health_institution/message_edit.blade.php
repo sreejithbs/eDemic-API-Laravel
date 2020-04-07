@@ -45,7 +45,7 @@
                                     <i class="la la-close"></i> Cancel
                                 </a>
                                 <button type="submit" class="btn btn-success">
-                                    <i class="la la-check-square-o"></i> Save
+                                    <i class="la la-check-square-o"></i> Update
                                 </button>
                             </div>
                         </form>

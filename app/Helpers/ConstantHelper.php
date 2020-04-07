@@ -21,12 +21,12 @@ class ConstantHelper {
     const INSTITUTION_DELETE = 'Institution record has been deleted successfully';
     const INSTITUTION_DELETE_FAIL = 'Something went wrong. Institution record deletion failed';
 
-    const DISEASE_CREATE = 'Disease record has been created successfully';
-    const DISEASE_CREATE_FAIL = 'Something went wrong. Disease record creation failed';
-    const DISEASE_UPDATE = 'Disease record has been updated successfully';
-    const DISEASE_UPDATE_FAIL = 'Something went wrong. Disease record updation failed';
-    const DISEASE_DELETE = 'Disease record has been deleted successfully';
-    const DISEASE_DELETE_FAIL = 'Something went wrong. Disease record deletion failed';
+    const DOCTOR_CREATE = 'Doctor record has been created successfully';
+    const DOCTOR_CREATE_FAIL = 'Something went wrong. Doctor record creation failed';
+    const DOCTOR_UPDATE = 'Doctor record has been updated successfully';
+    const DOCTOR_UPDATE_FAIL = 'Something went wrong. Doctor record updation failed';
+    const DOCTOR_DELETE = 'Doctor record has been deleted successfully';
+    const DOCTOR_DELETE_FAIL = 'Something went wrong. Doctor record deletion failed';
 
     const MESSAGE_CREATE = 'Message has been created successfully';
     const MESSAGE_CREATE_FAIL = 'Something went wrong. Message creation failed';
@@ -36,4 +36,11 @@ class ConstantHelper {
     const MESSAGE_DELETE_FAIL = 'Something went wrong. Message deletion failed';
     const MESSAGE_PUSH = 'Message has been sent to user devices successfully';
     const MESSAGE_PUSH_FAIL = 'Something went wrong. Message sending failed';
+
+    const DISEASE_CREATE = 'Disease record has been created successfully';
+    const DISEASE_CREATE_FAIL = 'Something went wrong. Disease record creation failed';
+    const DISEASE_UPDATE = 'Disease record has been updated successfully';
+    const DISEASE_UPDATE_FAIL = 'Something went wrong. Disease record updation failed';
+    const DISEASE_DELETE = 'Disease record has been deleted successfully';
+    const DISEASE_DELETE_FAIL = 'Something went wrong. Disease record deletion failed';
 }

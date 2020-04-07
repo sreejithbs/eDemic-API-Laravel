@@ -37,5 +37,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('isCountryHead', function($health_institution) {
             return $health_institution->isHead == 1;
         });
+
+        /* define a Health institution role */
+        Gate::define('isInstitution', function($health_institution) {
+            return $health_institution->isHead == 0;
+        });
     }
 }

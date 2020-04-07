@@ -47,13 +47,13 @@ Route::group(['prefix' => 'institution', 'as' => 'institution_', 'namespace' => 
 	    Route::delete('/delete/{uuid}', 'HealthInstitutionController@destroy')->name('delete');
 	});
 
-	Route::group(['prefix' => 'diseases', 'as' => 'diseases.'], function(){
-	    Route::get('/all', 'DiseaseController@index')->name('list');
-	    Route::get('/create', 'DiseaseController@create')->name('create');
-	    Route::post('/store', 'DiseaseController@store')->name('store');
-	    Route::get('/edit/{uuid}', 'DiseaseController@edit')->name('edit');
-	    Route::patch('/update/{uuid}', 'DiseaseController@update')->name('update');
-	    Route::delete('/delete/{uuid}', 'DiseaseController@destroy')->name('delete');
+	Route::group(['prefix' => 'doctors', 'as' => 'doctors.'], function(){
+	    Route::get('/all', 'DoctorController@index')->name('list');
+	    Route::get('/create', 'DoctorController@create')->name('create');
+	    Route::post('/store', 'DoctorController@store')->name('store');
+	    Route::get('/edit/{uuid}', 'DoctorController@edit')->name('edit');
+	    Route::patch('/update/{uuid}', 'DoctorController@update')->name('update');
+	    Route::delete('/delete/{uuid}', 'DoctorController@destroy')->name('delete');
 	});
 
 	Route::group(['prefix' => 'messages', 'as' => 'messages.'], function(){
@@ -64,5 +64,14 @@ Route::group(['prefix' => 'institution', 'as' => 'institution_', 'namespace' => 
 	    Route::patch('/update/{uuid}', 'MessageController@update')->name('update');
 	    Route::delete('/delete/{uuid}', 'MessageController@destroy')->name('delete');
 	    Route::get('/triggerPushMessage/{uuid}', 'MessageController@triggerPushMessage')->name('triggerPushMessage');
+	});
+
+	Route::group(['prefix' => 'diseases', 'as' => 'diseases.'], function(){
+	    Route::get('/all', 'DiseaseController@index')->name('list');
+	    Route::get('/create', 'DiseaseController@create')->name('create');
+	    Route::post('/store', 'DiseaseController@store')->name('store');
+	    Route::get('/edit/{uuid}', 'DiseaseController@edit')->name('edit');
+	    Route::patch('/update/{uuid}', 'DiseaseController@update')->name('update');
+	    Route::delete('/delete/{uuid}', 'DiseaseController@destroy')->name('delete');
 	});
 });

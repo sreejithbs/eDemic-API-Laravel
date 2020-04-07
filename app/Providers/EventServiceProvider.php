@@ -9,6 +9,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 
 use App\Events\HealthInstitutionWasCreatedEvent;
 use App\Listeners\SendHealthInstitutionCreatedNotification;
+use App\Events\DoctorProfileWasCreatedEvent;
+use App\Listeners\SendDoctorProfileCreatedNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         HealthInstitutionWasCreatedEvent::class => [
             SendHealthInstitutionCreatedNotification::class,
+        ],
+        DoctorProfileWasCreatedEvent::class => [
+            SendDoctorProfileCreatedNotification::class,
         ],
     ];
 

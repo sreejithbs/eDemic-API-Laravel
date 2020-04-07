@@ -19,7 +19,7 @@ class CreateDoctorProfilesTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->unsignedBigInteger('health_institution_id');
-            $table->string('loginQrCode');
+            $table->string('profileQrCode');
             $table->timestamps();
         });
 

@@ -21,7 +21,7 @@ class MessageController extends Controller
     public function __construct()
     {
         $this->middleware('auth:health_institution');
-        $this->middleware('can:isCountryHead')->except(['index', 'triggerPushNotification']);
+        $this->middleware('can:isCountryHead')->except(['index', 'triggerPushMessage']);
         $this->middleware('can:hasLicencePurchased');
     }
 
