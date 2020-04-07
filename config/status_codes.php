@@ -6,6 +6,7 @@ return [
     1001 => 'Unauthorized Access error',
     1002 => 'Eloquent Model not found error',
     1003 => 'Data mismatch error',
+    1004 => 'No data error',
 
     // External services
     2000 => 'Twilio SMS Service error',

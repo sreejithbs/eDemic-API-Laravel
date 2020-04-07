@@ -23,7 +23,7 @@
         "/user/sendOtp": {
             "post": {
                 "tags": [
-                    "Users"
+                    "Authentication"
                 ],
                 "summary": "Send SMS verification OTP code for users",
                 "description": "API to send SMS verification OTP code for users. <br><br>Accepts `phone_number` and either `android_device_id` or `ios_device_id`.",
@@ -56,12 +56,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Successful Operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
+                        "description": "Successful Operation"
                     }
                 }
             }
@@ -69,7 +64,7 @@
         "/user/verifyOtp": {
             "post": {
                 "tags": [
-                    "Users"
+                    "Authentication"
                 ],
                 "summary": "Verify user entered OTP code",
                 "description": "API to verify user entered OTP code. <br><br>Accepts `phone_number` and `code`. Returns `token` for user authorization purpose.",
@@ -98,6 +93,34 @@
                 },
                 "responses": {
                     "200": {
+                        "description": "Successful Operation"
+                    }
+                }
+            }
+        },
+        "/user/messages/{index}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "List all messages",
+                "description": "API to list all messages, such as alerts, announcements etc. Default limit set as **3** messages per page. <br><br>Accepts `index` for lazy load messages on latest first basis.",
+                "operationId": "messages",
+                "parameters": [
+                    {
+                        "name": "index",
+                        "in": "path",
+                        "description": "Page index to fetch messages",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
                         "description": "Successful Operation",
                         "content": {
                             "application/json": {
@@ -105,7 +128,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
             }
         }
     },
@@ -113,15 +141,19 @@
         "securitySchemes": {
             "api_key": {
                 "type": "apiKey",
-                "name": "API Authorization",
+                "name": "Authorization",
                 "in": "header"
             }
         }
     },
     "tags": [
         {
+            "name": "Authentication",
+            "description": "API Endpoints for Authentication"
+        },
+        {
             "name": "Users",
-            "description": "API Endpoints of Users"
+            "description": "API Endpoints for Users"
         }
     ]
 }

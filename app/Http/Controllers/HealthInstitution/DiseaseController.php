@@ -32,7 +32,7 @@ class DiseaseController extends Controller
      */
     public function index()
     {
-        $diseases = Disease::latest()->get();
+        $diseases = Disease::latest('id')->get();
         return view('_health_institution.disease_listing', compact('diseases'));
     }
 

@@ -32,7 +32,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::latest()->get();
+        $messages = Message::latest('id')->get();
         return view('_health_institution.message_listing', compact('messages'));
     }
 

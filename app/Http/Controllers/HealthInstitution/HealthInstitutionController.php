@@ -33,7 +33,7 @@ class HealthInstitutionController extends Controller
      */
     public function index()
     {
-        $health_institutions = HealthInstitution::where('isHead', 0)->latest()->get();
+        $health_institutions = HealthInstitution::where('isHead', 0)->latest('id')->get();
         return view('_health_institution.institution_listing', compact('health_institutions'));
     }
 

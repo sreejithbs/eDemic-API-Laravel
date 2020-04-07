@@ -28,13 +28,17 @@ namespace App\Http\Requests\API;
  *     type="apiKey",
  *     in="header",
  *     securityScheme="api_key",
- *     name="API Authorization"
+ *     name="Authorization"
  * )
  */
 
 /**
  * @OA\Tag(
+ *     name="Authentication",
+ *     description="API Endpoints for Authentication",
+ * )
+ * @OA\Tag(
  *     name="Users",
- *     description="API Endpoints of Users",
+ *     description="API Endpoints for Users",
  * )
  */
