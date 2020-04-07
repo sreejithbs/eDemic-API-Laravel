@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlertMessagesTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateAlertMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('alert_messages', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('uuid')->index();
             $table->string('title');
-            $table->text('body');
+            $table->text('content');
             $table->unsignedBigInteger('health_institution_id');
             $table->boolean('isPosted')->default(0);
             $table->timestamps();
@@ -25,7 +26,7 @@ class CreateAlertMessagesTable extends Migration
         /**
          * Foreign Key Constraint
          */
-        Schema::table('alert_messages', function (Blueprint $table) {
+        Schema::table('messages', function (Blueprint $table) {
             $table->foreign('health_institution_id')->references('id')->on('health_institutions')->onDelete('cascade');
         });
     }
@@ -37,6 +38,6 @@ class CreateAlertMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('alert_messages');
+        Schema::dropIfExists('messages');
     }
 }

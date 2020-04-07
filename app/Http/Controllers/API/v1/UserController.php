@@ -13,7 +13,6 @@ use ConstantHelper;
 use StringHelper;
 use Twilio\Rest\Client;
 use Twilio\Exceptions\TwilioException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 // use Exception;
 
 use App\Models\User;

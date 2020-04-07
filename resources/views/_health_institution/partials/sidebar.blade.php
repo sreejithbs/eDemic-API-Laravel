@@ -29,6 +29,15 @@
                 </li>
             @endcan
 
+            @can('hasLicencePurchased')
+                <li class="nav-item {{ \StringHelper::setActive(['institution_messages.*']) }}" >
+                    <a href="{{ route('institution_messages.list') }}">
+                        <i class="ft-message-square"></i>
+                        <span class="menu-title">Messages</span>
+                    </a>
+                </li>
+            @endcan
+
         </ul>
     </div>
 </div>

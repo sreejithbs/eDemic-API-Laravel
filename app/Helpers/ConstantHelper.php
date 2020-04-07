@@ -27,4 +27,13 @@ class ConstantHelper {
     const DISEASE_UPDATE_FAIL = 'Something went wrong. Disease record updation failed';
     const DISEASE_DELETE = 'Disease record has been deleted successfully';
     const DISEASE_DELETE_FAIL = 'Something went wrong. Disease record deletion failed';
+
+    const MESSAGE_CREATE = 'Message has been created successfully';
+    const MESSAGE_CREATE_FAIL = 'Something went wrong. Message creation failed';
+    const MESSAGE_UPDATE = 'Message has been updated successfully';
+    const MESSAGE_UPDATE_FAIL = 'Something went wrong. Message updation failed';
+    const MESSAGE_DELETE = 'Message has been deleted successfully';
+    const MESSAGE_DELETE_FAIL = 'Something went wrong. Message deletion failed';
+    const MESSAGE_PUSH = 'Message has been sent to user devices successfully';
+    const MESSAGE_PUSH_FAIL = 'Something went wrong. Message sending failed';
 }

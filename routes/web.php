@@ -55,4 +55,14 @@ Route::group(['prefix' => 'institution', 'as' => 'institution_', 'namespace' => 
 	    Route::patch('/update/{uuid}', 'DiseaseController@update')->name('update');
 	    Route::delete('/delete/{uuid}', 'DiseaseController@destroy')->name('delete');
 	});
+
+	Route::group(['prefix' => 'messages', 'as' => 'messages.'], function(){
+	    Route::get('/all', 'MessageController@index')->name('list');
+	    Route::get('/create', 'MessageController@create')->name('create');
+	    Route::post('/store', 'MessageController@store')->name('store');
+	    Route::get('/edit/{uuid}', 'MessageController@edit')->name('edit');
+	    Route::patch('/update/{uuid}', 'MessageController@update')->name('update');
+	    Route::delete('/delete/{uuid}', 'MessageController@destroy')->name('delete');
+	    Route::get('/triggerPushMessage/{uuid}', 'MessageController@triggerPushMessage')->name('triggerPushMessage');
+	});
 });
