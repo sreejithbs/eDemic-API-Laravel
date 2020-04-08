@@ -5,7 +5,7 @@ namespace App\Http\Requests\API;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\API\FailedValidateTrait;
 
-class UserOtpRequest extends FormRequest
+class DeviceTokenRequest extends FormRequest
 {
     use FailedValidateTrait;
 
@@ -26,18 +26,10 @@ class UserOtpRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
-            'phone_number' => 'required',
+        return [
+            // 'android_device_token'   => 'required',
+            'ios_device_token'   => 'required_without:android_device_token',
         ];
-
-        if( ! $this->request->has('otp_code') ){
-            // $rules += ['android_device_id' => 'required'];
-            $rules += ['ios_device_id' => 'required_without:android_device_id'];
-        } else{
-            $rules += ['otp_code' => 'required|numeric|digits:6'];
-        }
-
-        return $rules;
     }
 
     /**
@@ -48,7 +40,7 @@ class UserOtpRequest extends FormRequest
     public function messages()
     {
         return [
-            'ios_device_id.required_without' => 'Either Android or iOS device ID field is required',
+            'ios_device_token.required_without' => 'Either Android or iOS device token field is required',
         ];
     }
 }

@@ -20,7 +20,7 @@
         }
     ],
     "paths": {
-        "/user/sendOtp": {
+        "/auth/sendOtp": {
             "post": {
                 "tags": [
                     "Authentication"
@@ -61,7 +61,7 @@
                 }
             }
         },
-        "/user/verifyOtp": {
+        "/auth/verifyOtp": {
             "post": {
                 "tags": [
                     "Authentication"
@@ -98,10 +98,10 @@
                 }
             }
         },
-        "/user/messages/{index}": {
+        "/messages/{index}": {
             "get": {
                 "tags": [
-                    "Users"
+                    "Messages"
                 ],
                 "summary": "List all messages",
                 "description": "API to list all messages, such as alerts, announcements etc on latest first basis. Default limit set as **3** messages per page. <br><br>Accepts `index` for lazy load messages.",
@@ -135,6 +135,78 @@
                     }
                 ]
             }
+        },
+        "/user/updateDeviceToken": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update device token for push notification",
+                "description": "API to update device token for push notification. <br><br>Accepts either `android_device_token` or `ios_device_token`.",
+                "operationId": "updateDeviceToken",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "android_device_token": {
+                                        "type": "string"
+                                    },
+                                    "ios_device_token": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "android_device_token": "08a2f5d1-c567-4334-b156-e037c63f8a41",
+                                    "ios_device_token": ""
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/diseases": {
+            "get": {
+                "tags": [
+                    "Diseases"
+                ],
+                "summary": "List all diseases",
+                "description": "API to list all diseases.",
+                "operationId": "diseases",
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -152,8 +224,16 @@
             "description": "API Endpoints for Authentication"
         },
         {
+            "name": "Messages",
+            "description": "API Endpoints for Messages"
+        },
+        {
             "name": "Users",
             "description": "API Endpoints for Users"
+        },
+        {
+            "name": "Diseases",
+            "description": "API Endpoints for Diseases"
         }
     ]
 }

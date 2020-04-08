@@ -38,7 +38,15 @@ namespace App\Http\Requests\API;
  *     description="API Endpoints for Authentication",
  * )
  * @OA\Tag(
+ *     name="Messages",
+ *     description="API Endpoints for Messages",
+ * )
+ * @OA\Tag(
  *     name="Users",
  *     description="API Endpoints for Users",
+ * )
+ * @OA\Tag(
+ *     name="Diseases",
+ *     description="API Endpoints for Diseases",
  * )
  */

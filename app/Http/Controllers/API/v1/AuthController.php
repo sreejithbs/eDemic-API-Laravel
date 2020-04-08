@@ -21,7 +21,7 @@ use App\Models\Disease;
 class AuthController extends Controller
 {
     /**
-     * @OA\Post(path="/user/sendOtp",
+     * @OA\Post(path="/auth/sendOtp",
      *     tags={"Authentication"},
      *     summary="Send SMS verification OTP code for users",
      *     description="API to send SMS verification OTP code for users. <br><br>Accepts `phone_number` and either `android_device_id` or `ios_device_id`.",
@@ -126,7 +126,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @OA\Post(path="/user/verifyOtp",
+     * @OA\Post(path="/auth/verifyOtp",
      *     tags={"Authentication"},
      *     summary="Verify user entered OTP code",
      *     description="API to verify user entered OTP code. <br><br>Accepts `phone_number` and `code`. Returns `token` for user authorization purpose.",

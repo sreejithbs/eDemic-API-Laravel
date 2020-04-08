@@ -12,10 +12,12 @@
 */
 
 Route::group(['prefix' => 'v1'], function(){
-	Route::post('user/sendOtp', 'API\v1\AuthController@sendOtp');
-	Route::post('user/verifyOtp', 'API\v1\AuthController@verifyOtp');
+	Route::post('auth/sendOtp', 'API\v1\AuthController@sendOtp');
+	Route::post('auth/verifyOtp', 'API\v1\AuthController@verifyOtp');
 
 	Route::group(['middleware' => 'auth:api'], function(){
-		Route::get('user/messages/{index}', 'API\v1\UserController@messages');
+		Route::get('messages/{index}', 'API\v1\UserController@messages');
+		Route::post('user/updateDeviceToken', 'API\v1\UserController@updateDeviceToken');
+		Route::get('diseases', 'API\v1\UserController@diseases');
 	});
 });
