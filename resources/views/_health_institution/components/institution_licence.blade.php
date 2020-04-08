@@ -35,8 +35,8 @@
 	<script type="text/javascript">
 	    $("document").ready(function(){
 	        $('#purchase').on('click', function(event) {
-	        	document.cookie = "role=institution; Path=/;";
-	        	document.cookie = "doctors=" + $("#no_doctors").val() + "; Path=/;";
+	        	document.cookie = "status=institution; Path=/;";
+	        	document.cookie = "docs=" + $("#no_doctors").val() + "; Path=/;";
 
 	        	location.href= "{{ URL::route('institution_checkout.create', 'licence') }}";
 	        });

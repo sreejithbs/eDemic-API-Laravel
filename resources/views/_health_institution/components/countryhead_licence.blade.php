@@ -30,7 +30,7 @@
 	<script type="text/javascript">
 	    $("document").ready(function(){
 	        $('#purchase').on('click', function(event) {
-	        	document.cookie = "role=countryhead; Path=/;";
+	        	document.cookie = "status=countryhead; Path=/;";
 
 	        	location.href= "{{ URL::route('institution_checkout.create', 'licence') }}";
 	        });

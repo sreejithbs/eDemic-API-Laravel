@@ -64,9 +64,9 @@
                                                     <td> ${{ $feeAmount }} </td>
                                                 </tr>
 
-                                                @if($_COOKIE['role'] == 'institution')
+                                                @if($_COOKIE['status'] == 'institution')
                                                     @php
-                                                        $docs = $_COOKIE['doctors'];
+                                                        $docs = $_COOKIE['docs'];
                                                         $docsTotal = $docs * 50;
                                                         $feeAmount += $docsTotal;
                                                     @endphp

@@ -59,9 +59,9 @@
                                         <div class="panel-body">
                                             <table class="table table-borderless table-responsive">
 
-                                                @if($_COOKIE['role'] == 'doctor')
+                                                @if($_COOKIE['status'] == 'doctor')
                                                     @php
-                                                        $docs = $_COOKIE['doctors'];
+                                                        $docs = $_COOKIE['docs'];
                                                         $docsTotal = $docs * 50;
                                                     @endphp
                                                     <tr class="no-border">
