@@ -1,6 +1,6 @@
 @extends('_health_institution.partials.master')
-@section('page_title', 'License Payment Checkout | e-Demic')
-@section('page_heading', 'License Payment Checkout')
+@section('page_title', 'Doctor Payment Checkout | e-Demic')
+@section('page_heading', 'Doctor Payment Checkout')
 
 @section('content')
 
@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-body card-dashboard">
-                        <form method="post" action="{{ route('institution_checkout.store', 'licence') }}" class="form">
+                        <form method="post" action="{{ route('institution_checkout.store', 'doctor') }}" class="form">
                             {{ csrf_field() }}
 
                             <div class="row">
@@ -56,19 +56,13 @@
                                         <div class="panel-heading">
                                             <h3 class="panel-title">Order Summary</h3><hr/>
                                         </div>
-                                        @php $feeAmount = 999; @endphp
                                         <div class="panel-body">
                                             <table class="table table-borderless table-responsive">
-                                                <tr class="no-border">
-                                                    <td><strong>Basic Package : </strong></td>
-                                                    <td> ${{ $feeAmount }} </td>
-                                                </tr>
 
-                                                @if($_COOKIE['role'] == 'institution')
+                                                @if($_COOKIE['role'] == 'doctor')
                                                     @php
                                                         $docs = $_COOKIE['doctors'];
                                                         $docsTotal = $docs * 50;
-                                                        $feeAmount += $docsTotal;
                                                     @endphp
                                                     <tr class="no-border">
                                                         <td><strong>Doctors x {{ $docs }} : </strong></td>
@@ -76,18 +70,18 @@
                                                     </tr>
                                                     <input type="hidden" name="purchasedDoctorConnects" value="{{ $docs }}">
                                                 @endif
-                                                <input type="hidden" name="feeAmount" value="{{ $feeAmount }}">
+                                                <!-- <input type="hidden" name="docsTotal" value="{{ $docsTotal }}"> -->
 
                                             </table>
                                             <div class="row">
                                                 <div class="col-md-6"> <h4><strong> Total Amount </strong></h4></div>
-                                                <div class="col-md-6 text-right"> <h4><strong> ${{ $feeAmount }} </strong></h4></div>
+                                                <div class="col-md-6 text-right"> <h4><strong> ${{ $docsTotal }} </strong></h4></div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12 mt-2">
-                                            <button type="submit" class="btn btn-success btn-lg btn-block">Purchase Now</button>
+                                            <button type="submit" class="btn btn-success btn-lg btn-block">Buy Now</button>
                                         </div>
                                     </div>
                                 </div>

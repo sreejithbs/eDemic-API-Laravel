@@ -43,7 +43,8 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('_health_institution.doctor_create');
+        $remainingDoctorConnects = Auth::guard('health_institution')->user()->health_institution_profile->remainingDoctorConnects;
+        return view('_health_institution.doctor_create', compact('remainingDoctorConnects'));
     }
 
     /**
@@ -56,12 +57,14 @@ class DoctorController extends Controller
     {
         DB::beginTransaction();
 
+        $institution = Auth::guard('health_institution')->user();
+
         try {
             $doctor = new DoctorProfile();
             $doctor->name = $request->name;
             $doctor->email = $request->email;
             $doctor->phone = $request->phone_number;
-            $doctor->health_institution_id = Auth::guard('health_institution')->id();
+            $doctor->health_institution_id = $institution->id;
             $doctor->profileQrCode = "0";  //temporary
             $doctor->save();
 
@@ -77,6 +80,8 @@ class DoctorController extends Controller
 
             $doctor->profileQrCode = $targetPath;
             $doctor->save();
+
+            $institution->health_institution_profile()->decrement('remainingDoctorConnects');
 
             DB::commit();
 
@@ -140,9 +145,12 @@ class DoctorController extends Controller
      */
     public function destroy($uuid)
     {
-        try{
+        $institution = Auth::guard('health_institution')->user();
+        try {
             $doctor = DoctorProfile::fetchModelByUuId($uuid);
             $doctor->delete();
+
+            $institution->health_institution_profile()->increment('remainingDoctorConnects');
 
         } catch (\Exception $e) {
             // return back()->withErrors(['error' => $e->getMessage()]);

@@ -36,9 +36,13 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function createCheckout()
+    public function createCheckout($path)
     {
-        return view('_health_institution.licence_checkout');
+        if($path == 'licence'){
+            return view('_health_institution.licence_checkout');
+        } else{
+            return view('_health_institution.doctor_checkout');
+        }
     }
 
     /**
@@ -47,22 +51,29 @@ class DashboardController extends Controller
      * @param  Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeCheckout(Request $request)
+    public function storeCheckout(Request $request, $path)
     {
         $institution = Auth::guard('health_institution')->user();
 
-        $license_subscription = new LicenseSubscription();
-        $license_subscription->feeAmount = $request->feeAmount;
-        $license_subscription->startDate = Carbon::now()->format('Y-m-d');
-        $license_subscription->endDate = Carbon::now()->addYear()->format('Y-m-d');
-        $license_subscription->status = 1;
-        $institution->license_subscription()->save($license_subscription);
+        if($path == 'licence'){
+            $license_subscription = new LicenseSubscription();
+            $license_subscription->feeAmount = $request->feeAmount;
+            $license_subscription->startDate = Carbon::now()->format('Y-m-d');
+            $license_subscription->endDate = Carbon::now()->addYear()->format('Y-m-d');
+            $license_subscription->status = 1;
+            $institution->license_subscription()->save($license_subscription);
+        }
 
         if( $request->has('purchasedDoctorConnects') ){
             $institution->health_institution_profile()->increment('purchasedDoctorConnects', $request->purchasedDoctorConnects);
+            $institution->health_institution_profile()->increment('remainingDoctorConnects', $request->purchasedDoctorConnects);
             // $institution->health_institution_profile()->save();
         }
 
-        return redirect()->route('institution_dashboard.show')->with('success', 'Institution Licence has been purchased successfully');
+        if($path == 'licence'){
+            return redirect()->route('institution_dashboard.show')->with('success', 'Institution Licence has been purchased successfully');
+        } else{
+            return redirect()->route('institution_doctors.list')->with('success', 'Doctor connects has been purchased successfully');
+        }
     }
 }

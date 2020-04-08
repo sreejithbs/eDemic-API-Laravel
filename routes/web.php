@@ -35,8 +35,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin_', 'namespace' => 'Admin'], fu
 // ************************* Start of HEALTH INSTITUTION ROUTES ******************************
 Route::group(['prefix' => 'institution', 'as' => 'institution_', 'namespace' => 'HealthInstitution'], function(){
 	Route::get('/dashboard', 'DashboardController@index')->name('dashboard.show');
-	Route::get('/checkout', 'DashboardController@createCheckout')->name('checkout.create');
-	Route::post('/checkout/store', 'DashboardController@storeCheckout')->name('checkout.store');
+	Route::get('/{path}/checkout', 'DashboardController@createCheckout')->name('checkout.create');
+	Route::post('/{path}/checkout/store', 'DashboardController@storeCheckout')->name('checkout.store');
 
 	Route::group(['prefix' => 'institutions', 'as' => 'institutions.'], function(){
 	    Route::get('/all', 'HealthInstitutionController@index')->name('list');

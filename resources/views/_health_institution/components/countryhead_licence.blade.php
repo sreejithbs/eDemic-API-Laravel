@@ -11,17 +11,16 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-12 text-center">
-		    <div class="card text-center">
-		        <div class="card-content">
-		            <div class="card-body">
-		                <h4 class="card-title">Purchase your License to use e-Demic</h4>
-		                <h5><strong> Basic Package : $999/Year </strong></h5>
-		                <a href="javascript:void(0);" id="purchase" class="btn btn-info">Purchase Now</a>
-                      </div>
-		            </div>
-		        </div>
-		    </div>
+		<div class="col-md-12">
+			<div class="card text-center">
+				<div class="card-content">
+					<div class="card-body">
+						<h4 class="card-title">Purchase your License to use e-Demic</h4>
+						<h5><strong> Basic Package : $999/Year </strong></h5>
+						<a href="javascript:void(0);" id="purchase" class="btn btn-info">Purchase Now</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 @endcan
@@ -31,9 +30,9 @@
 	<script type="text/javascript">
 	    $("document").ready(function(){
 	        $('#purchase').on('click', function(event) {
-	        	document.cookie = "role=countryhead";
+	        	document.cookie = "role=countryhead; Path=/;";
 
-	        	location.href= "{{ URL::route('institution_checkout.create') }}";
+	        	location.href= "{{ URL::route('institution_checkout.create', 'licence') }}";
 	        });
 	    });
 	</script>
