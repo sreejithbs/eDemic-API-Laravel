@@ -29,8 +29,7 @@ class DoctorRequest extends FormRequest
             {
                 return [
                     'name'   => 'required|string|max:255',
-                    'code' => 'required|string|max:8',
-                    'email'   => 'required|string|email|max:255|unique:health_institutions',
+                    'email'   => 'required|string|email|max:255|unique:doctor_profiles',
                     'phone_number' => 'required|string',
                 ];
             }

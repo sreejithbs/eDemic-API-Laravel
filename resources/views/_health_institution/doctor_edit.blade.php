@@ -30,19 +30,13 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="name"> Name *</label>
                                     <div class="col-md-9">
-                                        <input type="text" id="name" class="form-control" placeholder="Doctor Name" name="name" value="{{ $doctor->doctor_profile->name }}" required data-parsley-required-message="Please enter Doctor Name">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-md-3 label-control">Code</label>
-                                    <div class="col-md-9">
-                                        <input type="text" id="code" class="form-control" placeholder="Doctor Code" name="code" value="{{ $doctor->userCode }}" disabled="">
+                                        <input type="text" id="name" class="form-control" placeholder="Doctor Name" name="name" value="{{ $doctor->name }}" required data-parsley-required-message="Please enter Doctor Name">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-3 label-control" for="email">Email</label>
                                     <div class="col-md-9">
-                                        <input type="email" id="email" class="form-control" placeholder="Email" name="email" value="{{ $doctor->doctor_profile->email }}" disabled="">
+                                        <input type="email" id="email" class="form-control" placeholder="Email" name="email" value="{{ $doctor->email }}" disabled="">
                                     </div>
                                 </div>
                                  <div class="form-group row">
@@ -60,7 +54,7 @@
                                                     <!-- <div class="card-deck-wrapper"> -->
                                                         <!-- <div class="card-deck"> -->
                                                             <!-- <figure class="card card-img-top border-grey border-lighten-2"> -->
-                                                                <img class="gallery-thumbnail card-img-top" src="{{ asset($doctor->doctor_profile->profileQrCode) }}" alt="QrCode" />
+                                                                <img class="gallery-thumbnail card-img-top" src="{{ asset($doctor->profileQrCode) }}" alt="QrCode" />
                                                                 <!-- <h4 class="card-title">Doctor Profile</h4> -->
                                                             <!-- </figure> -->
                                                         <!-- </div> -->

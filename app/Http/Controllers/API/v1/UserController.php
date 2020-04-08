@@ -41,8 +41,8 @@ class UserController extends Controller
     public function messages($index)
     {
         $limit = 3;
-        $messages = Message::where('isPosted', 1)
-                ->latest('id')
+        $messages = Message::isPosted()
+                ->latest()
                 ->skip(($index - 1) * $limit)->take($limit)
                 ->get(['id', 'title', 'content']);
 

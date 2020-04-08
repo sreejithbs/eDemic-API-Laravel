@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-use App\Models\User;
+use App\Models\DoctorProfile;
 
 class DoctorProfileWasCreatedEvent
 {
@@ -23,7 +23,7 @@ class DoctorProfileWasCreatedEvent
      *
      * @return void
      */
-    public function __construct(User $doctor)
+    public function __construct(DoctorProfile $doctor)
     {
         $this->doctor = $doctor;
     }

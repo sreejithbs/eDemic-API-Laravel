@@ -32,7 +32,7 @@ class DiseaseController extends Controller
      */
     public function index()
     {
-        $diseases = Disease::latest('id')->get();
+        $diseases = Disease::latest()->get();
         return view('_health_institution.disease_listing', compact('diseases'));
     }
 
@@ -63,26 +63,27 @@ class DiseaseController extends Controller
             $disease->riskLevel = $request->risk_level;
             $disease->save();
 
+            $id_code = $disease->id + 6000;
             $stages = array(
-                'infection' => array(255, 0, 0),
-                'recovered' => array(0, 255, 0),
-                'dead' => array(0, 0, 0),
-                'selfQuarantine' => array(255, 165, 0),
+                array( 'code' => 5001, 'name' => Disease::INFECTION, 'color' => array(255, 0, 0) ),
+                array( 'code' => 5002, 'name' => Disease::RECOVERED, 'color' => array(0, 255, 0) ),
+                array( 'code' => 5003, 'name' => Disease::DEAD, 'color' => array(0, 0, 0) ),
+                array( 'code' => 5004, 'name' => Disease::SELF_QUARANTINE, 'color' => array(255, 165, 0) )
             );
 
-            foreach ($stages as $stage => $color)
+            foreach ($stages as $key => $stage)
             {
-                $encode_data = json_encode( array("id" => $disease->id, "stage" => $stage) );
-                $qrCodeName = StringHelper::uniqueSlugString($disease->name .'-'. $stage);
+                $encode_data = json_encode( array("type" => "disease", "id_code" => $id_code, "stage_code" => $stage['code']) );
+                $qrCodeName = StringHelper::uniqueSlugString($disease->name .'-'. $stage['name']);
                 $targetPath = 'storage/qrcodes/'.$qrCodeName.'.png';
 
                 QrCode::format('png')
                     ->errorCorrection('H')
-                    ->color($color[0], $color[1], $color[2])
+                    ->color($stage['color'][0], $stage['color'][1], $stage['color'][2])
                     ->size(350)
                     ->generate($encode_data, public_path($targetPath));
 
-                $disease->{$stage.'QrCode'} = $targetPath;
+                $disease->{$stage['name'].'QrCode'} = $targetPath;
             }
             $disease->save();
 

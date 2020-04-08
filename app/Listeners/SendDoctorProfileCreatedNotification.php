@@ -33,15 +33,14 @@ class SendDoctorProfileCreatedNotification
         $doctor = $event->doctor;
 
         $info = array(
-            'to' => $doctor->doctor_profile->email,
+            'to' => $doctor->email,
             'from' => 'no-reply@edemic.com',
             'subject' => 'Doctor Registration Successful | e-Demic',
             'template' => 'emails.doctor_create',
             'data' => [
-                'doctor_name' => $doctor->doctor_profile->name,
-                'doctor_code' => $doctor->userCode,
-                'parent_institution' => HealthInstitution::find($doctor->doctor_profile->health_institution_id)->name,
-                'profile_qrcode' => asset($doctor->doctor_profile->profileQrCode)
+                'doctor_name' => $doctor->name,
+                'parent_institution' => HealthInstitution::find($doctor->health_institution_id)->name,
+                'profile_qrcode' => asset($doctor->profileQrCode)
             ]
         );
 

@@ -33,24 +33,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label class="col-md-3 label-control">Generate/Enter Code *</label>
-                                    <div class="col-md-9">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <div class="input-group skin skin-square">
-                                                    <div class="d-inline-block custom-control custom-checkbox" style="padding-left: 0px; padding-top: 8px;">
-                                                        <input type="checkbox" class="custom-control-input" id="generate_code">
-                                                        <label for="generate_code">Auto-Generate</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <input type="text" id="code" class="form-control" placeholder="Doctor Code" name="code" required data-parsley-maxlength="8" data-parsley-required-message="Please enter/generate Doctor Code">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
                                     <label class="col-md-3 label-control" for="email">Email *</label>
                                     <div class="col-md-9">
                                         <input type="email" id="email" class="form-control" placeholder="Email" name="email" required data-parsley-required-message="Please enter Email">
@@ -99,19 +81,3 @@
 </section>
 
 @endsection
-
-@push('page_scripts')
-
-<script type="text/javascript">
-    $("document").ready(function(){
-        $('#generate_code').on('ifChanged', function(event) {
-            if(event.target.checked){
-                $("#code").prop('readonly', true).val('DoC{{ StringHelper::randString(5) }}');
-            } else {
-                $("#code").prop('readonly', false).val('');
-            }
-        });
-    });
-</script>
-
-@endpush

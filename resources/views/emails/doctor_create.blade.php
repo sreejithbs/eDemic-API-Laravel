@@ -85,13 +85,12 @@
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                Welcome to e-Demic. Your Doctor account has been created successfully. <br><br>Here is your account details :
+                                                Welcome to e-Demic. Your Doctor account has been created successfully. Here is your account details :
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                <strong>Parent Health Institution</strong> : {{ $data['parent_institution'] }} <br>
-                                                <strong>Doctor Code</strong> : {{ $data['doctor_code'] }}
+                                                <strong>Parent Health Institution</strong> : {{ $data['parent_institution'] }}
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">

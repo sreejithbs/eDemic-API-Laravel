@@ -23,7 +23,7 @@
                         <table class="table table-striped table-bordered dtTable">
                             <thead>
                                 <tr>
-                                    <th>Code</th>
+                                    <th>#</th>
                                     <th>Doctor Name</th>
                                     <th>Email ID</th>
                                     <th>Phone Number</th>
@@ -33,9 +33,9 @@
                             <tbody>
                                 @foreach($doctors as $doctor)
                                     <tr>
-                                        <td> {{ $doctor->userCode }}</td>
-                                        <td> {{ $doctor->doctor_profile->name }}</td>
-                                        <td> {{ $doctor->doctor_profile->email }}</td>
+                                        <td> {{ $loop->iteration }}</td>
+                                        <td> {{ $doctor->name }}</td>
+                                        <td> {{ $doctor->email }}</td>
                                         <td> {{ $doctor->phone }}</td>
                                         <td class="no-wrap">
                                             <a href="{{ route('institution_doctors.edit', $doctor->uuid ) }}" class="btn btn-icon btn-info btn-sm"> <i class="la la-edit"></i> </a>

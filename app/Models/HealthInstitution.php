@@ -41,6 +41,18 @@ class HealthInstitution extends Authenticatable
     ];
 
     /**
+     * Scope a query to check if Country Head or Health Institution
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  mixed  $state
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeIsHead($query, $state = 1)
+    {
+        return $query->where('isHead', $state);
+    }
+
+    /**
      * The health_institution_profile that belong to the health_institution.
      */
     public function health_institution_profile(){

@@ -31,13 +31,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * The doctor_profile that belong to the users.
-     */
-    public function doctor_profile(){
-        return $this->hasOne(DoctorProfile::class, 'user_id');
-    }
-
-    /**
      * The patients that belong to the users.
      */
     public function patients(){

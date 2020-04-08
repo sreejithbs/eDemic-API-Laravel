@@ -15,10 +15,11 @@ class CreateDoctorProfilesTable extends Migration
     {
         Schema::create('doctor_profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->string('name');
-            $table->string('email');
+            $table->uuid('uuid')->index();
             $table->unsignedBigInteger('health_institution_id');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('phone', 20);
             $table->string('profileQrCode');
             $table->timestamps();
         });
@@ -27,7 +28,6 @@ class CreateDoctorProfilesTable extends Migration
          * Foreign Key Constraint
          */
         Schema::table('doctor_profiles', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('health_institution_id')->references('id')->on('health_institutions')->onDelete('cascade');
         });
     }

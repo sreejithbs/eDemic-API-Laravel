@@ -104,7 +104,7 @@
                     "Users"
                 ],
                 "summary": "List all messages",
-                "description": "API to list all messages, such as alerts, announcements etc. Default limit set as **3** messages per page. <br><br>Accepts `index` for lazy load messages on latest first basis.",
+                "description": "API to list all messages, such as alerts, announcements etc on latest first basis. Default limit set as **3** messages per page. <br><br>Accepts `index` for lazy load messages.",
                 "operationId": "messages",
                 "parameters": [
                     {

@@ -32,7 +32,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::latest('id')->get();
+        $messages = Message::latest()->get();
         return view('_health_institution.message_listing', compact('messages'));
     }
 
@@ -137,6 +137,6 @@ class MessageController extends Controller
     // Trigger Android and iOS push message
     public function triggerPushMessage($uuid)
     {
-        dd($uuid);
+        dd('push notification in progress');
     }
 }

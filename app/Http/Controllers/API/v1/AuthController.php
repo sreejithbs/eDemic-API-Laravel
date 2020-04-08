@@ -16,6 +16,7 @@ use Twilio\Exceptions\TwilioException;
 // use Exception;
 
 use App\Models\User;
+use App\Models\Disease;
 
 class AuthController extends Controller
 {
@@ -72,7 +73,6 @@ class AuthController extends Controller
                 try {
                     $isoAlphaCode = $phoneUtil->getRegionCodeForNumber( $phoneUtil->parse($recipient) );
                     $user->country_id = DB::table('countries')->where('isoAlphaCode', $isoAlphaCode)->value('id');
-
                 } catch (\libphonenumber\NumberParseException $e) {
                     //
                 }
@@ -165,7 +165,7 @@ class AuthController extends Controller
                 $data['token_type'] = "Bearer";
                 $data['token_expiry'] = $objToken->token->expires_at;
                 $data['token'] = $objToken->accessToken;
-                $data['codes'] = config('status_codes');
+                $data['codes'] = array_merge(config('app-status-codes'), Disease::fetchAllDiseasesApi());
                 $data['user_details']['diseases'] = [];
 
                 return response()->json([
@@ -182,7 +182,6 @@ class AuthController extends Controller
                         'message'=> 'Invalid verification code'
                     ],
                 ], ConstantHelper::STATUS_UNPROCESSABLE_ENTITY);
-
             }
         } else {
             return response()->json([

@@ -60,7 +60,9 @@
 	$(document).ready(function() {
 
 		// Basic Datatable Initialization
-		$('.dtTable').DataTable();
+		$('.dtTable').DataTable({
+			"order": []
+		});
 
 		// Basic Select2 select
 		$(".select2").select2({

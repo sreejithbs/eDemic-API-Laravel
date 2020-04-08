@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->uuid('uuid')->index();
             $table->string('userCode', 10)->index();
             $table->string('phone', 20);
-            $table->boolean('isDoctor')->default(0);
+            $table->unsignedBigInteger('is_doctor_id')->nullable();
             $table->unsignedBigInteger('country_id')->nullable();
             $table->text('androidDeviceId')->nullable();
             $table->text('androidPushToken')->nullable();
@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
          * Foreign Key Constraint
          */
         Schema::table('users', function (Blueprint $table) {
+            $table->foreign('is_doctor_id')->references('id')->on('doctor_profiles')->onDelete('set null');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');
         });
     }
