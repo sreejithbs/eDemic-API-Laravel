@@ -212,11 +212,12 @@ class UserController extends Controller
             $dataArr[] = [
                 'code' => $disease['apiStatusCode'],
                 'name' => $disease['name'],
+                'uid' => $disease['diseaseCode'],
                 'stages' => [
-                    array( 'code' => 5001, 'uid' => $disease['diseaseCode'], 'qr_code' => asset($disease['infectionQrCode']) ),
-                    array( 'code' => 5002, 'uid' => $disease['diseaseCode'], 'qr_code' => asset($disease['recoveredQrCode']) ),
-                    array( 'code' => 5003, 'uid' => $disease['diseaseCode'], 'qr_code' => asset($disease['deadQrCode']) ),
-                    array( 'code' => 5004, 'uid' => $disease['diseaseCode'], 'qr_code' => asset($disease['selfQuarantineQrCode']) )
+                    array( 'code' => 5001, 'qr_code' => asset($disease['infectionQrCode']) ),
+                    array( 'code' => 5002, 'qr_code' => asset($disease['recoveredQrCode']) ),
+                    array( 'code' => 5003, 'qr_code' => asset($disease['deadQrCode']) ),
+                    array( 'code' => 5004, 'qr_code' => asset($disease['selfQuarantineQrCode']) )
                 ]
             ];
         }
