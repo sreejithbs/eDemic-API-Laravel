@@ -47,7 +47,7 @@ class User extends Authenticatable
     /**
      * The doctors that belong to the users.
      */
-    public function doctors(){
-        return $this->hasMany(UserDiagnosisLog::class, 'doctor_id');
-    }
+    // public function doctors(){
+    //     return $this->hasMany(UserDiagnosisLog::class, 'doctor_id');
+    // }
 }

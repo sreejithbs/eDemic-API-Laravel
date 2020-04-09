@@ -4,14 +4,18 @@ namespace App\Http\Controllers\API\v1;
 
 // use Illuminate\Http\Request;
 use App\Http\Requests\API\DeviceTokenRequest;
+use App\Http\Requests\API\PatientDiagnosedRequest;
 use App\Http\Controllers\Controller;
 
 use Auth;
+use Carbon\Carbon;
 use ConstantHelper;
 
 use App\Models\Message;
 use App\Models\DoctorProfile;
 use App\Models\Disease;
+use App\Models\UserDiagnosisLog;
+use App\Models\UserLocationLog;
 
 class UserController extends Controller
 {
@@ -238,4 +242,77 @@ class UserController extends Controller
             ], ConstantHelper::STATUS_UNPROCESSABLE_ENTITY);
         }
     }
+
+    /**
+     * @OA\Post(path="/user/diseaseDiagnosed",
+     *     tags={"Users"},
+     *     summary="Submit disease diagnosed patient details",
+     *     description="API to submit disease diagnosed patient details to be saved in database.",
+     *     operationId="diseaseDiagnosed",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(property="disease_code", type="string", example="6001"),
+     *                 @OA\Property(property="stage_code", type="string", example="5001"),
+     *                 @OA\Property(property="diagnosed_date_time", type="string", example="2020-04-08 07:23:37"),
+     *                 @OA\Property(property="location_logs", type="array",
+     *                      @OA\Items(
+     *                          @OA\Schema(
+     *                              @OA\Property(property="date_time", type="string"),
+     *                              @OA\Property(property="latitude", type="string"),
+     *                              @OA\Property(property="longitude", type="string"),
+     *                          ),
+     *                          example={
+     *                              "date_time" : "2020-04-08 07:23:37",
+     *                              "latitude" : "53.8",
+     *                              "longitude" : "-1.4",
+     *                          }
+     *                      )
+     *                 ),
+     *                 @OA\Property(property="suspected_users_id", type="object", example={1, 2}),
+     *             ),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful Operation",
+     *         @OA\JsonContent()
+     *     ),
+     *     security={
+     *          {"api_key": {}}
+     *     },
+     * )
+     */
+    public function diseaseDiagnosed(PatientDiagnosedRequest $request)
+    {
+        $user = Auth::user();
+
+        $diagnosis_log = new UserDiagnosisLog();
+        $diagnosis_log->disease_id = (int)$request->disease_code - 6000;
+        $diagnosis_log->diagnosisDateTime = Carbon::parse($request->diagnosed_date_time)->format('Y-m-d H:i:s');
+        $diagnosis_log->stage = (int)$request->stage_code - 5000;
+        $user->patients()->save($diagnosis_log);
+
+        foreach ($request->location_logs as $location) {
+            $location_log = new UserLocationLog();
+            $location_log->user_diagnosis_log_id = $diagnosis_log->id;
+            $location_log->reportedDateTime = Carbon::parse($location['date_time'])->format('Y-m-d H:i:s');
+            $location_log->latitude = $location['latitude'];
+            $location_log->longitude = $location['longitude'];
+            $location_log->save();
+        }
+
+        foreach ($request->suspected_users_id as $user_id) {
+            // Send Push Message
+            // var_dump($user_id);
+        }
+
+        return response()->json([
+            'status' => ConstantHelper::STATUS_OK,
+            'message' => 'Diagnosed Patient details has been recorded successfully',
+        ], ConstantHelper::STATUS_OK);
+    }
+
 }

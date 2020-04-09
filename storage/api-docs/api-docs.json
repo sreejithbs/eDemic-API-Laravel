@@ -245,6 +245,72 @@
                     }
                 ]
             }
+        },
+        "/user/diseaseDiagnosed": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Submit disease diagnosed patient details",
+                "description": "API to submit disease diagnosed patient details to be saved in database.",
+                "operationId": "diseaseDiagnosed",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "disease_code": {
+                                        "type": "string",
+                                        "example": "6001"
+                                    },
+                                    "stage_code": {
+                                        "type": "string",
+                                        "example": "5001"
+                                    },
+                                    "diagnosed_date_time": {
+                                        "type": "string",
+                                        "example": "2020-04-08 07:23:37"
+                                    },
+                                    "location_logs": {
+                                        "type": "array",
+                                        "items": {
+                                            "example": {
+                                                "date_time": "2020-04-08 07:23:37",
+                                                "latitude": "53.0",
+                                                "longitude": "-1.4"
+                                            }
+                                        }
+                                    },
+                                    "suspected_users_id": {
+                                        "type": "object",
+                                        "example": [
+                                            1,
+                                            2
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
         }
     },
     "components": {
