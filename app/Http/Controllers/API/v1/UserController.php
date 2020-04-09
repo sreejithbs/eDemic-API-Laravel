@@ -118,7 +118,7 @@ class UserController extends Controller
     * @OA\Get(path="/doctor/fetchProfile/{doctor_id}",
     *   tags={"Doctor Users"},
     *   summary="Fetch doctor user profile details",
-    *   description="API to fetch doctor user profile details. <br><br>Accepts `doctor_id`.",
+    *   description="API to fetch doctor user profile details using the ID from doctor's Profile QR Code. <br><br>Accepts `doctor_id`.",
     *   operationId="fetchDoctorProfile",
     *   @OA\Parameter(
     *       name="doctor_id",
