@@ -46,6 +46,10 @@ namespace App\Http\Requests\API;
  *     description="API Endpoints for Users",
  * )
  * @OA\Tag(
+ *     name="Doctor Users",
+ *     description="API Endpoints for Doctor Users",
+ * )
+ * @OA\Tag(
  *     name="Diseases",
  *     description="API Endpoints for Diseases",
  * )

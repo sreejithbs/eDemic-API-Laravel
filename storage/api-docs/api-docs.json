@@ -183,6 +183,44 @@
                 ]
             }
         },
+        "/doctor/fetchProfile/{doctor_id}": {
+            "get": {
+                "tags": [
+                    "Doctor Users"
+                ],
+                "summary": "Fetch doctor user profile details",
+                "description": "API to fetch doctor user profile details. <br><br>Accepts `doctor_id`.",
+                "operationId": "fetchDoctorProfile",
+                "parameters": [
+                    {
+                        "name": "doctor_id",
+                        "in": "path",
+                        "description": "Doctor ID to fetch profile",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
         "/diseases": {
             "get": {
                 "tags": [
@@ -230,6 +268,10 @@
         {
             "name": "Users",
             "description": "API Endpoints for Users"
+        },
+        {
+            "name": "Doctor Users",
+            "description": "API Endpoints for Doctor Users"
         },
         {
             "name": "Diseases",

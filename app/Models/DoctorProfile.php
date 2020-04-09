@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\UuidTrait;
 
 use App\Models\User;
+use App\Models\HealthInstitution;
 
 class DoctorProfile extends Model
 {
@@ -18,5 +19,12 @@ class DoctorProfile extends Model
      */
     public function user(){
         return $this->hasOne(User::class, 'is_doctor_id');
+    }
+
+    /**
+     * The health_institution that belong to the doctor_profile.
+     */
+    public function health_institution(){
+        return $this->belongsTo(HealthInstitution::class, 'health_institution_id');
     }
 }

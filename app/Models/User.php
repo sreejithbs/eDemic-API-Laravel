@@ -31,6 +31,13 @@ class User extends Authenticatable
     ];
 
     /**
+     * The doctor_profile that belong to the user.
+     */
+    public function doctor_profile(){
+        return $this->belongsTo(DoctorProfile::class, 'is_doctor_id');
+    }
+
+    /**
      * The patients that belong to the users.
      */
     public function patients(){

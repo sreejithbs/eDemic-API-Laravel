@@ -10,6 +10,7 @@ use Auth;
 use ConstantHelper;
 
 use App\Models\Message;
+use App\Models\DoctorProfile;
 use App\Models\Disease;
 
 class UserController extends Controller
@@ -47,7 +48,7 @@ class UserController extends Controller
         $messages = Message::isPosted()
                 ->latest()
                 ->skip(($index - 1) * $limit)->take($limit)
-                ->get(['id', 'title', 'content']);
+                ->get(['id', 'title', 'content', 'created_at']);
 
         if($messages->isNotEmpty()){
             return response()->json([
@@ -114,6 +115,81 @@ class UserController extends Controller
     }
 
     /**
+    * @OA\Get(path="/doctor/fetchProfile/{doctor_id}",
+    *   tags={"Doctor Users"},
+    *   summary="Fetch doctor user profile details",
+    *   description="API to fetch doctor user profile details. <br><br>Accepts `doctor_id`.",
+    *   operationId="fetchDoctorProfile",
+    *   @OA\Parameter(
+    *       name="doctor_id",
+    *       in="path",
+    *       description="Doctor ID to fetch profile",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="integer",
+    *           format="int64",
+    *           example=1
+    *       ),
+    *   ),
+    *   @OA\Response(
+    *       response=200,
+    *       description="Successful Operation",
+    *       @OA\JsonContent()
+    *   ),
+    *   security={
+    *       {"api_key": {}}
+    *   },
+    * )
+    */
+    public function fetchDoctorProfile($doctor_id)
+    {
+        $doctor = DoctorProfile::find($doctor_id);
+        if( $doctor ){
+            if( Auth::user()->is_doctor_id ){
+                return response()->json([
+                    'status' => ConstantHelper::STATUS_FORBIDDEN,
+                    'error' => [
+                        'code' => 1001,
+                        'message'=> 'User account is already mapped to another Doctor Profile.'
+                    ],
+                ], ConstantHelper::STATUS_FORBIDDEN);
+            }
+            else if( $doctor->user()->exists() ){
+                return response()->json([
+                    'status' => ConstantHelper::STATUS_FORBIDDEN,
+                    'error' => [
+                        'code' => 1001,
+                        'message'=> 'Doctor Profile is already mapped to another user account.'
+                    ],
+                ], ConstantHelper::STATUS_FORBIDDEN);
+            }
+            else {
+                $user = Auth::user();
+                $user->is_doctor_id = $doctor_id;
+                $user->save();
+
+                $data['id'] = $doctor->id;
+                $data['name'] = $doctor->name;
+                $data['health_institution'] = $doctor->health_institution->name;
+
+                return response()->json([
+                    'status' => ConstantHelper::STATUS_OK,
+                    'message' => 'Doctor Profile',
+                    'data' => $data
+                ], ConstantHelper::STATUS_OK);
+            }
+        } else {
+            return response()->json([
+                'status' => ConstantHelper::STATUS_UNPROCESSABLE_ENTITY,
+                'error' => [
+                    'code' => 1002,
+                    'message'=> 'No matching doctor record exists'
+                ],
+            ], ConstantHelper::STATUS_UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    /**
     * @OA\Get(path="/diseases",
     *   tags={"Diseases"},
     *   summary="List all diseases",
@@ -137,10 +213,10 @@ class UserController extends Controller
                 'code' => $disease['apiStatusCode'],
                 'name' => $disease['name'],
                 'stages' => [
-                    array( 'code' => 5001, 'qr_code' => asset($disease['infectionQrCode']) ),
-                    array( 'code' => 5002, 'qr_code' => asset($disease['recoveredQrCode']) ),
-                    array( 'code' => 5003, 'qr_code' => asset($disease['deadQrCode']) ),
-                    array( 'code' => 5004, 'qr_code' => asset($disease['selfQuarantineQrCode']) )
+                    array( 'code' => 5001, 'uid' => $disease['diseaseCode'], 'qr_code' => asset($disease['infectionQrCode']) ),
+                    array( 'code' => 5002, 'uid' => $disease['diseaseCode'], 'qr_code' => asset($disease['recoveredQrCode']) ),
+                    array( 'code' => 5003, 'uid' => $disease['diseaseCode'], 'qr_code' => asset($disease['deadQrCode']) ),
+                    array( 'code' => 5004, 'uid' => $disease['diseaseCode'], 'qr_code' => asset($disease['selfQuarantineQrCode']) )
                 ]
             ];
         }

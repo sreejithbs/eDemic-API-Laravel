@@ -163,10 +163,27 @@ class AuthController extends Controller
                 $objToken = $user->createToken('API Access Token');
 
                 $data['token_type'] = "Bearer";
-                $data['token_expiry'] = $objToken->token->expires_at;
+                $data['token_expiry'] = $objToken->token->expires_at->format('Y-m-d H:i:s');
                 $data['token'] = $objToken->accessToken;
                 $data['codes'] = array_merge(config('app-status-codes'), Disease::fetchAllDiseasesApi());
-                $data['user_details']['diseases'] = [];
+
+                if($user->is_doctor_id){
+                    $docArr['is_doctor'] = true;
+                    $docArr['doctor_details'] = [
+                        'id' => $user->doctor_profile->id,
+                        'name' => $user->doctor_profile->name,
+                        'health_institution' => $user->doctor_profile->health_institution->name
+                    ];
+                } else{
+                    $docArr['is_doctor'] = false;
+                    $docArr['doctor_details'] = [];
+                }
+
+                // Demo
+                $patientArr['is_patient'] = false;
+                $patientArr['patient_details'] = [];
+
+                $data['user_details'] = array_merge($docArr, $patientArr);
 
                 return response()->json([
                     'status' => ConstantHelper::STATUS_OK,
@@ -188,7 +205,7 @@ class AuthController extends Controller
                 'status' => ConstantHelper::STATUS_UNPROCESSABLE_ENTITY,
                 'error' => [
                     'code' => 1002,
-                    'message'=> 'No matching phone number exists'
+                    'message'=> 'No matching phone number record exists'
                 ],
             ], ConstantHelper::STATUS_UNPROCESSABLE_ENTITY);
         }

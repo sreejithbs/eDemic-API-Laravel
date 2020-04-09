@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2020 at 02:25 PM
+-- Generation Time: Apr 09, 2020 at 09:23 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -44,7 +44,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `uuid`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, '80986832-c7f9-41cc-9107-feb85bc2b940', 'TBA Super-Admin', 'superadmin@demo.com', '$2y$10$6K8IX8/plLIamMMFQLkQv.q/.RxSTrlPrEQaBeNw2DChQicM9BPEm', NULL, '2020-04-08 06:55:08', '2020-04-08 06:55:08');
+(1, '35ef8ae5-d68b-4783-81ad-eff383da9e2e', 'TBA Super-Admin', 'superadmin@demo.com', '$2y$10$UHXpCvTIT8nijtUGekKgNu/nm61muFP1RbStkVMGl4nldrK48EJ.u', NULL, '2020-04-09 01:53:36', '2020-04-09 01:53:36');
 
 -- --------------------------------------------------------
 
@@ -340,8 +340,8 @@ CREATE TABLE `diseases` (
 --
 
 INSERT INTO `diseases` (`id`, `uuid`, `name`, `diseaseCode`, `infectionQrCode`, `recoveredQrCode`, `deadQrCode`, `selfQuarantineQrCode`, `riskLevel`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, '96e46a93-28f6-47c3-a5d8-38c8a6c20a17', 'Covid-19', 'D84k5yDs', 'demo/covid_19_infection_1586337642.png', 'demo/covid_19_recovered_1586337642.png', 'demo/covid_19_dead_1586337642.png', 'demo/covid_19_selfquarantine_1586337642.png', 1, NULL, '2020-04-08 06:55:08', '2020-04-08 06:55:08'),
-(2, '016fdcdf-b447-4a0e-bf34-8c66c5535031', 'Spanish Flu', 'Dp4k5yRs', 'demo/spanish_flu_infection_1586337666.png', 'demo/spanish_flu_recovered_1586337666.png', 'demo/spanish_flu_dead_1586337666.png', 'demo/spanish_flu_selfquarantine_1586337666.png', 2, NULL, '2020-04-08 06:55:08', '2020-04-08 06:55:08');
+(1, 'a6c7dc91-eac7-4503-8796-1c3e30e415bc', 'Covid-19', 'D84k5yDs', 'demo/covid_19_infection_1586416911.png', 'demo/covid_19_recovered_1586416911.png', 'demo/covid_19_dead_1586416911.png', 'demo/covid_19_selfquarantine_1586416911.png', 1, NULL, '2020-04-09 01:53:37', '2020-04-09 01:53:37'),
+(2, '375ac9f6-e4c1-4ebc-9f3f-e28e5e0354db', 'Spanish Flu', 'Dp4k5yRs', 'demo/spanish_flu_infection_1586416922.png', 'demo/spanish_flu_recovered_1586416922.png', 'demo/spanish_flu_dead_1586416922.png', 'demo/spanish_flu_selfquarantine_1586416922.png', 2, NULL, '2020-04-09 01:53:37', '2020-04-09 01:53:37');
 
 -- --------------------------------------------------------
 
@@ -387,8 +387,8 @@ CREATE TABLE `health_institutions` (
 --
 
 INSERT INTO `health_institutions` (`id`, `uuid`, `name`, `institutionCode`, `email`, `password`, `isHead`, `country_id`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, '7ae9721a-eec9-4823-8237-0ec481335084', 'Demo Country Head', 'HIN0001', 'countryhead@demo.com', '$2y$10$9YLr4/0yFUZ0VDd/.PQN8.Ji.w420XdfWq5sdMi0os/2rY8EW5nvm', 1, 102, NULL, NULL, '2020-04-08 06:55:08', '2020-04-08 06:55:08'),
-(2, '892f9798-5447-4de4-b078-d8cc6d9ee297', 'Demo Hospital Institution', 'HIN0002', 'institution@demo.com', '$2y$10$nqYUo8g6MQDn7KPIRe5FV.1Pjf.c/tBDWu/NsthInYSTb5PraZv5O', 0, 102, NULL, NULL, '2020-04-08 06:55:08', '2020-04-08 06:55:08');
+(1, '93173619-b260-43d6-9058-d0138134ac8d', 'Demo Country Head', 'HIN0001', 'countryhead@demo.com', '$2y$10$zOp8xwiio871dKXv2.5rgOcItEi2DdaXKD1wjFDF6/r0BvC/GxvUC', 1, 102, NULL, NULL, '2020-04-09 01:53:36', '2020-04-09 01:53:36'),
+(2, 'c1a376c3-eb43-402c-91da-fc165aee972d', 'Demo Hospital Institution', 'HIN0002', 'institution@demo.com', '$2y$10$KGlWRK6EitTazl2LQvF/b.fzhLjNX8uoi9uolWaAk1GJXoV3hZrau', 0, 102, NULL, NULL, '2020-04-09 01:53:37', '2020-04-09 01:53:37');
 
 -- --------------------------------------------------------
 
@@ -412,7 +412,7 @@ CREATE TABLE `health_institution_profiles` (
 --
 
 INSERT INTO `health_institution_profiles` (`id`, `health_institution_id`, `phone`, `address`, `purchasedDoctorConnects`, `remainingDoctorConnects`, `created_at`, `updated_at`) VALUES
-(1, 2, '9219592195', 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala 695004', 0, 0, '2020-04-08 06:55:08', '2020-04-08 06:55:08');
+(1, 2, '9219592195', 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala 695004', 0, 0, '2020-04-09 01:53:37', '2020-04-09 01:53:37');
 
 -- --------------------------------------------------------
 
@@ -436,7 +436,7 @@ CREATE TABLE `license_subscriptions` (
 --
 
 INSERT INTO `license_subscriptions` (`id`, `health_institution_id`, `feeAmount`, `startDate`, `endDate`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, '999.00', '2020-03-30', '2021-03-30', 1, '2020-04-08 06:55:08', '2020-04-08 06:55:08');
+(1, 1, '999.00', '2020-03-30', '2021-03-30', 1, '2020-04-09 01:53:36', '2020-04-09 01:53:36');
 
 -- --------------------------------------------------------
 
@@ -460,11 +460,11 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`id`, `uuid`, `title`, `content`, `health_institution_id`, `isPosted`, `created_at`, `updated_at`) VALUES
-(1, '23728630-6f21-4a9a-b256-15e79775e6aa', 'India To Deploy Rapid Test Kits To Speed Up Covid-19 Screening', 'Central Govt to begin Rapid Test against Covid-19. The serological antibody blood test, which deliver results in 15 minutes, work on blood samples instead of nasal swabs', 2, 1, '2020-04-08 06:55:08', '2020-04-08 06:55:08'),
-(2, 'a74c300d-2241-40e1-a26c-1509f7b0039a', 'Protecting the Future of Medicine During the COVID-19 Pandemic', 'The American Heart Association believes that prematurely allowing medical trainees to provide patient care during the COVID-19 pandemic could put the next generation of medical professionals at serious risk.', 2, 1, '2020-04-08 06:55:08', '2020-04-08 06:55:08'),
-(3, '0f79f93c-d47e-4d6c-8b2e-16be287bf641', 'How to Prevent Domestic Violence During COVID-19', 'During COVID-19, access to trusted and security internet-based domestic violence services is even more important for survivors and concerned friends and family members who are trying to find ways to keep themselves safe while many states are on \"stay-at-home\" orders.', 2, 1, '2020-04-08 06:55:08', '2020-04-08 06:55:08'),
-(4, '57f45756-9c83-401b-9be3-e2e1b8a7ab06', 'Blue-light Technology Improves Identification of Bladder Cancer', 'Blue-light cystoscopy has previously been available at some institutions, including UT Southwestern, for use in the operating room, but it wasn’t available in a flexible scope until now.', 2, 1, '2020-04-08 06:55:08', '2020-04-08 06:55:08'),
-(5, '7e16e6e3-b197-4252-b9e8-a3669cf5db91', 'Spanish flu: The deadliest pandemic in history', 'In 1918, a strain of influenza known as Spanish flu caused a global pandemic, spreading rapidly and killing indiscriminately. Young, old, sick and otherwise-healthy people all became infected, and at least 10% of patients died.', 2, 1, '2020-04-08 06:55:08', '2020-04-08 06:55:08');
+(1, 'd0b2930e-5320-4041-9fb9-9f9e8a0bc27a', 'India To Deploy Rapid Test Kits To Speed Up Covid-19 Screening', 'Central Govt to begin Rapid Test against Covid-19. The serological antibody blood test, which deliver results in 15 minutes, work on blood samples instead of nasal swabs', 2, 1, '2020-04-09 01:53:37', '2020-04-09 01:53:37'),
+(2, 'f89ab863-8852-4920-9c7b-7636ceb0f1af', 'Protecting the Future of Medicine During the COVID-19 Pandemic', 'The American Heart Association believes that prematurely allowing medical trainees to provide patient care during the COVID-19 pandemic could put the next generation of medical professionals at serious risk.', 2, 1, '2020-04-09 01:53:37', '2020-04-09 01:53:37'),
+(3, 'b7e01ac7-eaaf-4bbb-8468-038811a32a60', 'How to Prevent Domestic Violence During COVID-19', 'During COVID-19, access to trusted and security internet-based domestic violence services is even more important for survivors and concerned friends and family members who are trying to find ways to keep themselves safe while many states are on \"stay-at-home\" orders.', 2, 1, '2020-04-09 01:53:37', '2020-04-09 01:53:37'),
+(4, '9bbf42e5-ca16-4d23-a105-ca91ebd5c105', 'Blue-light Technology Improves Identification of Bladder Cancer', 'Blue-light cystoscopy has previously been available at some institutions, including UT Southwestern, for use in the operating room, but it wasn’t available in a flexible scope until now.', 2, 1, '2020-04-09 01:53:37', '2020-04-09 01:53:37'),
+(5, 'f3e82325-b1d3-4103-a1a8-b139eef199a2', 'Spanish flu: The deadliest pandemic in history', 'In 1918, a strain of influenza known as Spanish flu caused a global pandemic, spreading rapidly and killing indiscriminately. Young, old, sick and otherwise-healthy people all became infected, and at least 10% of patients died.', 2, 1, '2020-04-09 01:53:37', '2020-04-09 01:53:37');
 
 -- --------------------------------------------------------
 
@@ -557,8 +557,8 @@ CREATE TABLE `oauth_clients` (
 --
 
 INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Laravel Personal Access Client', 'or1fkdDpaT7boxObL9WFpBMlpFvs20mzPtAEq8Vd', 'http://localhost', 1, 0, 0, '2020-04-08 06:55:08', '2020-04-08 06:55:08'),
-(2, NULL, 'Laravel Password Grant Client', 'FPcJOFD4zMy8ytIrDwYGyQhW4IUVJr7LnkcHfZ4e', 'http://localhost', 0, 1, 0, '2020-04-08 06:55:08', '2020-04-08 06:55:08');
+(1, NULL, 'Laravel Personal Access Client', 'cxeFwe4hjgteMvt0HIuVK6FnurcG105vv0YiPj8Q', 'http://localhost', 1, 0, 0, '2020-04-09 01:53:37', '2020-04-09 01:53:37'),
+(2, NULL, 'Laravel Password Grant Client', 'svfV4qsDUT6bmeuxaeFNdHLn9W1xMIuCDE4TnOwU', 'http://localhost', 0, 1, 0, '2020-04-09 01:53:37', '2020-04-09 01:53:37');
 
 -- --------------------------------------------------------
 
@@ -578,7 +578,7 @@ CREATE TABLE `oauth_personal_access_clients` (
 --
 
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2020-04-08 06:55:08', '2020-04-08 06:55:08');
+(1, 1, '2020-04-09 01:53:37', '2020-04-09 01:53:37');
 
 -- --------------------------------------------------------
 
@@ -622,7 +622,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `uuid`, `userCode`, `phone`, `is_doctor_id`, `country_id`, `androidDeviceId`, `androidPushToken`, `iosDeviceId`, `iosPushToken`, `isVerified`, `verificationNonce`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, '37baf429-a55d-401b-8dc9-3fcb861ac538', 'UxYUs3Fj', '+919219592195', NULL, 102, '08a2f5d1-c567-4334-b156-e037c63f8a41', NULL, NULL, NULL, 1, NULL, NULL, '2020-04-08 06:55:08', '2020-04-08 06:55:08');
+(1, '00d3de89-d250-4ed8-b422-d46e5ca8c5b8', 'UxYUs3Fj', '+919219592195', NULL, 102, '08a2f5d1-c567-4334-b156-e037c63f8a41', NULL, NULL, NULL, 1, NULL, NULL, '2020-04-09 01:53:37', '2020-04-09 01:53:37');
 
 -- --------------------------------------------------------
 
@@ -646,8 +646,8 @@ CREATE TABLE `user_diagnosis_logs` (
 --
 
 INSERT INTO `user_diagnosis_logs` (`id`, `patient_id`, `doctor_id`, `disease_id`, `diagnosisDateTime`, `stage`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, '2020-04-07 06:55:08', 1, '2020-04-08 06:55:08', '2020-04-08 06:55:08'),
-(2, 1, 1, 2, '2020-04-09 06:55:08', 2, '2020-04-08 06:55:08', '2020-04-08 06:55:08');
+(1, 1, 1, 1, '2020-04-08 01:53:37', 1, '2020-04-09 01:53:37', '2020-04-09 01:53:37'),
+(2, 1, 1, 2, '2020-04-10 01:53:37', 2, '2020-04-09 01:53:37', '2020-04-09 01:53:37');
 
 -- --------------------------------------------------------
 
@@ -670,9 +670,9 @@ CREATE TABLE `user_location_logs` (
 --
 
 INSERT INTO `user_location_logs` (`id`, `user_diagnosis_log_id`, `reportedDateTime`, `latitude`, `longitude`, `created_at`, `updated_at`) VALUES
-(1, 1, '2020-04-07 06:55:08', '53.0', '-1.4', '2020-04-08 06:55:08', '2020-04-08 06:55:08'),
-(2, 1, '2020-04-08 06:55:08', '54.0', '-1.2', '2020-04-08 06:55:08', '2020-04-08 06:55:08'),
-(3, 2, '2020-04-09 06:55:08', '55.0', '-1.0', '2020-04-08 06:55:08', '2020-04-08 06:55:08');
+(1, 1, '2020-04-08 01:53:37', '53.0', '-1.4', '2020-04-09 01:53:37', '2020-04-09 01:53:37'),
+(2, 1, '2020-04-09 01:53:37', '54.0', '-1.2', '2020-04-09 01:53:37', '2020-04-09 01:53:37'),
+(3, 2, '2020-04-10 01:53:37', '55.0', '-1.0', '2020-04-09 01:53:37', '2020-04-09 01:53:37');
 
 --
 -- Indexes for dumped tables

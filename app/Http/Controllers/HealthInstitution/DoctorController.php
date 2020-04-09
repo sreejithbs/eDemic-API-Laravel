@@ -68,7 +68,7 @@ class DoctorController extends Controller
             $doctor->profileQrCode = "0";  //temporary
             $doctor->save();
 
-            $encode_data = json_encode( array("type" => "doctor", "id" => $doctor->id, "health_institution_id" => $doctor->health_institution_id) );
+            $encode_data = json_encode( array("type" => "doctor", "id" => $doctor->id) );
             $qrCodeName = StringHelper::uniqueSlugString($doctor->name .'-doctor');
             $targetPath = 'storage/qrcodes/'.$qrCodeName.'.png';
 

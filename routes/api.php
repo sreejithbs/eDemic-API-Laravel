@@ -18,6 +18,7 @@ Route::group(['prefix' => 'v1'], function(){
 	Route::group(['middleware' => 'auth:api'], function(){
 		Route::get('messages/{index}', 'API\v1\UserController@messages');
 		Route::post('user/updateDeviceToken', 'API\v1\UserController@updateDeviceToken');
+		Route::get('doctor/fetchProfile/{doctor_id}', 'API\v1\UserController@fetchDoctorProfile');
 		Route::get('diseases', 'API\v1\UserController@diseases');
 	});
 });
