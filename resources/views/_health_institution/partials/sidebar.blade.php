@@ -28,7 +28,7 @@
                 </li>
 
                 @can('isCountryHead')
-                    <li class="nav-item {{ \StringHelper::setActive(['institution_institutions.*']) }}" >
+                    <li class="nav-item {{ \StringHelper::setActive(['institution_institutions.list']) }}" >
                         <a href="{{ route('institution_institutions.list') }}">
                             <i class="la la-hospital-o"></i>
                             <span class="menu-title">Health Institutions</span>
@@ -37,7 +37,7 @@
                 @endcan
 
                 @can('isInstitution')
-                    <li class="nav-item {{ \StringHelper::setActive(['institution_doctors.*']) }}" >
+                    <li class="nav-item {{ \StringHelper::setActive(['institution_doctors.list']) }}" >
                         <a href="{{ route('institution_doctors.list') }}">
                             <i class="la la-stethoscope"></i>
                             <span class="menu-title">Doctors</span>
@@ -45,14 +45,14 @@
                     </li>
                 @endcan
 
-                <li class="nav-item {{ \StringHelper::setActive(['institution_messages.*']) }}" >
+                <li class="nav-item {{ \StringHelper::setActive(['institution_messages.list']) }}" >
                     <a href="{{ route('institution_messages.list') }}">
                         <i class="la la-bullhorn"></i>
                         <span class="menu-title">Messages</span>
                     </a>
                 </li>
 
-                <li class="nav-item {{ \StringHelper::setActive(['institution_diseases.*']) }}" >
+                <li class="nav-item {{ \StringHelper::setActive(['institution_diseases.list']) }}" >
                     <a href="{{ route('institution_diseases.list') }}">
                         <i class="la la-bug"></i>
                         <span class="menu-title">Diseases</span>
@@ -67,6 +67,8 @@
                         </a>
                     </li>
                 @endcan
+
+                updateRiskLevel
 
                 <li class="nav-item" >
                     <a href="javascript:void(0);">
