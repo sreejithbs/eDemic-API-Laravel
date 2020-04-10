@@ -7,8 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageRequest;
 use Auth, DB;
 use ConstantHelper;
-// use QrCode;
+use Edujugon\PushNotification\PushNotification;
 
+use App\Models\User;
 use App\Models\Message;
 
 class MessageController extends Controller
@@ -137,6 +138,56 @@ class MessageController extends Controller
     // Trigger Android and iOS push message
     public function triggerPushMessage($uuid)
     {
-        dd('push notification in progress');
+        $message = Message::fetchModelByUuId($uuid);
+        $messageTitle = $message->title;
+        $messageBody = $message->content;
+        $messageCustom = 'My custom data in extraPayLoad';
+
+        $androidDeviceTokenArr = User::whereNotNull('androidPushToken')->pluck('androidPushToken')->toArray();
+        $iosDeviceTokenArr = User::whereNotNull('iosPushToken')->pluck('iosPushToken')->toArray();
+        // dd($androidDeviceTokenArr);
+        // dd($iosDeviceTokenArr);
+
+        // Android Push message
+        if( count($androidDeviceTokenArr) > 0 ){
+            $push = new PushNotification('fcm');
+            $push->setMessage([
+                    'notification' => [
+                        'title' => $messageTitle,
+                        'body' => $messageBody,
+                        'sound' => 'default'
+                    ],
+                    'data' => [
+                        'customPayLoad' => $messageCustom,
+                    ]
+            ])
+            ->setApiKey( config('pushnotification.fcm')['apiKey'] )
+            ->setDevicesToken($androidDeviceTokenArr)
+            ->send();
+            // dd($push->getFeedback());
+        }
+
+        // iOS Push message
+        // if( count($iosDeviceTokenArr) > 0 ){
+        //     $push = new PushNotification('apn');
+        //     $push->setMessage([
+        //             'aps' => [
+        //                 'alert' => [
+        //                     'title' => $messageTitle,
+        //                     'body' => $messageBody
+        //                 ],
+        //                 'sound' => 'default',
+        //                 'badge' => 1
+        //             ],
+        //             'extraPayLoad' => [
+        //                 'customPayLoad' => $messageCustom,
+        //             ]
+        //         ])
+        //     ->setDevicesToken($iosDeviceTokenArr)
+        //     ->send();
+        //     // dd($push->getFeedback());
+        // }
+
+        return back()->with('success', ConstantHelper::MESSAGE_PUSH);
     }
 }

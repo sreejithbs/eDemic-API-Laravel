@@ -47,7 +47,7 @@
                                 "type": "object",
                                 "example": {
                                     "phone_number": "+918943406910",
-                                    "android_device_id": "08a2f5d1-c567-4334-b156-e037c63f8a41",
+                                    "android_device_id": "9774d56d682e549c",
                                     "ios_device_id": ""
                                 }
                             }
@@ -159,7 +159,7 @@
                                 },
                                 "type": "object",
                                 "example": {
-                                    "android_device_token": "08a2f5d1-c567-4334-b156-e037c63f8a41",
+                                    "android_device_token": "654C4DB3-3F68-4969-8ED2-80EA16B46EB0",
                                     "ios_device_token": ""
                                 }
                             }
@@ -277,7 +277,7 @@
                                         "items": {
                                             "example": {
                                                 "date_time": "2020-04-08 07:23:37",
-                                                "latitude": "53.0",
+                                                "latitude": "53.8",
                                                 "longitude": "-1.4"
                                             }
                                         }
@@ -342,6 +342,10 @@
         {
             "name": "Diseases",
             "description": "API Endpoints for Diseases"
+        },
+        {
+            "name": "Map",
+            "description": "API Endpoints for Map"
         }
     ]
 }

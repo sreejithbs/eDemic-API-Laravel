@@ -86,7 +86,7 @@ class UserController extends Controller
      *                 @OA\Property(property="android_device_token", type="string"),
      *                 @OA\Property(property="ios_device_token", type="string"),
      *                 example={
-     *                     "android_device_token": "08a2f5d1-c567-4334-b156-e037c63f8a41",
+     *                     "android_device_token": "654C4DB3-3F68-4969-8ED2-80EA16B46EB0",
      *                     "ios_device_token": "",
      *                 },
      *             )

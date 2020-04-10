@@ -36,7 +36,7 @@ class AuthController extends Controller
      *                 @OA\Property(property="ios_device_id", type="string"),
      *                 example={
      *                     "phone_number": "+918943406910",
-     *                     "android_device_id": "08a2f5d1-c567-4334-b156-e037c63f8a41",
+     *                     "android_device_id": "9774d56d682e549c",
      *                     "ios_device_id": "",
      *                 },
      *             )

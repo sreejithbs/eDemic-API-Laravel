@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder
         $user = new User();
         $user->userCode = 'UxYUs3Fj';
         $user->phone = '+919219592195';
-        $user->androidDeviceId = '08a2f5d1-c567-4334-b156-e037c63f8a41';
+        $user->androidDeviceId = '9c74d56d682e549c';
         $user->isVerified = 1;
         $user->country_id = DB::table('countries')->where('isoAlphaCode', 'IN')->value('id');
         $user->save();

@@ -39,7 +39,7 @@
                                         <td> {{ $message->content }} </td>
                                         <td class="no-wrap">
 
-                                            <a href="{{ route('institution_messages.triggerPushMessage', $message->uuid ) }}" class="btn btn-icon btn-success btn-sm"> <i class="la la-paper-plane"></i> Send </a>
+                                            <a href="{{ route('institution_messages.triggerPushMessage', $message->uuid ) }}" class="btn btn-icon btn-success btn-sm"> <i class="la la-paper-plane"></i> Send Push</a>
 
                                             @can('isCountryHead')
                                                 <a href="{{ route('institution_messages.edit', $message->uuid ) }}" class="btn btn-icon btn-info btn-sm"> <i class="la la-edit"></i> </a>
