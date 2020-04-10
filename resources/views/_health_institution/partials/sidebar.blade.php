@@ -60,15 +60,14 @@
                 </li>
 
                 @can('isCountryHead')
-                    <li class="nav-item" >
+                    <li class="nav-item {{ \StringHelper::setActive(['institution_diseases.editRiskLevel']) }}" >
                         <a href="javascript:void(0);">
+                        <!-- <a href="{{ route('institution_diseases.editRiskLevel') }}"> -->
                             <i class="ft-alert-triangle"></i>
                             <span class="menu-title">Risk Level</span>
                         </a>
                     </li>
                 @endcan
-
-                updateRiskLevel
 
                 <li class="nav-item" >
                     <a href="javascript:void(0);">

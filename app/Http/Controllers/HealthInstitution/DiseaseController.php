@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\HealthInstitution;
 
 use App\Http\Controllers\Controller;
-// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use App\Http\Requests\DiseaseRequest;
 use DB;
 use StringHelper, ConstantHelper;
@@ -156,5 +156,51 @@ class DiseaseController extends Controller
         }
 
         return back()->with('success', ConstantHelper::DISEASE_DELETE);
+    }
+
+    /**
+     * Display a listing of the diseases and risk levels.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function editRiskLevel()
+    {
+        $diseases = Disease::latest()->get();
+        return view('_health_institution.disease_risk_level', compact('diseases'));
+    }
+
+    // AJAX : Fetch disease risk level
+    public function fetchRiskLevel(Request $request)
+    {
+        if($request->ajax()){
+            $disease = Disease::fetchModelByUuId($request->disease);
+            return response()->json(['status' => TRUE, 'level' => $disease->riskLevel]);
+        }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  App\Http\Requests\DiseaseRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateRiskLevel(DiseaseRequest $request)
+    {
+        DB::beginTransaction();
+
+        try {
+            $disease = Disease::fetchModelByUuId($request->disease);
+            $disease->riskLevel = $request->risk_level;
+            $disease->save();
+
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            // return back()->withErrors(['error' => $e->getMessage()]);
+            return back()->withErrors(['error' => ConstantHelper::DISEASE_UPDATE_FAIL]);
+        }
+
+        return back()->with('success', ConstantHelper::DISEASE_UPDATE);
     }
 }

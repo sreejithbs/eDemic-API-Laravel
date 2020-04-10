@@ -42,6 +42,14 @@ class DiseaseRequest extends FormRequest
                     'risk_level' => 'required|numeric',
                 ];
             }
+            case 'PUT':
+            {
+                return [
+                    'disease'   => 'required|string',
+                    'risk_level' => 'required|numeric',
+                    'password' => 'required|string|max:8',
+                ];
+            }
             default: break;
         }
     }
@@ -54,7 +62,7 @@ class DiseaseRequest extends FormRequest
      */
     public function withValidator($validator)
     {
-        if( $this->method() == 'POST'){
+        if( in_array($this->method(), ['POST', 'PUT']) ){
             $validator->after(function ($validator) {
                 if ( ! Hash::check($this->password, $this->user()->password) ) {
                     $validator->errors()->add('password', 'Your Login password does not match our record.');
