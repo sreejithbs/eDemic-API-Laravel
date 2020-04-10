@@ -55,7 +55,11 @@
                                     <div class="col-md-9">
                                         <div class="input-group skin skin-square">
                                             <div class="d-inline-block custom-control custom-radio" style="padding-left: 0px;">
-                                                <input type="radio" name="risk_level" class="custom-control-input" id="level_1" value="1" required data-parsley-required-message="Please choose Risk Level" data-parsley-errors-container="#level_errorDiv">
+                                                <input type="radio" name="risk_level" class="custom-control-input" id="level_0" value="0" required checked data-parsley-required-message="Please choose Risk Level" data-parsley-errors-container="#level_errorDiv">
+                                                <label for="level_0">None</label>
+                                            </div>
+                                            <div class="d-inline-block custom-control custom-radio">
+                                                <input type="radio" name="risk_level" class="custom-control-input" id="level_1" value="1">
                                                 <label for="level_1">Risk Level 1</label>
                                             </div>
                                             <div class="d-inline-block custom-control custom-radio">
@@ -70,7 +74,7 @@
                                         <div id="level_errorDiv"></div>
                                     </div>
                                 </div>
-                                <div class="form-group row last">
+                                <div class="form-group row">
                                     <label class="col-md-3 label-control">QR Codes</label>
                                     <div class="col-md-9 text-center">
                                         <!-- <div class="card"> -->
@@ -99,6 +103,12 @@
                                                 </div>
                                             <!-- </div> -->
                                         <!-- </div> -->
+                                    </div>
+                                </div>
+                                <div class="form-group row last">
+                                    <label class="col-md-3 label-control">Enter your Login Password *</label>
+                                    <div class="col-md-9">
+                                        <input type="password" id="password" class="form-control" placeholder="Login Password" name="password" required data-parsley-maxlength="8" data-parsley-required-message="Please enter Login Password">
                                     </div>
                                 </div>
                             </div>

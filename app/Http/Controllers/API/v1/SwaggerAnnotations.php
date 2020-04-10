@@ -53,8 +53,4 @@ namespace App\Http\Requests\API;
  *     name="Diseases",
  *     description="API Endpoints for Diseases",
  * )
-  * @OA\Tag(
- *     name="Map",
- *     description="API Endpoints for Map",
- * )
  */

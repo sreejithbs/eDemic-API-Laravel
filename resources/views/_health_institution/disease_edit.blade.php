@@ -44,7 +44,11 @@
                                     <div class="col-md-9">
                                         <div class="input-group skin skin-square">
                                             <div class="d-inline-block custom-control custom-radio" style="padding-left: 0px;">
-                                                <input type="radio" name="risk_level" class="custom-control-input" id="level_1" value="1" required data-parsley-required-message="Please choose Risk Level" data-parsley-errors-container="#level_errorDiv" {{ ($disease->riskLevel == 1) ? 'checked' : '' }}>
+                                                <input type="radio" name="risk_level" class="custom-control-input" id="level_0" value="0" required data-parsley-required-message="Please choose Risk Level" data-parsley-errors-container="#level_errorDiv" {{ ($disease->riskLevel == 0) ? 'checked' : '' }}>
+                                                <label for="level_0">None</label>
+                                            </div>
+                                            <div class="d-inline-block custom-control custom-radio">
+                                                <input type="radio" name="risk_level" class="custom-control-input" id="level_1" value="1" {{ ($disease->riskLevel == 1) ? 'checked' : '' }}>
                                                 <label for="level_1">Risk Level 1</label>
                                             </div>
                                             <div class="d-inline-block custom-control custom-radio">

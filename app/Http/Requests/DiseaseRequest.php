@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class DiseaseRequest extends FormRequest
 {
@@ -31,6 +32,7 @@ class DiseaseRequest extends FormRequest
                     'name'   => 'required|string|max:255',
                     'code' => 'required|string|max:8',
                     'risk_level' => 'required|numeric',
+                    'password' => 'required|string|max:8',
                 ];
             }
             case 'PATCH':
@@ -41,6 +43,24 @@ class DiseaseRequest extends FormRequest
                 ];
             }
             default: break;
+        }
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator($validator)
+    {
+        if( $this->method() == 'POST'){
+            $validator->after(function ($validator) {
+                if ( ! Hash::check($this->password, $this->user()->password) ) {
+                    $validator->errors()->add('password', 'Your Login password does not match our record.');
+                }
+            });
+            return;
         }
     }
 }

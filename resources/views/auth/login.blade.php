@@ -9,7 +9,7 @@
             <div class="card-header border-0">
                 <div class="card-title text-center">
                     <div class="p-1">
-                        <img src="{{ asset('modern_admin_assets/images/logo/logo.png')}}" alt="Logo">
+                        <img src="{{ asset('images/Logo-1.png')}}" height="40%" width="40%" alt="Logo">
                     </div>
                 </div>
                 <h6 class="card-subtitle line-on-side text-muted text-center font-small-4 pt-2">

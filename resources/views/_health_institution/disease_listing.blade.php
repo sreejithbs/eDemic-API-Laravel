@@ -39,7 +39,9 @@
                                         <td> {{ $disease->diseaseCode }}</td>
                                         <td> {{ $disease->name }}</td>
                                         <td>
-                                            @if( $disease->riskLevel == 1 )
+                                            @if( $disease->riskLevel == 0 )
+                                                None
+                                            @elseif( $disease->riskLevel == 1 )
                                                 <span class="badge badge-danger"> Level 1 </span>
                                             @elseif( $disease->riskLevel == 2 )
                                                 <span class="badge badge-warning"> Level 2 </span>
@@ -49,7 +51,7 @@
                                         </td>
                                         @can('isCountryHead')
                                             <td class="no-wrap">
-                                                <a href="{{ route('institution_diseases.edit', $disease->uuid ) }}" class="btn btn-icon btn-info btn-sm"> <i class="la la-edit"></i> </a>
+                                                <!-- <a href="{{ route('institution_diseases.edit', $disease->uuid ) }}" class="btn btn-icon btn-info btn-sm"> <i class="la la-edit"></i> </a> -->
 
                                                 {!! Form::open(array(
                                                         'route' => array('institution_diseases.delete', $disease->uuid),

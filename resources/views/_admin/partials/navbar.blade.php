@@ -10,7 +10,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="navbar-brand" href="javascript:void(0);">
-                        <img class="brand-logo" alt="modern admin logo" src="{{ asset('modern_admin_assets/images/logo/logo.png')}}">
+                        <img class="brand-logo" src="{{ asset('images/Logo-1.png')}}" style="width: 48px;" alt="Logo">
                         <h3 class="brand-text">e-Demic</h3>
                     </a>
                 </li>

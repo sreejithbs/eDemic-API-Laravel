@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
 
 use App\Models\LicenseSubscription;
 
@@ -28,7 +29,13 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('_health_institution.dashboard');
+        if(Gate::allows('hasLicencePurchased') && Gate::allows('isCountryHead')){
+            return redirect()->route('institution_institutions.list');
+        } else if(Gate::allows('hasLicencePurchased') && Gate::allows('isInstitution')){
+            return redirect()->route('institution_doctors.list');
+        } else{
+            return view('_health_institution.dashboard');
+        }
     }
 
     /**

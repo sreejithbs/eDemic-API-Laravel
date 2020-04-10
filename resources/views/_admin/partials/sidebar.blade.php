@@ -2,11 +2,42 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
-            <li class="nav-item {{ \StringHelper::setActive(['admin_dashboard.show']) }}" >
+            <!-- <li class="nav-item {{ \StringHelper::setActive(['admin_dashboard.show']) }}" >
                 <a href="{{ route('admin_dashboard.show') }}">
                     <i class="la la-home"></i>
                     <span class="menu-title">Home</span>
                 </a>
+            </li> -->
+
+            <li class="nav-item {{ \StringHelper::setActive(['admin_dashboard.show']) }}" >
+                <a href="{{ route('admin_dashboard.show') }}">
+                    <i class="la la-server"></i>
+                    <span class="menu-title">Accounts</span>
+                </a>
+            </li>
+
+            <li class="nav-item" >
+                <a href="javascript:void(0);">
+                    <i class="ft-activity"></i>
+                    <span class="menu-title">Statistics</span>
+                </a>
+            </li>
+
+            <li class="nav-item" >
+                <a href="javascript:void(0);">
+                    <i class="la la-h-square"></i>
+                    <span class="menu-title">Health Head</span>
+                </a>
+            </li>
+
+            <li class="nav-item" >
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-formId').submit();">
+                    <i class="ft-power"></i>
+                    <span class="menu-title">Signout</span>
+                </a>
+                <form id="logout-formId" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
             </li>
 
         </ul>
