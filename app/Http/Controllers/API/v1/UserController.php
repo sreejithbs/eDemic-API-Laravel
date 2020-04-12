@@ -58,7 +58,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => ConstantHelper::STATUS_OK,
                 'message' => 'Messages List',
-                'page' => $index,
+                'page' => (int)$index,
                 'data' => $messages->toArray()
             ], ConstantHelper::STATUS_OK);
         } else{
@@ -107,8 +107,10 @@ class UserController extends Controller
         $user = Auth::user();
         if($request->has('android_device_token')){
             $user->androidPushToken = $request->android_device_token;
+            $user->iosPushToken = null;
         } else{
             $user->iosPushToken = $request->ios_device_token;
+            $user->androidPushToken = null;
         }
         $user->save();
 
@@ -254,8 +256,8 @@ class UserController extends Controller
      *         @OA\MediaType(
      *             mediaType="application/json",
      *             @OA\Schema(
-     *                 @OA\Property(property="disease_code", type="string", example="6001"),
-     *                 @OA\Property(property="stage_code", type="string", example="5001"),
+     *                 @OA\Property(property="disease_code", type="integer", example=6001),
+     *                 @OA\Property(property="stage_code", type="integer", example=5001),
      *                 @OA\Property(property="diagnosed_date_time", type="string", example="2020-04-08 07:23:37"),
      *                 @OA\Property(property="location_logs", type="array",
      *                      @OA\Items(

@@ -139,6 +139,9 @@ class MessageController extends Controller
     public function triggerPushMessage($uuid)
     {
         $message = Message::fetchModelByUuId($uuid);
+        $message->isPosted = 1;
+        $message->save();
+
         $messageTitle = $message->title;
         $messageBody = $message->content;
         $messageCustom = 'My custom data in extraPayLoad';

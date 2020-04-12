@@ -342,10 +342,6 @@
         {
             "name": "Diseases",
             "description": "API Endpoints for Diseases"
-        },
-        {
-            "name": "Map",
-            "description": "API Endpoints for Map"
         }
     ]
 }

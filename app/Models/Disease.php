@@ -42,11 +42,11 @@ class Disease extends Model
      */
     public static function fetchAllDiseasesApi()
     {
-    	$diseases = self::all()->reduce(function ($carry, $disease) {
-    	    return $carry + [$disease['apiStatusCode'] => $disease['name']];
-    	}, []);
-
-    	return array("diseases" => $diseases);
+        $diseasesArr = array();
+        foreach (self::all() as $disease){
+            $diseasesArr[] = array( 'code' => $disease->apiStatusCode, 'name' => $disease->name );
+        }
+    	return array("diseases" => $diseasesArr);
     }
 
     /**

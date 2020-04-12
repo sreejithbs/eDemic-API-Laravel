@@ -4,23 +4,23 @@ return [
 
     // General
     'general' => [
-        1000 => 'API fields validation error',
-        1001 => 'Unauthorized Access error',
-        1002 => 'Eloquent Model not found error',
-        1003 => 'Data mismatch error',
-        1004 => 'No data error',
+        array( 'code' => 1000, 'description' => 'API fields validation error' ),
+        array( 'code' => 1001, 'description' => 'Unauthorized Access error' ),
+        array( 'code' => 1002, 'description' => 'Eloquent Model not found error' ),
+        array( 'code' => 1003, 'description' => 'Data mismatch error' ),
+        array( 'code' => 1004, 'description' => 'No data error' ),
 
         // External services
-        2000 => 'Twilio SMS Service error',
+        array( 'code' => 2000, 'description' => 'Twilio SMS Service error' ),
     ],
 
 
     // Disease Status
     'disease_stages' => [
-        5001 => 'Infection Status',
-        5002 => 'Recovered Status',
-        5003 => 'Dead Status',
-        5004 => 'Self Quarantine Status',
+        array( 'code' => 5001, 'status' => 'Infection' ),
+        array( 'code' => 5002, 'status' => 'Recovered' ),
+        array( 'code' => 5003, 'status' => 'Dead' ),
+        array( 'code' => 5004, 'status' => 'Self Quarantine' ),
     ],
 
     // Diseases from DB. Starts at 6000
