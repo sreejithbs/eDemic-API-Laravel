@@ -179,9 +179,35 @@ class AuthController extends Controller
                     $docArr['doctor_details'] = [];
                 }
 
-                // Demo
-                $patientArr['is_patient'] = false;
-                $patientArr['patient_details'] = [];
+                $user_diagnosis_logs = $user->patients()->get();
+                if($user_diagnosis_logs->isNotEmpty()){
+                    $patientArr['is_patient'] = true;
+                    foreach ($user_diagnosis_logs as $user_diagnosis_log) {
+
+                        $tempArr = array();
+                        $tempArr = array(
+                            'disease_code' => (int)$user_diagnosis_log->disease_id + 6000,
+                            'stage_code' => (int)$user_diagnosis_log->stage + 5000,
+                            'diagnosed_date_time' => $user_diagnosis_log->diagnosisDateTime,
+                        );
+
+                        $user_location_logs = $user_diagnosis_log->user_location_logs()->get();
+                        if($user_location_logs->isNotEmpty()){
+                            foreach ($user_location_logs as $user_location_log) {
+                                $tempArr['location_logs'][] = array(
+                                    'date_time' => $user_location_log->reportedDateTime,
+                                    'latitude' => $user_location_log->latitude,
+                                    'longitude' => $user_location_log->longitude,
+                                );
+                            }
+                        }
+
+                        $patientArr['patient_details'][] = $tempArr;
+                    }
+                } else{
+                    $patientArr['is_patient'] = false;
+                    $patientArr['patient_details'] = [];
+                }
 
                 $data['user_details'] = array_merge($docArr, $patientArr);
 
