@@ -8,6 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Events\HealthInstitutionWasCreatedEvent;
 use Mail;
 
+use App\Models\HealthInstitution;
+
 class SendHealthInstitutionCreatedNotification
 {
     /**
@@ -32,10 +34,11 @@ class SendHealthInstitutionCreatedNotification
 
         $info = array(
             'to' => $institution->email,
-            'from' => 'no-reply@edemic.com',
+            'from' => env('MAIL_FROM_ADDRESS', 'no-reply@edemic.com'),
             'subject' => 'Health Institution Registration Successful | e-Demic',
             'template' => 'emails.institution_create',
             'data' => [
+                'parent_institution' => HealthInstitution::find($institution->health_institution_profile->head_health_institution_id)->name,
                 'institution_name' =>  $institution->name,
                 'institution_code' =>  $institution->institutionCode,
                 'email' => $institution->email,

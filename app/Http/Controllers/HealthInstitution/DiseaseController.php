@@ -5,11 +5,12 @@ namespace App\Http\Controllers\HealthInstitution;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\DiseaseRequest;
-use DB;
+use Auth, DB;
 use StringHelper, ConstantHelper;
 use QrCode;
 
 use App\Models\Disease;
+use App\Events\DiseaseWasCreatedEvent;
 
 class DiseaseController extends Controller
 {
@@ -54,6 +55,8 @@ class DiseaseController extends Controller
      */
     public function store(DiseaseRequest $request)
     {
+        $user = Auth::guard('health_institution')->user();
+
         DB::beginTransaction();
 
         try {
@@ -61,7 +64,7 @@ class DiseaseController extends Controller
             $disease->name = $request->name;
             $disease->diseaseCode = $request->code;
             $disease->riskLevel = $request->risk_level;
-            $disease->save();
+            $user->diseases()->save($disease);
 
             $id_code = $disease->id + 6000;
             $stages = array(
@@ -88,6 +91,9 @@ class DiseaseController extends Controller
             $disease->save();
 
             DB::commit();
+
+            // Trigger Mail
+            event( new DiseaseWasCreatedEvent($disease) );
 
         } catch (\Exception $e) {
             DB::rollback();

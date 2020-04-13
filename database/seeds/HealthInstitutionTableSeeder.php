@@ -33,7 +33,7 @@ class HealthInstitutionTableSeeder extends Seeder
 
 
         $institution = new HealthInstitution();
-        $institution->name = 'Demo Hospital Institution';
+        $institution->name = 'Cosmo Hospital Institution';
         $institution->institutionCode = 'HIN0002';
         $institution->email = 'institution@demo.com';
         // $institution->password = bcrypt('123456');
@@ -42,17 +42,18 @@ class HealthInstitutionTableSeeder extends Seeder
         $institution->save();
 
         $institution_profile = new HealthInstitutionProfile();
+        $institution_profile->head_health_institution_id = $institution_head->id;
         $institution_profile->phone = '9219592195';
         $institution_profile->address = 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala 695004';
         $institution_profile->purchasedDoctorConnects = 0;
         $institution_profile->remainingDoctorConnects = 0;
         $institution->health_institution_profile()->save($institution_profile);
 
-        // $license_subscription = new LicenseSubscription();
-        // $license_subscription->feeAmount = '999.00';
-        // $license_subscription->startDate = '2020-03-30';
-        // $license_subscription->endDate = '2021-03-30';
-        // $license_subscription->status = 1;
-        // $institution->license_subscription()->save($license_subscription);
+        $license_subscription = new LicenseSubscription();
+        $license_subscription->feeAmount = '999.00';
+        $license_subscription->startDate = '2020-03-30';
+        $license_subscription->endDate = '2021-03-30';
+        $license_subscription->status = 1;
+        $institution->license_subscription()->save($license_subscription);
     }
 }

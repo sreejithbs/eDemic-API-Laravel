@@ -55,6 +55,8 @@ class HealthInstitutionController extends Controller
      */
     public function store(InstitutionRequest $request)
     {
+        $user = Auth::guard('health_institution')->user();
+
         DB::beginTransaction();
 
         try {
@@ -63,10 +65,11 @@ class HealthInstitutionController extends Controller
             $institution->institutionCode = $request->uid;
             $institution->email = $request->email;
             $institution->password = bcrypt($request->password);
-            $institution->country_id = Auth::guard('health_institution')->user()->country_id;
+            $institution->country_id = $user->country_id;
             $institution->save();
 
             $institution_profile = new HealthInstitutionProfile();
+            $institution_profile->head_health_institution_id = $user->id;
             $institution_profile->phone = $request->phone_number;
             $institution_profile->address = $request->address;
             $institution->health_institution_profile()->save($institution_profile);
@@ -77,6 +80,7 @@ class HealthInstitutionController extends Controller
             event( new HealthInstitutionWasCreatedEvent($institution, $request->password) );
 
         } catch (\Exception $e) {
+            dd($e);
             DB::rollback();
             // return back()->withErrors(['error' => $e->getMessage()]);
             return back()->withErrors(['error' => ConstantHelper::INSTITUTION_CREATE_FAIL]);

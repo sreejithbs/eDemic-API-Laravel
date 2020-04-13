@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title> Health Institution Registration Successful | e-Demic </title>
+        <title> New Disease Added | e-Demic </title>
         <style type="text/css">
             img {
                 max-width: 100%;
@@ -80,25 +80,19 @@
                                     <table width="100%" cellpadding="0" cellspacing="0" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                Hello <strong style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"> {{ $data['institution_name'] }}</strong>,
+                                                Hello <strong style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"> Institution</strong>,
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                Welcome to e-Demic. Your Health Institution account has been created successfully. Please purchase your License and Doctor Connections from your account, to use e-Demic. <br><br>Here are your account details :
+                                                Your Parent Health Institution has added a new disease record. Here are the disease details :
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                <strong>Health Institution Code</strong> : {{ $data['institution_code'] }} <br>
-                                                <strong>Parent Health Institution</strong> : {{ $data['parent_institution'] }} <br>
-                                                <strong>Username</strong> : {{ $data['email'] }} <br>
-                                                <strong>Password</strong> : {{ $data['password'] }}
-                                            </td>
-                                        </tr>
-                                        <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-                                            <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                <a href="{{ $data['login_url'] }}" class="btn-primary" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #348eda; margin: 0; border-color: #348eda; border-style: solid; border-width: 5px 20px;">Proceed to Login</a>
+                                                <strong>Disease Name</strong> : {{ $data['disease_name'] }} <br>
+                                                <strong>Disease Code</strong> : {{ $data['disease_code'] }} <br>
+                                                <strong>Risk Level</strong> : Level {{ $data['risk_level'] }}
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">

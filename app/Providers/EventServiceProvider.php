@@ -11,6 +11,8 @@ use App\Events\HealthInstitutionWasCreatedEvent;
 use App\Listeners\SendHealthInstitutionCreatedNotification;
 use App\Events\DoctorProfileWasCreatedEvent;
 use App\Listeners\SendDoctorProfileCreatedNotification;
+use App\Events\DiseaseWasCreatedEvent;
+use App\Listeners\SendDiseaseCreatedNotification;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         DoctorProfileWasCreatedEvent::class => [
             SendDoctorProfileCreatedNotification::class,
+        ],
+        DiseaseWasCreatedEvent::class => [
+            SendDiseaseCreatedNotification::class,
         ],
     ];
 

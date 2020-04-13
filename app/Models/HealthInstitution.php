@@ -9,6 +9,7 @@ use App\Traits\UuidTrait;
 
 use App\Models\HealthInstitutionProfile;
 use App\Models\LicenseSubscription;
+use App\Models\Disease;
 use App\Models\DoctorProfile;
 use App\Models\AlertMessage;
 
@@ -64,6 +65,13 @@ class HealthInstitution extends Authenticatable
      */
     public function license_subscription(){
         return $this->hasOne(LicenseSubscription::class, 'health_institution_id');
+    }
+
+    /**
+     * The diseases that belong to the health_institution.
+     */
+    public function diseases(){
+        return $this->hasMany(Disease::class, 'health_institution_id');
     }
 
     /**

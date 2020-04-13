@@ -162,7 +162,7 @@ class UserController extends Controller
                     'status' => ConstantHelper::STATUS_FORBIDDEN,
                     'error' => [
                         'code' => 1001,
-                        'message'=> 'User account is already mapped to another Doctor Profile.'
+                        'message'=> 'User account is already mapped to a Doctor Profile.'
                     ],
                 ], ConstantHelper::STATUS_FORBIDDEN);
             }

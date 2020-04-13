@@ -34,7 +34,7 @@ class SendDoctorProfileCreatedNotification
 
         $info = array(
             'to' => $doctor->email,
-            'from' => 'no-reply@edemic.com',
+            'from' => env('MAIL_FROM_ADDRESS', 'no-reply@edemic.com'),
             'subject' => 'Doctor Registration Successful | e-Demic',
             'template' => 'emails.doctor_create',
             'data' => [

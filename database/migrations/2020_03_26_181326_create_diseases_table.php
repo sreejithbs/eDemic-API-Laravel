@@ -16,6 +16,7 @@ class CreateDiseasesTable extends Migration
         Schema::create('diseases', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uuid')->index();
+            $table->unsignedBigInteger('health_institution_id');
             $table->string('name');
             $table->string('diseaseCode', 10)->index();
             $table->string('infectionQrCode')->nullable();
@@ -25,6 +26,13 @@ class CreateDiseasesTable extends Migration
             $table->tinyInteger('riskLevel');
             $table->softDeletes();
             $table->timestamps();
+        });
+
+        /**
+         * Foreign Key Constraint
+         */
+        Schema::table('diseases', function (Blueprint $table) {
+            $table->foreign('health_institution_id')->references('id')->on('health_institutions')->onDelete('cascade');
         });
     }
 
