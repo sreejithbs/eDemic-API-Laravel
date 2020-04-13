@@ -10,7 +10,9 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Carbon\Carbon;
 use ConstantHelper;
+use Edujugon\PushNotification\PushNotification;
 
+use App\Models\User;
 use App\Models\Message;
 use App\Models\DoctorProfile;
 use App\Models\Disease;
@@ -49,9 +51,12 @@ class UserController extends Controller
     public function messages($index)
     {
         $limit = 3;
+        $offset = ($index - 1) * $limit;
+
+        $message_count = Message::isPosted()->count();
         $messages = Message::isPosted()
                 ->latest()
-                ->skip(($index - 1) * $limit)->take($limit)
+                ->skip($offset)->take($limit)
                 ->get(['id', 'title', 'content', 'created_at']);
 
         if($messages->isNotEmpty()){
@@ -59,6 +64,7 @@ class UserController extends Controller
                 'status' => ConstantHelper::STATUS_OK,
                 'message' => 'Messages List',
                 'page' => (int)$index,
+                'has_more_available' => ($message_count > ($offset + $limit)) ? true : false,
                 'data' => $messages->toArray()
             ], ConstantHelper::STATUS_OK);
         } else{
@@ -290,26 +296,71 @@ class UserController extends Controller
     public function diseaseDiagnosed(PatientDiagnosedRequest $request)
     {
         $user = Auth::user();
+        $disease = Disease::find((int)$request->disease_code - 6000);
 
         $diagnosis_log = new UserDiagnosisLog();
-        $diagnosis_log->disease_id = (int)$request->disease_code - 6000;
+        $diagnosis_log->disease_id = $disease->id;
         $diagnosis_log->diagnosisDateTime = Carbon::parse($request->diagnosed_date_time)->format('Y-m-d H:i:s');
         $diagnosis_log->stage = (int)$request->stage_code - 5000;
         $user->patients()->save($diagnosis_log);
 
         foreach ($request->location_logs as $location) {
             $location_log = new UserLocationLog();
-            $location_log->user_diagnosis_log_id = $diagnosis_log->id;
             $location_log->reportedDateTime = Carbon::parse($location['date_time'])->format('Y-m-d H:i:s');
             $location_log->latitude = $location['latitude'];
             $location_log->longitude = $location['longitude'];
-            $location_log->save();
+            $diagnosis_log->user_location_logs()->save($location_log);
         }
 
-        foreach ($request->suspected_users_id as $user_id) {
-            // Send Push Message
-            // var_dump($user_id);
+        // Send Push Message
+        $messageTitle = 'Alert !! Be Cautious !!';
+        $messageBody = 'You have been in-contact with a '. $disease->name .' Patient';
+        $messageCustom = 'My custom data in extraPayLoad';
+
+        $androidDeviceTokenArr = User::whereIn('id', $request->suspected_users_id)->whereNotNull('androidPushToken')->pluck('androidPushToken')->toArray();
+        $iosDeviceTokenArr = User::whereIn('id', $request->suspected_users_id)->whereNotNull('iosPushToken')->pluck('iosPushToken')->toArray();
+        // dd($androidDeviceTokenArr);
+        // dd($iosDeviceTokenArr);
+
+        // Android Push message
+        if( count($androidDeviceTokenArr) > 0 ){
+            $push = new PushNotification('fcm');
+            $push->setMessage([
+                    'notification' => [
+                        'title' => $messageTitle,
+                        'body' => $messageBody,
+                        'sound' => 'default'
+                    ],
+                    'data' => [
+                        'customPayLoad' => $messageCustom,
+                    ]
+            ])
+            ->setApiKey( config('pushnotification.fcm')['apiKey'] )
+            ->setDevicesToken($androidDeviceTokenArr)
+            ->send();
+            // dd($push->getFeedback());
         }
+
+        // iOS Push message
+        // if( count($iosDeviceTokenArr) > 0 ){
+        //     $push = new PushNotification('apn');
+        //     $push->setMessage([
+        //             'aps' => [
+        //                 'alert' => [
+        //                     'title' => $messageTitle,
+        //                     'body' => $messageBody
+        //                 ],
+        //                 'sound' => 'default',
+        //                 'badge' => 1
+        //             ],
+        //             'extraPayLoad' => [
+        //                 'customPayLoad' => $messageCustom,
+        //             ]
+        //         ])
+        //     ->setDevicesToken($iosDeviceTokenArr)
+        //     ->send();
+        //     // dd($push->getFeedback());
+        // }
 
         return response()->json([
             'status' => ConstantHelper::STATUS_OK,

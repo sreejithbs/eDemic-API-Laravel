@@ -27,8 +27,8 @@ class PatientDiagnosedRequest extends FormRequest
     public function rules()
     {
         return [
-            'disease_code' => 'required|string|max:4',
-            'stage_code' => 'required|string|max:4',
+            'disease_code' => 'required|max:4',
+            'stage_code' => 'required|max:4',
             'diagnosed_date_time' => 'required|string',
             'location_logs' => 'present|array',
             'location_logs.*.date_time' => 'required|string',

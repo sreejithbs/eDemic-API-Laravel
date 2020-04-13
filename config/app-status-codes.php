@@ -23,8 +23,8 @@ return [
         array( 'code' => 5004, 'status' => 'Self Quarantine' ),
     ],
 
-    // Diseases from DB. Starts at 6000
+    // Diseases from DB. Starts at 6001
     // 'diseases' => [
-    //     //
+    //     array( 'code' => 6001, 'name' => 'ABC' ),
     // ],
 ];

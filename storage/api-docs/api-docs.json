@@ -261,12 +261,12 @@
                             "schema": {
                                 "properties": {
                                     "disease_code": {
-                                        "type": "string",
-                                        "example": "6001"
+                                        "type": "integer",
+                                        "example": 6001
                                     },
                                     "stage_code": {
-                                        "type": "string",
-                                        "example": "5001"
+                                        "type": "integer",
+                                        "example": 5001
                                     },
                                     "diagnosed_date_time": {
                                         "type": "string",

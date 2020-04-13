@@ -19,12 +19,19 @@ class UserTableSeeder extends Seeder
         $user = new User();
         $user->userCode = 'UxYUs3Fj';
         $user->phone = '+919219592195';
-        $user->androidDeviceId = '9c74d56d682e549c';
         $user->isVerified = 1;
         $user->country_id = DB::table('countries')->where('isoAlphaCode', 'IN')->value('id');
         $user->save();
 
-        // One
+        $user = new User();
+        $user->userCode = 'UvMroPMD';
+        $user->phone = '+918943406910';
+        $user->is_doctor_id = 1;
+        $user->isVerified = 1;
+        $user->country_id = DB::table('countries')->where('isoAlphaCode', 'IN')->value('id');
+        $user->save();
+
+        // Patient
         $diagnosis_log = new UserDiagnosisLog();
         // $diagnosis_log->doctor_id = 1;
         $diagnosis_log->disease_id = 1;
@@ -33,20 +40,18 @@ class UserTableSeeder extends Seeder
         $user->patients()->save($diagnosis_log);
 
         $location_log = new UserLocationLog();
-        $location_log->user_diagnosis_log_id = $diagnosis_log->id;
         $location_log->reportedDateTime = Carbon::now()->subDays(1);
         $location_log->latitude = '53.0';
         $location_log->longitude = '-1.4';
-        $location_log->save();
+        $diagnosis_log->user_location_logs()->save($location_log);
 
         $location_log = new UserLocationLog();
-        $location_log->user_diagnosis_log_id = $diagnosis_log->id;
         $location_log->reportedDateTime = Carbon::now();
         $location_log->latitude = '54.0';
         $location_log->longitude = '-1.2';
-        $location_log->save();
+        $diagnosis_log->user_location_logs()->save($location_log);
 
-        // Two
+        // Patient
         $diagnosis_log = new UserDiagnosisLog();
         // $diagnosis_log->doctor_id = 1;
         $diagnosis_log->disease_id = 2;
@@ -55,10 +60,9 @@ class UserTableSeeder extends Seeder
         $user->patients()->save($diagnosis_log);
 
         $location_log = new UserLocationLog();
-        $location_log->user_diagnosis_log_id = $diagnosis_log->id;
         $location_log->reportedDateTime = Carbon::now()->addDays(1);
         $location_log->latitude = '55.0';
         $location_log->longitude = '-1.0';
-        $location_log->save();
+        $diagnosis_log->user_location_logs()->save($location_log);
     }
 }
