@@ -368,4 +368,62 @@ class UserController extends Controller
         ], ConstantHelper::STATUS_OK);
     }
 
+    /**
+     * @OA\Get(path="/patients",
+     *   tags={"Map"},
+     *   summary="List all patient details for map plotting",
+     *   description="API to list all patient details for map plotting.",
+     *   operationId="diseases",
+     *   @OA\Response(
+     *       response=200,
+     *       description="Successful Operation",
+     *       @OA\JsonContent()
+     *   ),
+     *   security={
+     *       {"api_key": {}}
+     *   },
+     * )
+     */
+    public function patients()
+    {
+        $dataArr = array();
+        foreach (UserDiagnosisLog::all() as $diagnosis_log) {
+            $innerArr = array();
+            $innerArr = array(
+                'user_uid' => $diagnosis_log->user->userCode,
+                'disease_code' => (int)$diagnosis_log->disease_id + 6000,
+                'stage_code' => (int)$diagnosis_log->stage + 5000,
+                'diagnosed_date_time' => $diagnosis_log->diagnosisDateTime,
+            );
+
+            $user_location_logs = $diagnosis_log->user_location_logs()->get();
+            if($user_location_logs->isNotEmpty()){
+                foreach ($user_location_logs as $user_location_log) {
+                    $innerArr['location_logs'][] = array(
+                        'date_time' => $user_location_log->reportedDateTime,
+                        'latitude' => $user_location_log->latitude,
+                        'longitude' => $user_location_log->longitude,
+                    );
+                }
+            }
+
+            $dataArr[] = $innerArr;
+        }
+
+        if(count($dataArr) > 0){
+            return response()->json([
+                'status' => ConstantHelper::STATUS_OK,
+                'message' => 'Patients List',
+                'data' => $dataArr
+            ], ConstantHelper::STATUS_OK);
+        } else{
+            return response()->json([
+                'status' => ConstantHelper::STATUS_UNPROCESSABLE_ENTITY,
+                'error' => [
+                    'code' => 1004,
+                    'message'=> 'No patient records to show'
+                ],
+            ], ConstantHelper::STATUS_UNPROCESSABLE_ENTITY);
+        }
+    }
 }

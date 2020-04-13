@@ -191,17 +191,6 @@ class AuthController extends Controller
                             'diagnosed_date_time' => $user_diagnosis_log->diagnosisDateTime,
                         );
 
-                        $user_location_logs = $user_diagnosis_log->user_location_logs()->get();
-                        if($user_location_logs->isNotEmpty()){
-                            foreach ($user_location_logs as $user_location_log) {
-                                $tempArr['location_logs'][] = array(
-                                    'date_time' => $user_location_log->reportedDateTime,
-                                    'latitude' => $user_location_log->latitude,
-                                    'longitude' => $user_location_log->longitude,
-                                );
-                            }
-                        }
-
                         $patientArr['patient_details'][] = $tempArr;
                     }
                 } else{

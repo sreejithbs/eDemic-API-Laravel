@@ -24,5 +24,7 @@ Route::group(['prefix' => 'v1'], function(){
 		Route::get('doctor/fetchProfile/{doctor_id}', 'API\v1\UserController@fetchDoctorProfile');
 
 		Route::get('diseases', 'API\v1\UserController@diseases');
+
+		Route::get('patients', 'API\v1\UserController@patients');
 	});
 });

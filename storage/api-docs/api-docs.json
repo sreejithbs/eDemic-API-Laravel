@@ -311,6 +311,31 @@
                     }
                 ]
             }
+        },
+        "/patients": {
+            "get": {
+                "tags": [
+                    "Map"
+                ],
+                "summary": "List all patient details for map plotting",
+                "description": "API to list all patient details for map plotting.",
+                "operationId": "diseases",
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -342,6 +367,10 @@
         {
             "name": "Diseases",
             "description": "API Endpoints for Diseases"
+        },
+        {
+            "name": "Map",
+            "description": "API Endpoints for Map"
         }
     ]
 }
