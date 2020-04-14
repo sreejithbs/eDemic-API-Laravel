@@ -168,20 +168,17 @@ class AuthController extends Controller
                 $data['codes'] = array_merge(config('app-status-codes'), Disease::fetchAllDiseasesApi());
 
                 if($user->is_doctor_id){
-                    $docArr['is_doctor'] = true;
                     $docArr['doctor_details'] = [
                         'id' => $user->doctor_profile->id,
                         'name' => $user->doctor_profile->name,
                         'health_institution' => $user->doctor_profile->health_institution->name
                     ];
                 } else{
-                    $docArr['is_doctor'] = false;
-                    $docArr['doctor_details'] = [];
+                    $docArr['doctor_details'] = null;
                 }
 
                 $user_diagnosis_logs = $user->patients()->get();
                 if($user_diagnosis_logs->isNotEmpty()){
-                    $patientArr['is_patient'] = true;
                     foreach ($user_diagnosis_logs as $user_diagnosis_log) {
 
                         $tempArr = array();
@@ -194,8 +191,7 @@ class AuthController extends Controller
                         $patientArr['patient_details'][] = $tempArr;
                     }
                 } else{
-                    $patientArr['is_patient'] = false;
-                    $patientArr['patient_details'] = [];
+                    $patientArr['patient_details'] = null;
                 }
 
                 $data['user_details'] = array_merge($docArr, $patientArr);
