@@ -120,6 +120,7 @@
                     zoom: {!! config('gmaps-oms')['zoom'] !!},
                     center: new gm.LatLng(config.lat, config.lng),
                     streetViewControl: false,
+                    mapTypeControl: false,
                     scrollWheelZoom: true,
                     scaleControl: true,
                     mapTypeId: google.maps.MapTypeId.{!! config('gmaps-oms')['type'] !!}
