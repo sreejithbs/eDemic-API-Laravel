@@ -2,25 +2,76 @@
 @section('page_title', 'Map | e-Demic')
 @section('page_heading', 'Map')
 
-@section('content')
+@section('page_styles')
+    <style type="text/css">
+        #gmap{
+            height: 700px;
+        }
+        .marker-info{
+            text-align: center;
+        }
+    </style>
+@stop
 
-<style type="text/css">
-    .marker-info{
-        text-align: center;
-    }
-</style>
+@section('content')
 
 <section>
     <div class="row">
         <div class="col-12">
             <div class="card">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6">
+                            <div class="insights px-1">
+                                <div style="text-align: center;">
+                                    <h5><strong> Location Cluster </strong></h5>
+                                </div>
+                                <div class="progress progress-sm mt-1 mb-0">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="insights px-1">
+                                <div style="text-align: center;">
+                                    <h5><strong> Disease Risk Level 1 </strong></h5>
+                                </div>
+                                <div class="progress progress-sm mt-1 mb-0">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="insights px-1">
+                                <div style="text-align: center;">
+                                    <h5><strong> Disease Risk Level 2 </strong></h5>
+                                </div>
+                                <div class="progress progress-sm mt-1 mb-0">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6">
+                            <div class="insights px-1">
+                                <div style="text-align: center;">
+                                    <h5><strong> Disease Risk Level 3 </strong></h5>
+                                </div>
+                                <div class="progress progress-sm mt-1 mb-0">
+                                    <div class="progress-bar bg-yellow bg-darken-1" role="progressbar" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card-content">
                     <div class="card-body card-dashboard">
-
                         <div id="map-container">
-                            <div id="map" style="height: 700px"></div>
+                            <div id="gmap">
+                                <!-- Map Appends -->
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -38,7 +89,7 @@
 
     <script type="text/javascript">
 
-        var ICON_BASE_URL = "{!! URL::asset('/') !!}";
+        var IMG_BASE_URL = "{!! URL::asset('/') !!}";
 
         'use strict';
         (function(){
@@ -46,7 +97,6 @@
             var gm = google.maps;
 
             var config = {
-                el: 'map',
                 lat: 0,
                 lng: 0,
                 minZoom: 15,
@@ -54,7 +104,7 @@
 
             var spiderConfig = {
                 keepSpiderfied: true,
-                event: 'mouseover',
+                // event: 'mouseover',
                 markersWontMove: true,
                 markersWontHide: true,
                 basicFormatEvents: false,
@@ -66,9 +116,12 @@
 
             function initialize() {
 
-                var map = new gm.Map(document.getElementById(config.el), {
+                var map = new gm.Map(document.getElementById('gmap'), {
                     zoom: {!! config('gmaps-oms')['zoom'] !!},
                     center: new gm.LatLng(config.lat, config.lng),
+                    streetViewControl: false,
+                    scrollWheelZoom: true,
+                    scaleControl: true,
                     mapTypeId: google.maps.MapTypeId.{!! config('gmaps-oms')['type'] !!}
                 });
 
@@ -94,25 +147,25 @@
                         // }
                     });
 
-                    // marker.desc = x.title;
+                    marker.desc = x.title;
 
                     markers.push(marker); // Saving Markers
 
                     markerSpiderfier.addMarker(marker);  // Adds the Marker to OverlappingMarkerSpiderfier
 
-                    gm.event.addListener(marker, 'spider_format', function(status) {
-                        if(status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE){
-                            marker.setIcon({
-                                url: ICON_BASE_URL + "{!! config('gmaps-oms')['marker_icons']['spiderfy'] !!}",
-                                // scaledSize: new google.maps.Size(23, 32)  // makes SVG icons work in IE'
-                            });
-                        } else if(status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE){
-                            marker.setIcon({
-                                url: ICON_BASE_URL + (marker.img),
-                                // scaledSize: new google.maps.Size(23, 32)  // makes SVG icons work in IE'
-                            });
-                        }
-                    });
+                    // gm.event.addListener(marker, 'spider_format', function(status) {
+                    //     if(status == OverlappingMarkerSpiderfier.markerStatus.SPIDERFIABLE){
+                    //         marker.setIcon({
+                    //             url: IMG_BASE_URL + "{!! config('gmaps-oms')['marker_icons']['spiderfy'] !!}",
+                    //             // scaledSize: new google.maps.Size(23, 32)  // makes SVG icons work in IE'
+                    //         });
+                    //     } else if(status == OverlappingMarkerSpiderfier.markerStatus.UNSPIDERFIABLE){
+                    //         marker.setIcon({
+                    //             url: IMG_BASE_URL + (marker.img),
+                    //             // scaledSize: new google.maps.Size(23, 32)  // makes SVG icons work in IE'
+                    //         });
+                    //     }
+                    // });
 
                 });
                 map.fitBounds(bounds);
@@ -127,7 +180,7 @@
                 markerSpiderfier.addListener('spiderfy', function(markers) {
                     for(var i = 0; i < markers.length; i ++) {
                         markers[i].setIcon({
-                            url: ICON_BASE_URL + (markers[i].img),
+                            url: IMG_BASE_URL + (markers[i].img),
                         });
                         markers[i].setShadow(null);
                     }
@@ -136,9 +189,25 @@
 
                 markerSpiderfier.addListener('unspiderfy', function(markers) {
                     for(var i = 0; i < markers.length; i ++) {
-                        markers[i].setIcon( ICON_BASE_URL + "{!! config('gmaps-oms')['marker_icons']['spiderfy'] !!}" );
+                        markers[i].setIcon( IMG_BASE_URL + "{!! config('gmaps-oms')['marker_icons']['spiderfy'] !!}" );
                     }
                     iw.close();
+                });
+
+                gm.event.addListenerOnce(map, 'idle', function () {
+                    var allMarkers = markerSpiderfier.getMarkers();
+                    for(var i = 0; i < allMarkers.length; i ++) {
+                        allMarkers[i].setIcon({
+                            url: IMG_BASE_URL + (allMarkers[i].img),
+                        });
+                    }
+
+                    var allSpiderfiable = markerSpiderfier.markersNearAnyOtherMarker();
+                    for(var j = 0; j < allSpiderfiable.length; j ++) {
+                        allSpiderfiable[j].setIcon({
+                            url: IMG_BASE_URL + "{!! config('gmaps-oms')['marker_icons']['spiderfy'] !!}",
+                        });
+                    }
                 });
 
                 // var clusterStyles = [{
