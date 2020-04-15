@@ -14,6 +14,13 @@ return [
         array( 'code' => 2000, 'description' => 'Twilio SMS Service error' ),
     ],
 
+    // Disease Risk Level
+    'disease_risk_level' => [
+        // array( 'code' => 3000, 'status' => 'None', 'color' => 'none' ),
+        array( 'code' => 3001, 'status' => 'Level 1', 'color' => 'red' ),
+        array( 'code' => 3002, 'status' => 'Level 2', 'color' => 'orange' ),
+        array( 'code' => 3003, 'status' => 'Level 3', 'color' => 'yellow' ),
+    ],
 
     // Disease Status
     'disease_stages' => [

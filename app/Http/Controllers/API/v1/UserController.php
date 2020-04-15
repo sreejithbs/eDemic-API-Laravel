@@ -296,12 +296,31 @@ class UserController extends Controller
     public function diseaseDiagnosed(PatientDiagnosedRequest $request)
     {
         $user = Auth::user();
-        $disease = Disease::find((int)$request->disease_code - 6000);
+        $disease_id = (int)$request->disease_code - 6000;
+        $stage = (int)$request->stage_code - 5000;
+
+        $match = UserDiagnosisLog::where([
+            [ 'patient_id', '=', $user->id ],
+            [ 'disease_id', '=', $disease_id ],
+            [ 'stage', '=', $stage ],
+        ])->first();
+
+        if($match){
+            return response()->json([
+                'status' => ConstantHelper::STATUS_FORBIDDEN,
+                'error' => [
+                    'code' => 1001,
+                    'message'=> 'Patient details with same disease and stage already exist in records'
+                ],
+            ], ConstantHelper::STATUS_FORBIDDEN);
+        }
+
+        $disease = Disease::find($disease_id);
 
         $diagnosis_log = new UserDiagnosisLog();
         $diagnosis_log->disease_id = $disease->id;
         $diagnosis_log->diagnosisDateTime = Carbon::parse($request->diagnosed_date_time)->format('Y-m-d H:i:s');
-        $diagnosis_log->stage = (int)$request->stage_code - 5000;
+        $diagnosis_log->stage = $stage;
         $user->patients()->save($diagnosis_log);
 
         foreach ($request->location_logs as $location) {

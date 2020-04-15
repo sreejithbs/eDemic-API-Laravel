@@ -20,8 +20,8 @@
                     </a>
                 </li>
 
-                <li class="nav-item" >
-                    <a href="javascript:void(0);">
+                <li class="nav-item {{ \StringHelper::setActive(['institution_maps.*']) }}" >
+                    <a href="{{ route('institution_maps.list') }}">
                         <i class="ft-map-pin"></i>
                         <span class="menu-title">Map</span>
                     </a>

@@ -38,6 +38,10 @@ Route::group(['prefix' => 'institution', 'as' => 'institution_', 'namespace' => 
 	Route::get('/{path}/checkout', 'DashboardController@createCheckout')->name('checkout.create');
 	Route::post('/{path}/checkout/store', 'DashboardController@storeCheckout')->name('checkout.store');
 
+	Route::group(['prefix' => 'maps', 'as' => 'maps.'], function(){
+	    Route::get('/all', 'MapController@index')->name('list');
+	});
+
 	Route::group(['prefix' => 'institutions', 'as' => 'institutions.'], function(){
 	    Route::get('/all', 'HealthInstitutionController@index')->name('list');
 	    Route::get('/create', 'HealthInstitutionController@create')->name('create');
