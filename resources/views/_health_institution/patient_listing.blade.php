@@ -17,7 +17,9 @@
                                     <th colspan="2">Last Reported</th>
                                     <th rowspan="2">Phone Number</th>
                                     <th rowspan="2">Disease</th>
-                                    <th rowspan="2">Health Institution</th>
+                                    @can('isCountryHead')
+                                        <th rowspan="2">Health Institution</th>
+                                    @endcan
                                     <th rowspan="2">Actions</th>
                                 </tr>
                                 <tr>
@@ -33,7 +35,9 @@
                                         <td> {{ $diagnosis_log->user_location_logs()->get()->last()->date_time_formatted }} </td>
                                         <td> {{ $diagnosis_log->user->phone }} </td>
                                         <td> {{ $diagnosis_log->disease->name }} </td>
-                                        <td> Test Institution </td>
+                                        @can('isCountryHead')
+                                            <td> Test Institution </td>
+                                        @endcan
                                         <td>
                                             <a href="{{ route('institution_patients.show', $diagnosis_log->uuid ) }}" class="btn btn-icon btn-info btn-sm"> <i class="la la-eye"></i> </a>
                                         </td>

@@ -202,7 +202,7 @@ class UserTableSeeder extends Seeder
         $diagnosis_log = new UserDiagnosisLog();
         $diagnosis_log->disease_id = 2;
         $diagnosis_log->diagnosisDateTime = Carbon::now();
-        $diagnosis_log->stage = 1;
+        $diagnosis_log->stage = 4;
         $user->patients()->save($diagnosis_log);
 
         $location_log = new UserLocationLog();
