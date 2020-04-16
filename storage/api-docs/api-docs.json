@@ -337,6 +337,61 @@
                     }
                 ]
             }
+        },
+        "/user/updateLastLocation": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update user's last known location",
+                "description": "API to update user's last known location.",
+                "operationId": "updateLastLocation",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "date_time": {
+                                        "type": "string"
+                                    },
+                                    "latitude": {
+                                        "type": "string"
+                                    },
+                                    "longitude": {
+                                        "type": "string"
+                                    },
+                                    "address": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "date_time": "2020-04-16 07:20:30",
+                                    "latitude": "51.528308",
+                                    "longitude": "-0.101847",
+                                    "address": "18 Northampton Square, Clerkenwell, London EC1V 0HB, UK"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
         }
     },
     "components": {

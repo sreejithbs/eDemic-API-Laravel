@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder
         // Patient
         $user = new User();
         $user->userCode = 'UxYUs3Fj';
-        $user->phone = '+449219592199';
+        $user->phone = '+918943406910';
         $user->isVerified = 1;
         $user->country_id = DB::table('countries')->where('isoAlphaCode', 'GB')->value('id');
         $user->save();
@@ -216,7 +216,7 @@ class UserTableSeeder extends Seeder
         // Doctor
         $user = new User();
         $user->userCode = 'UvMroPMD';
-        $user->phone = '+918943406910';
+        $user->phone = '+449219592199';
         $user->is_doctor_id = 1;
         $user->isVerified = 1;
         $user->country_id = DB::table('countries')->where('isoAlphaCode', 'IN')->value('id');

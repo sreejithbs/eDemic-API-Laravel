@@ -21,7 +21,7 @@
                 </div>
                 <div class="card-content">
                     <div class="card-body card-dashboard">
-                        <table class="table table-striped table-bordered dtTable">
+                        <table class="table table-striped table-bordered table-responsive dtTable">
                             <thead>
                                 <tr>
                                     <th>#</th>

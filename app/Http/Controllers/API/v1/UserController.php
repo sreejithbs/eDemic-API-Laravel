@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\v1;
 // use Illuminate\Http\Request;
 use App\Http\Requests\API\DeviceTokenRequest;
 use App\Http\Requests\API\PatientDiagnosedRequest;
+use App\Http\Requests\API\UserLocationRequest;
 use App\Http\Controllers\Controller;
 
 use Auth;
@@ -448,5 +449,60 @@ class UserController extends Controller
                 ],
             ], ConstantHelper::STATUS_UNPROCESSABLE_ENTITY);
         }
+    }
+
+    /**
+     * @OA\Post(path="/user/updateLastLocation",
+     *     tags={"Users"},
+     *     summary="Update user's last known location",
+     *     description="API to update user's last known location.",
+     *     operationId="updateLastLocation",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(property="date_time", type="string"),
+     *                 @OA\Property(property="latitude", type="string"),
+     *                 @OA\Property(property="longitude", type="string"),
+     *                 @OA\Property(property="address", type="string"),
+     *                 example={
+     *                     "date_time" : "2020-04-16 07:20:30",
+     *                     "latitude": "51.528308",
+     *                     "longitude": "-0.101847",
+     *                     "address": "18 Northampton Square, Clerkenwell, London EC1V 0HB, UK",
+     *                 },
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful Operation",
+     *         @OA\JsonContent()
+     *     ),
+     *     security={
+     *          {"api_key": {}}
+     *     },
+     * )
+     */
+    public function updateLastLocation(UserLocationRequest $request)
+    {
+        $diagnosis_logs = Auth::user()->patients()->get();
+        if($diagnosis_logs->isNotEmpty())
+        {
+            foreach ($diagnosis_logs as $diagnosis_log){
+                $location_log = new UserLocationLog();
+                $location_log->dateTime = Carbon::parse($request->date_time)->format('Y-m-d H:i:s');
+                $location_log->latitude = $request->latitude;
+                $location_log->longitude = $request->longitude;
+                $location_log->address = $request->address;
+                $diagnosis_log->user_location_logs()->save($location_log);
+            }
+        }
+
+        return response()->json([
+            'status' => ConstantHelper::STATUS_OK,
+            'message' => 'User\'s last location details has been recorded successfully',
+        ], ConstantHelper::STATUS_OK);
     }
 }

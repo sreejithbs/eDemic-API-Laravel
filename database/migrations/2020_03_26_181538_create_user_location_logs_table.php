@@ -20,6 +20,7 @@ class CreateUserLocationLogsTable extends Migration
             $table->string('latitude', 20);
             $table->string('longitude', 20);
             $table->text('address');
+            $table->boolean('isIgnored')->default(0);
             $table->timestamps();
         });
 

@@ -20,6 +20,7 @@ Route::group(['prefix' => 'v1'], function(){
 
 		Route::post('user/updateDeviceToken', 'API\v1\UserController@updateDeviceToken');
 		Route::post('user/diseaseDiagnosed', 'API\v1\UserController@diseaseDiagnosed');
+		Route::post('user/updateLastLocation', 'API\v1\UserController@updateLastLocation');
 
 		Route::get('doctor/fetchProfile/{doctor_id}', 'API\v1\UserController@fetchDoctorProfile');
 
