@@ -57,4 +57,5 @@ return [
         // ],
     ],
 
+    'sms_otp_hashKey' => 'TBMW8Tvjsem',
 ];

@@ -25,7 +25,7 @@ class UserController extends Controller
     * @OA\Get(path="/messages/{index}",
     *   tags={"Messages"},
     *   summary="List all messages",
-    *   description="API to list all messages, such as alerts, announcements etc on latest first basis. Default limit set as **3** messages per page. <br><br>Accepts `index` for lazy load messages.",
+    *   description="API to list all messages, such as alerts, announcements etc on latest first basis. Default limit set as **10** messages per page. <br><br>Accepts `index` for lazy load messages.",
     *   operationId="messages",
     *   @OA\Parameter(
     *       name="index",
@@ -50,12 +50,12 @@ class UserController extends Controller
     */
     public function messages($index)
     {
-        $limit = 3;
+        $limit = 10;
         $offset = ($index - 1) * $limit;
 
         $message_count = Message::isPosted()->count();
         $messages = Message::isPosted()
-                ->latest()
+                ->latest('id')
                 ->skip($offset)->take($limit)
                 ->get(['id', 'title', 'content', 'created_at']);
 
@@ -271,11 +271,13 @@ class UserController extends Controller
      *                              @OA\Property(property="date_time", type="string"),
      *                              @OA\Property(property="latitude", type="string"),
      *                              @OA\Property(property="longitude", type="string"),
+     *                              @OA\Property(property="address", type="string"),
      *                          ),
      *                          example={
      *                              "date_time" : "2020-04-08 07:23:37",
-     *                              "latitude" : "53.8",
-     *                              "longitude" : "-1.4",
+     *                              "latitude" : "51.528308",
+     *                              "longitude" : "-0.131847",
+     *                              "address" : "8-14 Eversholt St, Kings Cross, London NW1 1DG, UK",
      *                          }
      *                      )
      *                 ),
@@ -325,9 +327,10 @@ class UserController extends Controller
 
         foreach ($request->location_logs as $location) {
             $location_log = new UserLocationLog();
-            $location_log->reportedDateTime = Carbon::parse($location['date_time'])->format('Y-m-d H:i:s');
+            $location_log->dateTime = Carbon::parse($location['date_time'])->format('Y-m-d H:i:s');
             $location_log->latitude = $location['latitude'];
             $location_log->longitude = $location['longitude'];
+            $location_log->address = $location['address'];
             $diagnosis_log->user_location_logs()->save($location_log);
         }
 
@@ -407,24 +410,25 @@ class UserController extends Controller
     {
         $dataArr = array();
         foreach (UserDiagnosisLog::all() as $diagnosis_log) {
+
+            $stage = $diagnosis_log->stage;
+            if( $stage != Disease::INFECTION_STATUS) continue;
+
             $innerArr = array();
             $innerArr = array(
                 'user_uid' => $diagnosis_log->user->userCode,
                 'disease_code' => (int)$diagnosis_log->disease_id + 6000,
-                'stage_code' => (int)$diagnosis_log->stage + 5000,
+                'stage_code' => (int)$stage + 5000,
                 'diagnosed_date_time' => $diagnosis_log->diagnosisDateTime,
             );
 
-            $user_location_logs = $diagnosis_log->user_location_logs()->get();
-            if($user_location_logs->isNotEmpty()){
-                foreach ($user_location_logs as $user_location_log) {
-                    $innerArr['location_logs'][] = array(
-                        'date_time' => $user_location_log->reportedDateTime,
-                        'latitude' => $user_location_log->latitude,
-                        'longitude' => $user_location_log->longitude,
-                    );
-                }
-            }
+            $recent_location_log = $diagnosis_log->user_location_logs()->latest('id')->first();
+            $innerArr['location_logs'] = array(
+                'date_time' => $recent_location_log->dateTime,
+                'latitude' => $recent_location_log->latitude,
+                'longitude' => $recent_location_log->longitude,
+                'address' => $recent_location_log->address,
+            );
 
             $dataArr[] = $innerArr;
         }

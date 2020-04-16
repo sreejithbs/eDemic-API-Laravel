@@ -31,15 +31,17 @@ class UserTableSeeder extends Seeder
         $user->patients()->save($diagnosis_log);
 
         $location_log = new UserLocationLog();
-        $location_log->reportedDateTime = Carbon::now()->subDays(1);
+        $location_log->dateTime = Carbon::now()->subDays(1);
         $location_log->latitude = '51.528308';
         $location_log->longitude = '-0.131847';
+        $location_log->address = '8-14 Eversholt St, Kings Cross, London NW1 1DG, UK';
         $diagnosis_log->user_location_logs()->save($location_log);
 
         $location_log = new UserLocationLog();
-        $location_log->reportedDateTime = Carbon::now();
+        $location_log->dateTime = Carbon::now();
         $location_log->latitude = '51.533149';
         $location_log->longitude = '-0.137069';
+        $location_log->address = '76 Oakley Square, London NW1 1NH, UK';
         $diagnosis_log->user_location_logs()->save($location_log);
 
         // Patient
@@ -57,9 +59,10 @@ class UserTableSeeder extends Seeder
         $user->patients()->save($diagnosis_log);
 
         $location_log = new UserLocationLog();
-        $location_log->reportedDateTime = Carbon::now();
+        $location_log->dateTime = Carbon::now();
         $location_log->latitude = '51.528390';
         $location_log->longitude = '-0.151886';
+        $location_log->address = 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK';
         $diagnosis_log->user_location_logs()->save($location_log);
 
         // Patient
@@ -77,9 +80,10 @@ class UserTableSeeder extends Seeder
         $user->patients()->save($diagnosis_log);
 
         $location_log = new UserLocationLog();
-        $location_log->reportedDateTime = Carbon::now();
+        $location_log->dateTime = Carbon::now();
         $location_log->latitude = '51.528390';
         $location_log->longitude = '-0.151886';
+        $location_log->address = 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK';
         $diagnosis_log->user_location_logs()->save($location_log);
 
         // Patient
@@ -97,9 +101,10 @@ class UserTableSeeder extends Seeder
         $user->patients()->save($diagnosis_log);
 
         $location_log = new UserLocationLog();
-        $location_log->reportedDateTime = Carbon::now();
+        $location_log->dateTime = Carbon::now();
         $location_log->latitude = '51.528380';
         $location_log->longitude = '-0.151886';
+        $location_log->address = 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK';
         $diagnosis_log->user_location_logs()->save($location_log);
 
         // Patient
@@ -117,9 +122,10 @@ class UserTableSeeder extends Seeder
         $user->patients()->save($diagnosis_log);
 
         $location_log = new UserLocationLog();
-        $location_log->reportedDateTime = Carbon::now();
+        $location_log->dateTime = Carbon::now();
         $location_log->latitude = '51.528380';
         $location_log->longitude = '-0.161886';
+        $location_log->address = '17 Outer Cir, Marylebone, London NW1 4RJ, UK';
         $diagnosis_log->user_location_logs()->save($location_log);
 
         // Patient
@@ -137,9 +143,10 @@ class UserTableSeeder extends Seeder
         $user->patients()->save($diagnosis_log);
 
         $location_log = new UserLocationLog();
-        $location_log->reportedDateTime = Carbon::now();
+        $location_log->dateTime = Carbon::now();
         $location_log->latitude = '51.529380';
         $location_log->longitude = '-0.151886';
+        $location_log->address = 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK';
         $diagnosis_log->user_location_logs()->save($location_log);
 
         // Patient
@@ -157,9 +164,10 @@ class UserTableSeeder extends Seeder
         $user->patients()->save($diagnosis_log);
 
         $location_log = new UserLocationLog();
-        $location_log->reportedDateTime = Carbon::now();
+        $location_log->dateTime = Carbon::now();
         $location_log->latitude = '51.528490';
         $location_log->longitude = '-0.151886';
+        $location_log->address = 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK';
         $diagnosis_log->user_location_logs()->save($location_log);
 
         // Patient
@@ -177,9 +185,10 @@ class UserTableSeeder extends Seeder
         $user->patients()->save($diagnosis_log);
 
         $location_log = new UserLocationLog();
-        $location_log->reportedDateTime = Carbon::now();
+        $location_log->dateTime = Carbon::now();
         $location_log->latitude = '51.557843';
         $location_log->longitude = '-0.115479';
+        $location_log->address = '25 Arthur Rd, London N7, UK';
         $diagnosis_log->user_location_logs()->save($location_log);
 
         // Patient
@@ -197,9 +206,10 @@ class UserTableSeeder extends Seeder
         $user->patients()->save($diagnosis_log);
 
         $location_log = new UserLocationLog();
-        $location_log->reportedDateTime = Carbon::now();
+        $location_log->dateTime = Carbon::now();
         $location_log->latitude = '51.529374';
         $location_log->longitude = '-0.136748';
+        $location_log->address = '43 Cardington St, Kings Cross, London NW1 2LR, UK';
         $diagnosis_log->user_location_logs()->save($location_log);
 
 

@@ -211,36 +211,34 @@
                     }
                 });
 
-                // var clusterStyles = [{
+                // var clusterStyles = [
+                // {
+                //     textColor: 'white',
                 //     url: '//ccplugins.co/markerclusterer/images/m1.png',
-                //     height: 27,
-                //     width: 30,
+                //     height: 50,
+                //     width: 50,
                 //     anchor: [3, 0],
-                //     textColor: '#11ffbb',
                 //     textSize: 10,
                 //     offsetX: 20,
                 //     offsetY: 20
-                // }, {
-                //     url: '//ccplugins.co/markerclusterer/images/m3.png',
-                //     height: 36,
-                //     width: 40,
-                //     anchor: [6, 0],
-                //     textColor: '#ff0000',
-                //     textSize: 11,
-                //     offsetX: 20,
-                //     offsetY: 20
-                // }, {
-                //     url: '//ccplugins.co/markerclusterer/images/m5.png',
-                //     width: 50,
-                //     height: 45,
-                //     anchor: [8, 0],
-                //     textSize: 12,
-                //     offsetX: 20,
-                //     offsetY: 20
-                // }];
+                // },
+                // {
+                //     textColor: 'white',
+                //     url: '//ccplugins.co/markerclusterer/images/m1.png',
+                //     height: 50,
+                //     width: 50
+                // },
+                // {
+                //     textColor: 'white',
+                //     url: '//ccplugins.co/markerclusterer/images/m1.png',
+                //     height: 50,
+                //     width: 50
+                // }];  // upto 5
 
                 // var mcOptions = {
-                //     styles: clusterStyles
+                //     gridSize: 60,
+                //     styles: clusterStyles,
+                //     // maxZoom: 15
                 // };
 
                 // var markerCluster = new MarkerClusterer(map, markers, mcOptions);

@@ -61,7 +61,8 @@
 
 		// Basic Datatable Initialization
 		$('.dtTable').DataTable({
-			"order": []
+			"order": [],
+			"autoWidth": false
 		});
 
 		// Basic Select2 select

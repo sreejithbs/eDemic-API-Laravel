@@ -15,6 +15,7 @@ class CreateUserDiagnosisLogsTable extends Migration
     {
         Schema::create('user_diagnosis_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('uuid')->index();
             $table->unsignedBigInteger('patient_id');
             // $table->unsignedBigInteger('doctor_id');
             $table->unsignedBigInteger('disease_id');

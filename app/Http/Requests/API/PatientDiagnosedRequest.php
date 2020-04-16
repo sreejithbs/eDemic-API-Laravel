@@ -34,6 +34,7 @@ class PatientDiagnosedRequest extends FormRequest
             'location_logs.*.date_time' => 'required|string',
             'location_logs.*.latitude' => 'required|string',
             'location_logs.*.longitude' => 'required|string',
+            'location_logs.*.address' => 'required|string',
             'suspected_users_id' => 'present|array',
         ];
     }
@@ -49,6 +50,7 @@ class PatientDiagnosedRequest extends FormRequest
             'location_logs.*.date_time' => 'location log date time',
             'location_logs.*.latitude' => 'location log latitude',
             'location_logs.*.longitude' => 'location log longitude',
+            'location_logs.*.address' => 'location log address',
         ];
     }
 }

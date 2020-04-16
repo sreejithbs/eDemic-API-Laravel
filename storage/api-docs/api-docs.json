@@ -104,7 +104,7 @@
                     "Messages"
                 ],
                 "summary": "List all messages",
-                "description": "API to list all messages, such as alerts, announcements etc on latest first basis. Default limit set as **3** messages per page. <br><br>Accepts `index` for lazy load messages.",
+                "description": "API to list all messages, such as alerts, announcements etc on latest first basis. Default limit set as **10** messages per page. <br><br>Accepts `index` for lazy load messages.",
                 "operationId": "messages",
                 "parameters": [
                     {
@@ -277,8 +277,9 @@
                                         "items": {
                                             "example": {
                                                 "date_time": "2020-04-08 07:23:37",
-                                                "latitude": "53.8",
-                                                "longitude": "-1.4"
+                                                "latitude": "51.528308",
+                                                "longitude": "-0.131847",
+                                                "address": "8-14 Eversholt St, Kings Cross, London NW1 1DG, UK"
                                             }
                                         }
                                     },

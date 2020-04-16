@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UuidTrait;
 
 use App\Models\User;
 use App\Models\Disease;
@@ -10,6 +11,8 @@ use App\Models\UserLocationLog;
 
 class UserDiagnosisLog extends Model
 {
+	use UuidTrait;  // assign UUID value by default on model creation
+
 	protected $table = 'user_diagnosis_logs';
 
 	/**

@@ -16,9 +16,10 @@ class CreateUserLocationLogsTable extends Migration
         Schema::create('user_location_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_diagnosis_log_id');
-            $table->timestamp('reportedDateTime')->useCurrent();
+            $table->timestamp('dateTime');
             $table->string('latitude', 20);
             $table->string('longitude', 20);
+            $table->text('address');
             $table->timestamps();
         });
 

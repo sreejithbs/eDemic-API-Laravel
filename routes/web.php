@@ -38,6 +38,16 @@ Route::group(['prefix' => 'institution', 'as' => 'institution_', 'namespace' => 
 	Route::get('/{path}/checkout', 'DashboardController@createCheckout')->name('checkout.create');
 	Route::post('/{path}/checkout/store', 'DashboardController@storeCheckout')->name('checkout.store');
 
+	Route::group(['prefix' => 'patients', 'as' => 'patients.'], function(){
+	    Route::get('/all', 'PatientController@index')->name('list');
+	    Route::get('/show/{uuid}', 'PatientController@show')->name('show');
+	});
+
+	Route::group(['prefix' => 'quarantine', 'as' => 'quarantine.'], function(){
+	    Route::get('/all', 'PatientController@listQuarantine')->name('listQuarantine');
+	    Route::get('/show/{uuid}', 'PatientController@showQuarantine')->name('showQuarantine');
+	});
+
 	Route::group(['prefix' => 'maps', 'as' => 'maps.'], function(){
 	    Route::get('/all', 'MapController@index')->name('list');
 	});

@@ -61,7 +61,7 @@ class AuthController extends Controller
                 $recipient,
                 [
                     "from" => $twilioNumber,
-                    "body" => "Welcome to e-Demic. Your OTP Verification Code is " . $code
+                    "body" => "# Welcome to e-Demic. Your OTP Verification Code : ".$code." ".config('services.sms_otp_hashKey')
                 ]
             );
 

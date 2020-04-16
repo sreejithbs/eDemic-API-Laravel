@@ -13,8 +13,8 @@
 
             @can('hasLicencePurchased')
 
-                <li class="nav-item" >
-                    <a href="javascript:void(0);">
+                <li class="nav-item {{ \StringHelper::setActive(['institution_patients.*']) }}" >
+                    <a href="{{ route('institution_patients.list') }}">
                         <i class="ft-users"></i>
                         <span class="menu-title">Patients</span>
                     </a>
@@ -76,8 +76,8 @@
                 </li>
 
                 @can('isInstitution')
-                    <li class="nav-item" >
-                        <a href="javascript:void(0);">
+                    <li class="nav-item {{ \StringHelper::setActive(['institution_quarantine.*']) }}" >
+                        <a href="{{ route('institution_quarantine.listQuarantine') }}">
                             <i class="ft-shield"></i>
                             <span class="menu-title">Self Quarantine</span>
                         </a>
