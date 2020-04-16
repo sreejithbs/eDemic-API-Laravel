@@ -159,6 +159,13 @@ class AuthController extends Controller
                 $user->isVerified = 1;
                 $user->save();
 
+                // Delete all existing App sessions
+                $existingUserTokens = $user->tokens;
+                foreach($existingUserTokens as $token) {
+                    $token->revoke();
+                    $token->delete();
+                }
+
                 Auth::loginUsingId($user->id);
                 $objToken = $user->createToken('API Access Token');
 
