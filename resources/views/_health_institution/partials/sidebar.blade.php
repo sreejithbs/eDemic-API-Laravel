@@ -2,14 +2,12 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
-            @cannot('hasLicencePurchased')
-                <li class="nav-item {{ \StringHelper::setActive(['institution_dashboard.show']) }}" >
-                    <a href="{{ route('institution_dashboard.show') }}">
-                        <i class="la la-home"></i>
-                        <span class="menu-title">Home</span>
-                    </a>
-                </li>
-            @endcannot
+           <!--  <li class="nav-item {{ \StringHelper::setActive(['institution_dashboard.show']) }}" >
+                <a href="{{ route('institution_dashboard.show') }}">
+                    <i class="la la-home"></i>
+                    <span class="menu-title">Home</span>
+                </a>
+            </li> -->
 
             @can('hasLicencePurchased')
 
@@ -83,16 +81,6 @@
                         </a>
                     </li>
                 @endcan
-
-                <li class="nav-item" >
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-formId').submit();">
-                        <i class="ft-power"></i>
-                        <span class="menu-title">Signout</span>
-                    </a>
-                    <form id="logout-formId" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
-                </li>
 
             @endcan
 

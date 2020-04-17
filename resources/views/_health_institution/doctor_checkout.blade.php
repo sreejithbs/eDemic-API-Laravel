@@ -20,13 +20,19 @@
                                             <h3 class="panel-title">Payment Details</h3><hr/>
                                         </div>
                                         <div class="panel-body">
-                                            <div class="form-group">
-                                                <label for="">Card Holder Name</label>
-                                                <input type="text" id="card_holder_name" name="card_holder_name" maxlength="70" class="form-control" placeholder="Card Holder Name" value="Test Name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="">Card Number</label>
-                                                <input type="tel" id="card_number" maxlength="18" class="form-control" placeholder="Card Number" value="4242424242424242">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="">Card Holder Name</label>
+                                                        <input type="text" id="card_holder_name" name="card_holder_name" maxlength="70" class="form-control" placeholder="Card Holder Name" value="Test Name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="">Card Number</label>
+                                                        <input type="tel" id="card_number" maxlength="18" class="form-control" placeholder="Card Number" value="4242424242424242">
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-5">

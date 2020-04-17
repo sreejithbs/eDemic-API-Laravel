@@ -30,16 +30,6 @@
                 </a>
             </li>
 
-            <li class="nav-item" >
-                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-formId').submit();">
-                    <i class="ft-power"></i>
-                    <span class="menu-title">Signout</span>
-                </a>
-                <form id="logout-formId" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                </form>
-            </li>
-
         </ul>
     </div>
 </div>

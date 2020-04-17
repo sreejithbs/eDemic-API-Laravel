@@ -30,9 +30,9 @@ class DashboardController extends Controller
     public function index()
     {
         if(Gate::allows('hasLicencePurchased') && Gate::allows('isCountryHead')){
-            return redirect()->route('institution_institutions.list');
+            return redirect()->route('institution_patients.list');
         } else if(Gate::allows('hasLicencePurchased') && Gate::allows('isInstitution')){
-            return redirect()->route('institution_doctors.list');
+            return redirect()->route('institution_patients.list');
         } else{
             return view('_health_institution.dashboard');
         }
@@ -80,7 +80,7 @@ class DashboardController extends Controller
         if($path == 'licence'){
             return redirect()->route('institution_dashboard.show')->with('success', 'Institution Licence has been purchased successfully');
         } else{
-            return redirect()->route('institution_doctors.list')->with('success', 'Doctor connects has been purchased successfully');
+            return redirect()->route('institution_doctors.create')->with('success', 'Doctor connects has been purchased successfully');
         }
     }
 }

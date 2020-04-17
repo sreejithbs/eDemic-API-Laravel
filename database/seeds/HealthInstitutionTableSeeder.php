@@ -44,7 +44,7 @@ class HealthInstitutionTableSeeder extends Seeder
         $institution_profile = new HealthInstitutionProfile();
         $institution_profile->head_health_institution_id = $institution_head->id;
         $institution_profile->phone = '9219592195';
-        $institution_profile->address = 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala 695004';
+        $institution_profile->address = 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala, India 695004';
         $institution_profile->purchasedDoctorConnects = 0;
         $institution_profile->remainingDoctorConnects = 0;
         $institution->health_institution_profile()->save($institution_profile);
