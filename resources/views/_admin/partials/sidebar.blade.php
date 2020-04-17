@@ -9,8 +9,8 @@
                 </a>
             </li> -->
 
-            <li class="nav-item {{ \StringHelper::setActive(['admin_dashboard.show']) }}" >
-                <a href="{{ route('admin_dashboard.show') }}">
+            <li class="nav-item {{ \StringHelper::setActive(['admin_accounts.list']) }}" >
+                <a href="{{ route('admin_accounts.list') }}">
                     <i class="la la-server"></i>
                     <span class="menu-title">Accounts</span>
                 </a>

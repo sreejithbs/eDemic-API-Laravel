@@ -5,6 +5,7 @@ use Illuminate\Database\Seeder;
 use App\Models\HealthInstitution;
 use App\Models\HealthInstitutionProfile;
 use App\Models\LicenseSubscription;
+use App\Models\Payment;
 
 class HealthInstitutionTableSeeder extends Seeder
 {
@@ -25,11 +26,16 @@ class HealthInstitutionTableSeeder extends Seeder
         $institution_head->save();
 
         $license_subscription = new LicenseSubscription();
-        $license_subscription->feeAmount = '999.00';
         $license_subscription->startDate = '2020-03-30';
         $license_subscription->endDate = '2021-03-30';
         $license_subscription->status = 1;
         $institution_head->license_subscription()->save($license_subscription);
+
+        $payment = new Payment();
+        $payment->health_institution_id = $institution_head->id;
+        $payment->amount = '999.00';
+        $payment->remarks = 'Health Head License Purchase';
+        $payment->save();
 
 
         $institution = new HealthInstitution();
@@ -45,15 +51,20 @@ class HealthInstitutionTableSeeder extends Seeder
         $institution_profile->head_health_institution_id = $institution_head->id;
         $institution_profile->phone = '9219592195';
         $institution_profile->address = 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala, India 695004';
-        $institution_profile->purchasedDoctorConnects = 0;
-        $institution_profile->remainingDoctorConnects = 0;
+        $institution_profile->purchasedDoctorConnects = 2;
+        $institution_profile->remainingDoctorConnects = 2;
         $institution->health_institution_profile()->save($institution_profile);
 
         $license_subscription = new LicenseSubscription();
-        $license_subscription->feeAmount = '999.00';
         $license_subscription->startDate = '2020-03-30';
         $license_subscription->endDate = '2021-03-30';
         $license_subscription->status = 1;
         $institution->license_subscription()->save($license_subscription);
+
+        $payment = new Payment();
+        $payment->health_institution_id = $institution->id;
+        $payment->amount = '1099.00';
+        $payment->remarks = 'Health Institution License and Doctor Connects Purchase';
+        $payment->save();
     }
 }

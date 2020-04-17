@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+use App\Models\Payment;
+
+class AccountsController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -18,14 +20,13 @@ class DashboardController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // return view('_admin.dashboard');
-        return redirect()->route('admin_accounts.list');
+        $payments = Payment::latest('id')->get();
+        return view('_admin.accounts_listing', compact('payments'));
     }
-
 }

@@ -76,7 +76,7 @@
                                                     </tr>
                                                     <input type="hidden" name="purchasedDoctorConnects" value="{{ $docs }}">
                                                 @endif
-                                                <!-- <input type="hidden" name="docsTotal" value="{{ $docsTotal }}"> -->
+                                                <input type="hidden" name="feeAmount" value="{{ $docsTotal }}">
 
                                             </table>
                                             <div class="row">

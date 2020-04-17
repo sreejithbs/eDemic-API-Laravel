@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2020 at 09:29 AM
+-- Generation Time: Apr 17, 2020 at 01:39 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -44,7 +44,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `uuid`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'c6593adb-a522-44ff-af29-6de45d04deb6', 'TBA Super-Admin', 'superadmin@demo.com', '$2y$10$YoCwxSBgEr1Wv7ktYucoZOPK1pgjNSyA.gwzM6CKc77VTkliI5vkq', NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
+(1, 'b27f6b0e-1bda-47fe-b992-d6327fce3cf7', 'TBA Super-Admin', 'superadmin@demo.com', '$2y$10$2oD.D2rYGL1IfeoY/H.TCOPQshWzgOTVYee4cvI2d1uF2lmZtNHOK', NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50');
 
 -- --------------------------------------------------------
 
@@ -341,8 +341,8 @@ CREATE TABLE `diseases` (
 --
 
 INSERT INTO `diseases` (`id`, `uuid`, `health_institution_id`, `name`, `diseaseCode`, `infectionQrCode`, `recoveredQrCode`, `deadQrCode`, `selfQuarantineQrCode`, `riskLevel`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'c985c411-a22a-41a8-bd63-59748a371647', 2, 'Covid-19', 'D84k5yDs', 'demo/covid_19_infection_1586416911.png', 'demo/covid_19_recovered_1586416911.png', 'demo/covid_19_dead_1586416911.png', 'demo/covid_19_selfquarantine_1586416911.png', 1, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(2, 'efe98899-795b-4da1-8c39-76fce5c56429', 2, 'Spanish Flu', 'Dp4k5yRs', 'demo/spanish_flu_infection_1586416922.png', 'demo/spanish_flu_recovered_1586416922.png', 'demo/spanish_flu_dead_1586416922.png', 'demo/spanish_flu_selfquarantine_1586416922.png', 2, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
+(1, '365be0bc-f489-49d1-8ff4-e2eca9bbc3b4', 2, 'Covid-19', 'D84k5yDs', 'demo/covid_19_infection_1586416911.png', 'demo/covid_19_recovered_1586416911.png', 'demo/covid_19_dead_1586416911.png', 'demo/covid_19_selfquarantine_1586416911.png', 1, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(2, '98994e92-01e8-4b7e-8245-3833cb8b3eeb', 2, 'Spanish Flu', 'Dp4k5yRs', 'demo/spanish_flu_infection_1586416922.png', 'demo/spanish_flu_recovered_1586416922.png', 'demo/spanish_flu_dead_1586416922.png', 'demo/spanish_flu_selfquarantine_1586416922.png', 2, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50');
 
 -- --------------------------------------------------------
 
@@ -367,8 +367,8 @@ CREATE TABLE `doctor_profiles` (
 --
 
 INSERT INTO `doctor_profiles` (`id`, `uuid`, `health_institution_id`, `name`, `email`, `phone`, `profileQrCode`, `created_at`, `updated_at`) VALUES
-(1, 'd2f65cbd-3bc0-4025-95d3-2307f90a3d9a', 2, 'John Abraham', 'john@doctor.com', '+918282828282', 'demo/john_abraham_doctor_1586752345.png', '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(2, 'bd910ec2-51a9-4678-b91f-28800db85177', 2, 'Roger Verne', 'roger@doctor.com', '+918282828282', 'demo/roger_verne_doctor_1586755631.png', '2020-04-17 01:58:35', '2020-04-17 01:58:35');
+(1, 'd02eada5-a5dd-4679-8a78-1cd702b9dd74', 2, 'John Abraham', 'john@doctor.com', '+918282828282', 'demo/john_abraham_doctor_1586752345.png', '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(2, '69faed3a-5ef3-4c5b-bdf3-651dd613b4c0', 2, 'Roger Verne', 'roger@doctor.com', '+918282828282', 'demo/roger_verne_doctor_1586755631.png', '2020-04-17 06:08:50', '2020-04-17 06:08:50');
 
 -- --------------------------------------------------------
 
@@ -397,9 +397,8 @@ CREATE TABLE `health_institutions` (
 --
 
 INSERT INTO `health_institutions` (`id`, `uuid`, `name`, `institutionCode`, `email`, `password`, `isHead`, `isActive`, `country_id`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, '9aabcc7f-465b-4d19-a774-5a4a729b8a56', 'Demo Country Head', 'CHHpqa3x', 'countryhead@demo.com', '$2y$10$Ud5J1BGhEUkm3/yWkdSsTO3TfE2RtAYcleS56YZsbyDA3QN3K5q7C', 1, 1, 102, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(2, '66a13e1e-15e2-421b-978b-d9a7bf4b8835', 'Cosmo Hospital Institution', 'HIN53xOp', 'institution@demo.com', '$2y$10$Qs1P2YxV7mTKc4vYPoAWvenlC5cTkF0SWX40f/ryFPu4z49c86IDa', 0, 1, 102, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(3, '7e752973-1036-45b2-9a74-510c853b8615', 'Demo Roger', 'HINjkFd9', 'ddddddddddddddd@sfsa.com', '$2y$10$az0Z9Qs5fPYD/QgXdHgJhutepY3h.skHO9/ZEeRz7/ZPhJn7oewbi', 0, 1, 102, NULL, NULL, '2020-04-17 01:59:09', '2020-04-17 01:59:09');
+(1, '92a065b0-0127-4088-bfb9-35d8823a5d80', 'Demo Country Head', 'CHHpqa3x', 'countryhead@demo.com', '$2y$10$E3M/mmuaXNE0Jjikuq2eeejvSLNp2lVWzyOhWpKmDswGgZKFgKsvi', 1, 1, 102, NULL, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(2, '0f119e08-8bde-4c75-a14e-2734000ab869', 'Cosmo Hospital Institution', 'HIN53xOp', 'institution@demo.com', '$2y$10$Z3pjdYa44weUblX5B4PpredCwErXV/DqFcXZ7aY1aV690ZL4KIKTW', 0, 1, 102, NULL, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50');
 
 -- --------------------------------------------------------
 
@@ -424,8 +423,7 @@ CREATE TABLE `health_institution_profiles` (
 --
 
 INSERT INTO `health_institution_profiles` (`id`, `health_institution_id`, `head_health_institution_id`, `phone`, `address`, `purchasedDoctorConnects`, `remainingDoctorConnects`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, '9219592195', 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala, India 695004', 0, 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(2, 3, 1, '09219592195', 'Test street address', 0, 0, '2020-04-17 01:59:10', '2020-04-17 01:59:10');
+(1, 2, 1, '9219592195', 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala, India 695004', 2, 2, '2020-04-17 06:08:50', '2020-04-17 06:08:50');
 
 -- --------------------------------------------------------
 
@@ -436,7 +434,6 @@ INSERT INTO `health_institution_profiles` (`id`, `health_institution_id`, `head_
 CREATE TABLE `license_subscriptions` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `health_institution_id` bigint(20) UNSIGNED NOT NULL,
-  `feeAmount` decimal(12,2) NOT NULL,
   `startDate` date NOT NULL,
   `endDate` date NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
@@ -448,9 +445,9 @@ CREATE TABLE `license_subscriptions` (
 -- Dumping data for table `license_subscriptions`
 --
 
-INSERT INTO `license_subscriptions` (`id`, `health_institution_id`, `feeAmount`, `startDate`, `endDate`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, '999.00', '2020-03-30', '2021-03-30', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(2, 2, '999.00', '2020-03-30', '2021-03-30', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
+INSERT INTO `license_subscriptions` (`id`, `health_institution_id`, `startDate`, `endDate`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, '2020-03-30', '2021-03-30', 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(2, 2, '2020-03-30', '2021-03-30', 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50');
 
 -- --------------------------------------------------------
 
@@ -474,19 +471,19 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`id`, `uuid`, `title`, `content`, `health_institution_id`, `isPosted`, `created_at`, `updated_at`) VALUES
-(1, 'f5080521-af53-415a-9194-79e90b1d2796', 'India To Deploy Rapid Test Kits To Speed Up Covid-19 Screening', 'Central Govt to begin Rapid Test against Covid-19. The serological antibody blood test, which deliver results in 15 minutes, work on blood samples instead of nasal swabs', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(2, '49e3fc0e-eb24-4294-b686-7bf61d8fc743', 'Protecting the Future of Medicine During the COVID-19 Pandemic', 'The American Heart Association believes that prematurely allowing medical trainees to provide patient care during the COVID-19 pandemic could put the next generation of medical professionals at serious risk', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(3, '7800079d-9577-4754-9452-4508405c78e3', 'How to Prevent Domestic Violence During COVID-19', 'During COVID-19, access to trusted and security internet-based domestic violence services is even more important for survivors and concerned friends and family members who are trying to find ways to keep themselves safe while many states are on \"stay-at-home\" orders', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(4, '8da99a07-46b8-498e-89a6-7a1c7a52930a', 'Blue-light Technology Improves Identification of Bladder Cancer', 'Blue-light cystoscopy has previously been available at some institutions, including UT Southwestern, for use in the operating room, but it wasn’t available in a flexible scope until now', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(5, '07486afa-839b-4759-950e-da38e7ddc2a8', 'Spanish flu: The deadliest pandemic in history', 'In 1918, a strain of influenza known as Spanish flu caused a global pandemic, spreading rapidly and killing indiscriminately. Young, old, sick and otherwise-healthy people all became infected, and at least 10% of patients died', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(6, '2ca68e26-ef06-4bd0-95cb-252ec54d58cd', 'Urgent studies needed into mental health impact of coronavirus', 'Rapid and rigorous research into the impact of Covid-19 on mental health is needed to limit the impact of the pandemic, researchers have said', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(7, '8849e220-433f-466a-b07c-a0725901bc3e', 'Can Clothes and Shoes Track COVID-19 into Your House?', 'Transfer of the coronavirus via clothing is unlikely, but experts agree there are a few scenarios in which immediate laundering is a good idea', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(8, '23f196de-b977-4d7c-8492-adb87ae977b7', 'Why a Virtual Visit to the Doctor May Be the Safest, Most Affordable Option', 'Telehealth options are making a big difference for people seeking medical help during the COVID-19 pandemic — especially older adults', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(9, '04b3b249-cfcf-4b0b-8acd-aeb5032acb3e', 'Why COVID-19 is Hitting Men Harder Than Women', 'Experts say biology and behavior are among the reasons more men than women are dying from COVID-19', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(10, '0a9cb549-f4d7-4700-9a55-2af40a10395b', 'The Best Materials to Make a Homemade Face Mask', 'Health officials have reversed course and now recommend that people use face masks to prevent transmission of the new coronavirus', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(11, 'ea7e174a-789d-44a7-a2a0-c23d9ece1c69', 'It’s Too Early to Know If Hydroxychloroquine Will Help Treat People with COVID-19', 'Until we have results from larger, well-designed trials — which are currently underway — hydroxychloroquine and chloroquine should only be used rarely', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(12, 'b88d3a3c-8545-4f8c-b9d7-0dcb33c91645', 'Are Ventilators Helping or Harming COVID-19 Patients?', 'Mechanical ventilators have become a symbol of the COVID-19 pandemic, representing the last best hope to survive for people who can no longer draw a life-sustaining breath', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(13, '2d8be681-c852-424b-97d1-6d8476b2655a', 'Don’t Rely on Supplements to Treat or Prevent COVID-19', 'Doctors warn that relying on supplements — and taking too much of them — may do more harm than good when trying to combat the COVID-19 outbreak', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
+(1, 'e76822ed-6776-4295-a21e-f3f66cf35015', 'India To Deploy Rapid Test Kits To Speed Up Covid-19 Screening', 'Central Govt to begin Rapid Test against Covid-19. The serological antibody blood test, which deliver results in 15 minutes, work on blood samples instead of nasal swabs', 2, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(2, 'f2c845d0-836e-49ae-8ad6-58b89007f48e', 'Protecting the Future of Medicine During the COVID-19 Pandemic', 'The American Heart Association believes that prematurely allowing medical trainees to provide patient care during the COVID-19 pandemic could put the next generation of medical professionals at serious risk', 2, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(3, '87871520-ead3-4113-9937-8fcc50eba0fc', 'How to Prevent Domestic Violence During COVID-19', 'During COVID-19, access to trusted and security internet-based domestic violence services is even more important for survivors and concerned friends and family members who are trying to find ways to keep themselves safe while many states are on \"stay-at-home\" orders', 2, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(4, '53d9dff5-298e-4648-9016-8cf17cc11ad6', 'Blue-light Technology Improves Identification of Bladder Cancer', 'Blue-light cystoscopy has previously been available at some institutions, including UT Southwestern, for use in the operating room, but it wasn’t available in a flexible scope until now', 2, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(5, 'b913d892-69e0-4fd1-9743-c0e4542190ee', 'Spanish flu: The deadliest pandemic in history', 'In 1918, a strain of influenza known as Spanish flu caused a global pandemic, spreading rapidly and killing indiscriminately. Young, old, sick and otherwise-healthy people all became infected, and at least 10% of patients died', 2, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(6, '512c3bbe-6fff-49e3-be17-cc2f4cbbdffa', 'Urgent studies needed into mental health impact of coronavirus', 'Rapid and rigorous research into the impact of Covid-19 on mental health is needed to limit the impact of the pandemic, researchers have said', 2, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(7, 'a193ad32-6466-4863-a798-03cfabfb01ee', 'Can Clothes and Shoes Track COVID-19 into Your House?', 'Transfer of the coronavirus via clothing is unlikely, but experts agree there are a few scenarios in which immediate laundering is a good idea', 2, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(8, 'ccf0e7a6-6e2f-4c99-9273-81ec88fd2179', 'Why a Virtual Visit to the Doctor May Be the Safest, Most Affordable Option', 'Telehealth options are making a big difference for people seeking medical help during the COVID-19 pandemic — especially older adults', 2, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(9, '992d88a3-ee74-479a-8c58-fa999904d991', 'Why COVID-19 is Hitting Men Harder Than Women', 'Experts say biology and behavior are among the reasons more men than women are dying from COVID-19', 2, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(10, '40352153-59a1-47f3-8e38-1879d07e63cd', 'The Best Materials to Make a Homemade Face Mask', 'Health officials have reversed course and now recommend that people use face masks to prevent transmission of the new coronavirus', 2, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(11, '3e991db8-1b30-4622-8630-11008004e171', 'It’s Too Early to Know If Hydroxychloroquine Will Help Treat People with COVID-19', 'Until we have results from larger, well-designed trials — which are currently underway — hydroxychloroquine and chloroquine should only be used rarely', 2, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(12, '40fc9cd0-8ed0-41bd-9d9e-f062e4bc9753', 'Are Ventilators Helping or Harming COVID-19 Patients?', 'Mechanical ventilators have become a symbol of the COVID-19 pandemic, representing the last best hope to survive for people who can no longer draw a life-sustaining breath', 2, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(13, '7708db85-5d47-4e89-a591-1484c919fa60', 'Don’t Rely on Supplements to Treat or Prevent COVID-19', 'Doctors warn that relying on supplements — and taking too much of them — may do more harm than good when trying to combat the COVID-19 outbreak', 2, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50');
 
 -- --------------------------------------------------------
 
@@ -511,16 +508,17 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2016_06_01_000004_create_oauth_clients_table', 1),
 (5, '2016_06_01_000005_create_oauth_personal_access_clients_table', 1),
 (6, '2020_03_26_180642_create_admins_table', 1),
-(7, '2020_03_26_181151_create_countries_table', 1),
+(7, '2020_03_26_181000_create_countries_table', 1),
 (8, '2020_03_26_181251_create_health_institutions_table', 1),
 (9, '2020_03_26_181308_create_health_institution_profiles_table', 1),
 (10, '2020_03_26_181316_create_license_subscriptions_table', 1),
-(11, '2020_03_26_181326_create_diseases_table', 1),
-(12, '2020_03_26_181350_create_messages_table', 1),
-(13, '2020_03_26_181390_create_doctor_profiles_table', 1),
-(14, '2020_03_26_181411_create_users_table', 1),
-(15, '2020_03_26_181518_create_user_diagnosis_logs_table', 1),
-(16, '2020_03_26_181538_create_user_location_logs_table', 1);
+(11, '2020_03_26_181320_create_payments_table', 1),
+(12, '2020_03_26_181326_create_diseases_table', 1),
+(13, '2020_03_26_181350_create_messages_table', 1),
+(14, '2020_03_26_181390_create_doctor_profiles_table', 1),
+(15, '2020_03_26_181411_create_users_table', 1),
+(16, '2020_03_26_181518_create_user_diagnosis_logs_table', 1),
+(17, '2020_03_26_181538_create_user_location_logs_table', 1);
 
 -- --------------------------------------------------------
 
@@ -579,8 +577,8 @@ CREATE TABLE `oauth_clients` (
 --
 
 INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Laravel Personal Access Client', 'vdhx6fXxAMr4yu7CvbzTcSLOb568IlsPaHoHVFDt', 'http://localhost', 1, 0, 0, '2020-04-17 01:58:36', '2020-04-17 01:58:36'),
-(2, NULL, 'Laravel Password Grant Client', 'U4KBl8MBEo6ulVfGmH9KuIXWI7kqUttoI4bvr24e', 'http://localhost', 0, 1, 0, '2020-04-17 01:58:36', '2020-04-17 01:58:36');
+(1, NULL, 'Laravel Personal Access Client', 'BpQ9axseAt7DJTQK5Wf6lyzZjLoAXzGpQJcPrs1X', 'http://localhost', 1, 0, 0, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(2, NULL, 'Laravel Password Grant Client', 'm2KkYjdvXyZ7rIhBp9ajRC2OHdaKxU08wDtu6DOZ', 'http://localhost', 0, 1, 0, '2020-04-17 06:08:50', '2020-04-17 06:08:50');
 
 -- --------------------------------------------------------
 
@@ -600,7 +598,7 @@ CREATE TABLE `oauth_personal_access_clients` (
 --
 
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2020-04-17 01:58:36', '2020-04-17 01:58:36');
+(1, 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50');
 
 -- --------------------------------------------------------
 
@@ -614,6 +612,30 @@ CREATE TABLE `oauth_refresh_tokens` (
   `revoked` tinyint(1) NOT NULL,
   `expires_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `health_institution_id` bigint(20) UNSIGNED NOT NULL,
+  `amount` decimal(12,2) NOT NULL,
+  `remarks` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `uuid`, `health_institution_id`, `amount`, `remarks`, `created_at`, `updated_at`) VALUES
+(1, 'dfe75e15-60a5-4af8-9fa4-ec88904518da', 1, '999.00', 'Health Head License Purchase', '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(2, 'e4defb02-cbc7-4b10-b522-6f903e07a99d', 2, '1099.00', 'Health Institution License and Doctor Connects Purchase', '2020-04-17 06:08:50', '2020-04-17 06:08:50');
 
 -- --------------------------------------------------------
 
@@ -644,16 +666,16 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `uuid`, `userCode`, `phone`, `is_doctor_id`, `country_id`, `androidDeviceId`, `androidPushToken`, `iosDeviceId`, `iosPushToken`, `isVerified`, `verificationNonce`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'da42b977-9394-4bab-8444-368bba1d5fda', 'UxYUs3Fj', '+918943406910', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(2, 'e2d5fdb0-11b2-4ce5-8f41-6ceff7dba4b5', 'UzOPs34j', '+448219592198', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(3, 'cded4d71-0ffd-46d9-a95e-e3eab92f1558', 'UqOZs34e', '+447219592197', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(4, 'ed001153-e3c5-483b-9421-02d2b39cac25', 'UpOZsQP67', '+446219592196', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(5, '0cc80e8b-3ac1-4368-82b2-f1e5b920a037', 'UwOZsQP10', '+445219592195', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(6, '910f1caa-f345-4723-b987-989b1c09e2b6', 'GBRws5P10', '+444219592194', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(7, '30d8cc1a-6c10-4c79-8504-4d7a5aedb2ff', 'UgRws5Pdr', '+443219592193', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(8, '44c6ccf3-5b67-404e-a029-bb05477d1d8c', 'UgRwopr4x', '+442219592192', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(9, '1cea52b5-5854-4f73-9b57-664ff0b506ed', 'Uopr4xPdq', '+441219592191', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(10, 'ae0a58f9-7bfb-4232-9d5c-f57c2d9228fe', 'UvMroPMD', '+449219592199', 1, 102, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
+(1, '3015583e-ca9c-40e3-9c6c-a37c4efc39ce', 'UxYUs3Fj', '+918943406910', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(2, '9c453c07-0eb5-40d8-9890-e147a6631c98', 'UzOPs34j', '+448219592198', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(3, 'bc56f0ee-ebd1-4d82-abf1-b1cf35e3ad95', 'UqOZs34e', '+447219592197', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(4, '1fb0daf6-9468-42ab-b6e9-f7422f7be2b7', 'UpOZsQP67', '+446219592196', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(5, 'f284d0c0-e9ca-4265-b311-c75b20afa2ba', 'UwOZsQP10', '+445219592195', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(6, '6bcf538f-c70a-4efb-816c-e4affb219e8c', 'GBRws5P10', '+444219592194', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(7, '3f2d7cfc-5598-4e05-8afe-e2000897f7d5', 'UgRws5Pdr', '+443219592193', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(8, '9556138b-a803-4d0e-8ff5-9b77f3e343d0', 'UgRwopr4x', '+442219592192', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(9, '67f0afb6-8306-4ebe-ad46-3571984aa577', 'Uopr4xPdq', '+441219592191', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(10, '2d830a62-159b-43f3-9c8a-6198498b20c9', 'UvMroPMD', '+449219592199', 1, 102, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 06:08:50', '2020-04-17 06:08:50');
 
 -- --------------------------------------------------------
 
@@ -677,15 +699,15 @@ CREATE TABLE `user_diagnosis_logs` (
 --
 
 INSERT INTO `user_diagnosis_logs` (`id`, `uuid`, `patient_id`, `disease_id`, `diagnosisDateTime`, `stage`, `created_at`, `updated_at`) VALUES
-(1, '87656e29-dbc5-4035-a161-b7726b040a54', 1, 1, '2020-04-16 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(2, 'cc303c2f-4f2e-4c86-b7f1-0f95eec833b4', 2, 1, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(3, '7fa7a6f6-579c-4f9e-87b8-c9204c8fdb21', 3, 1, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(4, 'e50edb8e-f96b-4154-8c2b-f96d6378f9eb', 4, 2, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(5, '91954af6-5393-4cbb-98fd-a7ef9d9fe0a5', 5, 2, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(6, '123ebaa9-6639-4c03-a15d-7e8fce182645', 6, 1, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(7, '4ad341da-c0bd-4cf6-8030-dd15b5deec9c', 7, 2, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(8, '91938886-2df5-4820-937a-5b9d3dc784d4', 8, 2, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(9, '8cea7572-e361-4ba4-a64e-c6da242a8d45', 9, 2, '2020-04-17 01:58:35', 4, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
+(1, '11927d03-d727-4c18-a478-c423b4f0ce76', 1, 1, '2020-04-16 06:08:50', 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(2, 'a41bc0c6-f2bd-4f39-afa5-91f29a905d2a', 2, 1, '2020-04-17 06:08:50', 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(3, 'a49da4e6-ad26-447b-bbbe-0a4d264f6c77', 3, 1, '2020-04-17 06:08:50', 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(4, '3d869755-3b47-41de-8544-772e6a39eb27', 4, 2, '2020-04-17 06:08:50', 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(5, '5c27114d-3e06-45bc-a8b1-8976f6d20866', 5, 2, '2020-04-17 06:08:50', 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(6, 'b6eb3742-6970-49ab-9515-a7cc4b6e893f', 6, 1, '2020-04-17 06:08:50', 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(7, 'ac2d1c99-573f-45d8-b359-0421d675b1e6', 7, 2, '2020-04-17 06:08:50', 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(8, '55f65dc0-01d9-43f5-9daf-9465af57efd3', 8, 2, '2020-04-17 06:08:50', 1, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(9, '650d98f8-f49c-4fa8-8467-1a11e9c2b060', 9, 2, '2020-04-17 06:08:50', 4, '2020-04-17 06:08:50', '2020-04-17 06:08:50');
 
 -- --------------------------------------------------------
 
@@ -710,16 +732,16 @@ CREATE TABLE `user_location_logs` (
 --
 
 INSERT INTO `user_location_logs` (`id`, `user_diagnosis_log_id`, `dateTime`, `latitude`, `longitude`, `address`, `isIgnored`, `created_at`, `updated_at`) VALUES
-(1, 1, '2020-04-16 01:58:35', '51.528308', '-0.131847', '8-14 Eversholt St, Kings Cross, London NW1 1DG, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(2, 1, '2020-04-17 01:58:35', '51.533149', '-0.137069', '76 Oakley Square, London NW1 1NH, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(3, 2, '2020-04-17 01:58:35', '51.528390', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(4, 3, '2020-04-17 01:58:35', '51.528390', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(5, 4, '2020-04-17 01:58:35', '51.528380', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(6, 5, '2020-04-17 01:58:35', '51.528380', '-0.161886', '17 Outer Cir, Marylebone, London NW1 4RJ, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(7, 6, '2020-04-17 01:58:35', '51.529380', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(8, 7, '2020-04-17 01:58:35', '51.528490', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(9, 8, '2020-04-17 01:58:35', '51.557843', '-0.115479', '25 Arthur Rd, London N7, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
-(10, 9, '2020-04-17 01:58:35', '51.529374', '-0.136748', '43 Cardington St, Kings Cross, London NW1 2LR, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
+(1, 1, '2020-04-16 06:08:50', '51.528308', '-0.131847', '8-14 Eversholt St, Kings Cross, London NW1 1DG, UK', 0, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(2, 1, '2020-04-17 06:08:50', '51.533149', '-0.137069', '76 Oakley Square, London NW1 1NH, UK', 0, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(3, 2, '2020-04-17 06:08:50', '51.528390', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(4, 3, '2020-04-17 06:08:50', '51.528390', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(5, 4, '2020-04-17 06:08:50', '51.528380', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(6, 5, '2020-04-17 06:08:50', '51.528380', '-0.161886', '17 Outer Cir, Marylebone, London NW1 4RJ, UK', 0, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(7, 6, '2020-04-17 06:08:50', '51.529380', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(8, 7, '2020-04-17 06:08:50', '51.528490', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(9, 8, '2020-04-17 06:08:50', '51.557843', '-0.115479', '25 Arthur Rd, London N7, UK', 0, '2020-04-17 06:08:50', '2020-04-17 06:08:50'),
+(10, 9, '2020-04-17 06:08:50', '51.529374', '-0.136748', '43 Cardington St, Kings Cross, London NW1 2LR, UK', 0, '2020-04-17 06:08:50', '2020-04-17 06:08:50');
 
 --
 -- Indexes for dumped tables
@@ -830,6 +852,14 @@ ALTER TABLE `oauth_refresh_tokens`
   ADD KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`);
 
 --
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `payments_uuid_index` (`uuid`),
+  ADD KEY `payments_health_institution_id_foreign` (`health_institution_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -887,13 +917,13 @@ ALTER TABLE `doctor_profiles`
 -- AUTO_INCREMENT for table `health_institutions`
 --
 ALTER TABLE `health_institutions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `health_institution_profiles`
 --
 ALTER TABLE `health_institution_profiles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `license_subscriptions`
@@ -911,7 +941,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
@@ -924,6 +954,12 @@ ALTER TABLE `oauth_clients`
 --
 ALTER TABLE `oauth_personal_access_clients`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -983,6 +1019,12 @@ ALTER TABLE `license_subscriptions`
 --
 ALTER TABLE `messages`
   ADD CONSTRAINT `messages_health_institution_id_foreign` FOREIGN KEY (`health_institution_id`) REFERENCES `health_institutions` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `payments`
+--
+ALTER TABLE `payments`
+  ADD CONSTRAINT `payments_health_institution_id_foreign` FOREIGN KEY (`health_institution_id`) REFERENCES `health_institutions` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `users`

@@ -41,6 +41,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin_', 'namespace' => 'Admin'], fu
 	Route::group(['prefix' => 'statistics', 'as' => 'statistics.'], function(){
 	    Route::get('/all', 'StatisticsController@index')->name('list');
 	});
+
+	Route::group(['prefix' => 'accounts', 'as' => 'accounts.'], function(){
+	    Route::get('/all', 'AccountsController@index')->name('list');
+	});
 });
 
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLicenseSubscriptionsTable extends Migration
+class CreatePaymentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,19 @@ class CreateLicenseSubscriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('license_subscriptions', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('uuid')->index();
             $table->unsignedBigInteger('health_institution_id');
-            $table->date('startDate');
-            $table->date('endDate');
-            $table->boolean('status')->default(0);
+            $table->decimal('amount', 12, 2);
+            $table->text('remarks');
             $table->timestamps();
         });
 
         /**
          * Foreign Key Constraint
          */
-        Schema::table('license_subscriptions', function (Blueprint $table) {
+        Schema::table('payments', function (Blueprint $table) {
             $table->foreign('health_institution_id')->references('id')->on('health_institutions')->onDelete('cascade');
         });
     }
@@ -37,6 +37,6 @@ class CreateLicenseSubscriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('license_subscriptions');
+        Schema::dropIfExists('payments');
     }
 }

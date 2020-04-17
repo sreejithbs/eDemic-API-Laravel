@@ -12,32 +12,4 @@
     <p>You have successfully logged in!</p>
 </div> -->
 
-<section>
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-content">
-                    <div class="card-body card-dashboard">
-                        <table class="table table-striped table-bordered dtTable">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Country</th>
-                                    <th>Health Head</th>
-                                    <th>Year</th>
-                                    <th>Payment</th>
-                                    <th>Date Created</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            	<!--  -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 @endsection

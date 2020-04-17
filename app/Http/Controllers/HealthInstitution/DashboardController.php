@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 
 use App\Models\LicenseSubscription;
+use App\Models\Payment;
 
 class DashboardController extends Controller
 {
@@ -64,12 +65,25 @@ class DashboardController extends Controller
 
         if($path == 'licence'){
             $license_subscription = new LicenseSubscription();
-            $license_subscription->feeAmount = $request->feeAmount;
             $license_subscription->startDate = Carbon::now()->format('Y-m-d');
             $license_subscription->endDate = Carbon::now()->addYear()->format('Y-m-d');
             $license_subscription->status = 1;
             $institution->license_subscription()->save($license_subscription);
+
+            if($institution->isHead == 1){
+                $remarks = 'Health Head License Purchase';
+            } else{
+                $remarks = 'Health Institution License and Doctor Connects Purchase';
+            }
+        } else{
+            $remarks = 'Additional Doctor Connects Purchase';
         }
+
+        $payment = new Payment();
+        $payment->health_institution_id = $institution->id;
+        $payment->amount = $request->feeAmount;
+        $payment->remarks = $remarks;
+        $payment->save();
 
         if( $request->has('purchasedDoctorConnects') ){
             $institution->health_institution_profile()->increment('purchasedDoctorConnects', $request->purchasedDoctorConnects);
