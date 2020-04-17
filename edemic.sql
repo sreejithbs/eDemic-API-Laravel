@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2020 at 06:42 AM
+-- Generation Time: Apr 17, 2020 at 09:29 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -44,7 +44,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `uuid`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'b9224c51-2536-4d5f-bf99-abcac3cd9c4f', 'TBA Super-Admin', 'superadmin@demo.com', '$2y$10$yDgO99EYF8mb6uHcg5qVP.aZgF7YirWUKp6e1NFwD1lH5P7GaNBfu', NULL, '2020-04-12 23:12:40', '2020-04-12 23:12:40');
+(1, 'c6593adb-a522-44ff-af29-6de45d04deb6', 'TBA Super-Admin', 'superadmin@demo.com', '$2y$10$YoCwxSBgEr1Wv7ktYucoZOPK1pgjNSyA.gwzM6CKc77VTkliI5vkq', NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
 
 -- --------------------------------------------------------
 
@@ -323,6 +323,7 @@ INSERT INTO `countries` (`id`, `name`, `isoAlphaCode`) VALUES
 CREATE TABLE `diseases` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `uuid` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `health_institution_id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `diseaseCode` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `infectionQrCode` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -339,9 +340,9 @@ CREATE TABLE `diseases` (
 -- Dumping data for table `diseases`
 --
 
-INSERT INTO `diseases` (`id`, `uuid`, `name`, `diseaseCode`, `infectionQrCode`, `recoveredQrCode`, `deadQrCode`, `selfQuarantineQrCode`, `riskLevel`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, '9179804c-20b5-423f-8ded-4e5a899e3ee1', 'Covid-19', 'D84k5yDs', 'demo/covid_19_infection_1586416911.png', 'demo/covid_19_recovered_1586416911.png', 'demo/covid_19_dead_1586416911.png', 'demo/covid_19_selfquarantine_1586416911.png', 1, NULL, '2020-04-12 23:12:40', '2020-04-12 23:12:40'),
-(2, 'fcd1ec6c-6464-4d1d-beee-adb9f12c36b7', 'Spanish Flu', 'Dp4k5yRs', 'demo/spanish_flu_infection_1586416922.png', 'demo/spanish_flu_recovered_1586416922.png', 'demo/spanish_flu_dead_1586416922.png', 'demo/spanish_flu_selfquarantine_1586416922.png', 2, NULL, '2020-04-12 23:12:40', '2020-04-12 23:12:40');
+INSERT INTO `diseases` (`id`, `uuid`, `health_institution_id`, `name`, `diseaseCode`, `infectionQrCode`, `recoveredQrCode`, `deadQrCode`, `selfQuarantineQrCode`, `riskLevel`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'c985c411-a22a-41a8-bd63-59748a371647', 2, 'Covid-19', 'D84k5yDs', 'demo/covid_19_infection_1586416911.png', 'demo/covid_19_recovered_1586416911.png', 'demo/covid_19_dead_1586416911.png', 'demo/covid_19_selfquarantine_1586416911.png', 1, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(2, 'efe98899-795b-4da1-8c39-76fce5c56429', 2, 'Spanish Flu', 'Dp4k5yRs', 'demo/spanish_flu_infection_1586416922.png', 'demo/spanish_flu_recovered_1586416922.png', 'demo/spanish_flu_dead_1586416922.png', 'demo/spanish_flu_selfquarantine_1586416922.png', 2, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
 
 -- --------------------------------------------------------
 
@@ -366,7 +367,8 @@ CREATE TABLE `doctor_profiles` (
 --
 
 INSERT INTO `doctor_profiles` (`id`, `uuid`, `health_institution_id`, `name`, `email`, `phone`, `profileQrCode`, `created_at`, `updated_at`) VALUES
-(1, '22e2ea77-a2e7-4d80-915a-44b6c08b7a17', 2, 'John Abraham', 'john@doctor.com', '+918282828282', 'demo/john_abraham_doctor_1586752345.png', '2020-04-12 23:12:40', '2020-04-12 23:12:40');
+(1, 'd2f65cbd-3bc0-4025-95d3-2307f90a3d9a', 2, 'John Abraham', 'john@doctor.com', '+918282828282', 'demo/john_abraham_doctor_1586752345.png', '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(2, 'bd910ec2-51a9-4678-b91f-28800db85177', 2, 'Roger Verne', 'roger@doctor.com', '+918282828282', 'demo/roger_verne_doctor_1586755631.png', '2020-04-17 01:58:35', '2020-04-17 01:58:35');
 
 -- --------------------------------------------------------
 
@@ -382,6 +384,7 @@ CREATE TABLE `health_institutions` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `isHead` tinyint(1) NOT NULL DEFAULT '0',
+  `isActive` tinyint(1) NOT NULL DEFAULT '1',
   `country_id` bigint(20) UNSIGNED DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -393,9 +396,10 @@ CREATE TABLE `health_institutions` (
 -- Dumping data for table `health_institutions`
 --
 
-INSERT INTO `health_institutions` (`id`, `uuid`, `name`, `institutionCode`, `email`, `password`, `isHead`, `country_id`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, '5e0a3e9e-502a-4050-b71c-a66436172128', 'Demo Country Head', 'HIN0001', 'countryhead@demo.com', '$2y$10$8W0lkZTnAosUzqFC8.cF/O9xi4x2NKRqUW7xLh2FXTm5b7sCpYWIu', 1, 102, NULL, NULL, '2020-04-12 23:12:40', '2020-04-12 23:12:40'),
-(2, '40d3ed00-30ab-42fb-ab84-f269ac25a24c', 'Demo Hospital Institution', 'HIN0002', 'institution@demo.com', '$2y$10$5jWScw0q85EeJHJhl8exfOyGR0Gkw12kXSx/OEvZuG2KyWtJUvAsu', 0, 102, NULL, NULL, '2020-04-12 23:12:40', '2020-04-12 23:12:40');
+INSERT INTO `health_institutions` (`id`, `uuid`, `name`, `institutionCode`, `email`, `password`, `isHead`, `isActive`, `country_id`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, '9aabcc7f-465b-4d19-a774-5a4a729b8a56', 'Demo Country Head', 'CHHpqa3x', 'countryhead@demo.com', '$2y$10$Ud5J1BGhEUkm3/yWkdSsTO3TfE2RtAYcleS56YZsbyDA3QN3K5q7C', 1, 1, 102, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(2, '66a13e1e-15e2-421b-978b-d9a7bf4b8835', 'Cosmo Hospital Institution', 'HIN53xOp', 'institution@demo.com', '$2y$10$Qs1P2YxV7mTKc4vYPoAWvenlC5cTkF0SWX40f/ryFPu4z49c86IDa', 0, 1, 102, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(3, '7e752973-1036-45b2-9a74-510c853b8615', 'Demo Roger', 'HINjkFd9', 'ddddddddddddddd@sfsa.com', '$2y$10$az0Z9Qs5fPYD/QgXdHgJhutepY3h.skHO9/ZEeRz7/ZPhJn7oewbi', 0, 1, 102, NULL, NULL, '2020-04-17 01:59:09', '2020-04-17 01:59:09');
 
 -- --------------------------------------------------------
 
@@ -406,6 +410,7 @@ INSERT INTO `health_institutions` (`id`, `uuid`, `name`, `institutionCode`, `ema
 CREATE TABLE `health_institution_profiles` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `health_institution_id` bigint(20) UNSIGNED NOT NULL,
+  `head_health_institution_id` bigint(20) UNSIGNED NOT NULL,
   `phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `purchasedDoctorConnects` int(11) NOT NULL DEFAULT '0',
@@ -418,8 +423,9 @@ CREATE TABLE `health_institution_profiles` (
 -- Dumping data for table `health_institution_profiles`
 --
 
-INSERT INTO `health_institution_profiles` (`id`, `health_institution_id`, `phone`, `address`, `purchasedDoctorConnects`, `remainingDoctorConnects`, `created_at`, `updated_at`) VALUES
-(1, 2, '9219592195', 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala 695004', 0, 0, '2020-04-12 23:12:40', '2020-04-12 23:12:40');
+INSERT INTO `health_institution_profiles` (`id`, `health_institution_id`, `head_health_institution_id`, `phone`, `address`, `purchasedDoctorConnects`, `remainingDoctorConnects`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, '9219592195', 'Pottakuzhy Rd, Pattom, Thiruvananthapuram, Kerala, India 695004', 0, 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(2, 3, 1, '09219592195', 'Test street address', 0, 0, '2020-04-17 01:59:10', '2020-04-17 01:59:10');
 
 -- --------------------------------------------------------
 
@@ -443,7 +449,8 @@ CREATE TABLE `license_subscriptions` (
 --
 
 INSERT INTO `license_subscriptions` (`id`, `health_institution_id`, `feeAmount`, `startDate`, `endDate`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, '999.00', '2020-03-30', '2021-03-30', 1, '2020-04-12 23:12:40', '2020-04-12 23:12:40');
+(1, 1, '999.00', '2020-03-30', '2021-03-30', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(2, 2, '999.00', '2020-03-30', '2021-03-30', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
 
 -- --------------------------------------------------------
 
@@ -467,11 +474,19 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`id`, `uuid`, `title`, `content`, `health_institution_id`, `isPosted`, `created_at`, `updated_at`) VALUES
-(1, '6a25d1e8-4019-41ba-9d0e-5099222f3881', 'India To Deploy Rapid Test Kits To Speed Up Covid-19 Screening', 'Central Govt to begin Rapid Test against Covid-19. The serological antibody blood test, which deliver results in 15 minutes, work on blood samples instead of nasal swabs', 2, 1, '2020-04-12 23:12:40', '2020-04-12 23:12:40'),
-(2, 'e00e7a98-0783-4694-9c22-0f0b42299657', 'Protecting the Future of Medicine During the COVID-19 Pandemic', 'The American Heart Association believes that prematurely allowing medical trainees to provide patient care during the COVID-19 pandemic could put the next generation of medical professionals at serious risk.', 2, 1, '2020-04-12 23:12:40', '2020-04-12 23:12:40'),
-(3, 'a890dc6d-fd28-457d-82e2-5c52dcb6156f', 'How to Prevent Domestic Violence During COVID-19', 'During COVID-19, access to trusted and security internet-based domestic violence services is even more important for survivors and concerned friends and family members who are trying to find ways to keep themselves safe while many states are on \"stay-at-home\" orders.', 2, 1, '2020-04-12 23:12:40', '2020-04-12 23:12:40'),
-(4, '6756f433-fa45-46cb-a379-a06a6a4a47c3', 'Blue-light Technology Improves Identification of Bladder Cancer', 'Blue-light cystoscopy has previously been available at some institutions, including UT Southwestern, for use in the operating room, but it wasn’t available in a flexible scope until now.', 2, 1, '2020-04-12 23:12:40', '2020-04-12 23:12:40'),
-(5, 'd507ec79-4c43-460a-892e-78e9b7c4e51c', 'Spanish flu: The deadliest pandemic in history', 'In 1918, a strain of influenza known as Spanish flu caused a global pandemic, spreading rapidly and killing indiscriminately. Young, old, sick and otherwise-healthy people all became infected, and at least 10% of patients died.', 2, 1, '2020-04-12 23:12:40', '2020-04-12 23:12:40');
+(1, 'f5080521-af53-415a-9194-79e90b1d2796', 'India To Deploy Rapid Test Kits To Speed Up Covid-19 Screening', 'Central Govt to begin Rapid Test against Covid-19. The serological antibody blood test, which deliver results in 15 minutes, work on blood samples instead of nasal swabs', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(2, '49e3fc0e-eb24-4294-b686-7bf61d8fc743', 'Protecting the Future of Medicine During the COVID-19 Pandemic', 'The American Heart Association believes that prematurely allowing medical trainees to provide patient care during the COVID-19 pandemic could put the next generation of medical professionals at serious risk', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(3, '7800079d-9577-4754-9452-4508405c78e3', 'How to Prevent Domestic Violence During COVID-19', 'During COVID-19, access to trusted and security internet-based domestic violence services is even more important for survivors and concerned friends and family members who are trying to find ways to keep themselves safe while many states are on \"stay-at-home\" orders', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(4, '8da99a07-46b8-498e-89a6-7a1c7a52930a', 'Blue-light Technology Improves Identification of Bladder Cancer', 'Blue-light cystoscopy has previously been available at some institutions, including UT Southwestern, for use in the operating room, but it wasn’t available in a flexible scope until now', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(5, '07486afa-839b-4759-950e-da38e7ddc2a8', 'Spanish flu: The deadliest pandemic in history', 'In 1918, a strain of influenza known as Spanish flu caused a global pandemic, spreading rapidly and killing indiscriminately. Young, old, sick and otherwise-healthy people all became infected, and at least 10% of patients died', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(6, '2ca68e26-ef06-4bd0-95cb-252ec54d58cd', 'Urgent studies needed into mental health impact of coronavirus', 'Rapid and rigorous research into the impact of Covid-19 on mental health is needed to limit the impact of the pandemic, researchers have said', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(7, '8849e220-433f-466a-b07c-a0725901bc3e', 'Can Clothes and Shoes Track COVID-19 into Your House?', 'Transfer of the coronavirus via clothing is unlikely, but experts agree there are a few scenarios in which immediate laundering is a good idea', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(8, '23f196de-b977-4d7c-8492-adb87ae977b7', 'Why a Virtual Visit to the Doctor May Be the Safest, Most Affordable Option', 'Telehealth options are making a big difference for people seeking medical help during the COVID-19 pandemic — especially older adults', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(9, '04b3b249-cfcf-4b0b-8acd-aeb5032acb3e', 'Why COVID-19 is Hitting Men Harder Than Women', 'Experts say biology and behavior are among the reasons more men than women are dying from COVID-19', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(10, '0a9cb549-f4d7-4700-9a55-2af40a10395b', 'The Best Materials to Make a Homemade Face Mask', 'Health officials have reversed course and now recommend that people use face masks to prevent transmission of the new coronavirus', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(11, 'ea7e174a-789d-44a7-a2a0-c23d9ece1c69', 'It’s Too Early to Know If Hydroxychloroquine Will Help Treat People with COVID-19', 'Until we have results from larger, well-designed trials — which are currently underway — hydroxychloroquine and chloroquine should only be used rarely', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(12, 'b88d3a3c-8545-4f8c-b9d7-0dcb33c91645', 'Are Ventilators Helping or Harming COVID-19 Patients?', 'Mechanical ventilators have become a symbol of the COVID-19 pandemic, representing the last best hope to survive for people who can no longer draw a life-sustaining breath', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(13, '2d8be681-c852-424b-97d1-6d8476b2655a', 'Don’t Rely on Supplements to Treat or Prevent COVID-19', 'Doctors warn that relying on supplements — and taking too much of them — may do more harm than good when trying to combat the COVID-19 outbreak', 2, 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
 
 -- --------------------------------------------------------
 
@@ -564,8 +579,8 @@ CREATE TABLE `oauth_clients` (
 --
 
 INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Laravel Personal Access Client', 'O5O1SlohekQjl7oyS9mDqrLTyQ00OxZ7liDPsPY4', 'http://localhost', 1, 0, 0, '2020-04-12 23:12:40', '2020-04-12 23:12:40'),
-(2, NULL, 'Laravel Password Grant Client', 'fJBp8T2nkQtmH1Xw09ZZ93clbtYoDEtUFln9Lvf8', 'http://localhost', 0, 1, 0, '2020-04-12 23:12:40', '2020-04-12 23:12:40');
+(1, NULL, 'Laravel Personal Access Client', 'vdhx6fXxAMr4yu7CvbzTcSLOb568IlsPaHoHVFDt', 'http://localhost', 1, 0, 0, '2020-04-17 01:58:36', '2020-04-17 01:58:36'),
+(2, NULL, 'Laravel Password Grant Client', 'U4KBl8MBEo6ulVfGmH9KuIXWI7kqUttoI4bvr24e', 'http://localhost', 0, 1, 0, '2020-04-17 01:58:36', '2020-04-17 01:58:36');
 
 -- --------------------------------------------------------
 
@@ -585,7 +600,7 @@ CREATE TABLE `oauth_personal_access_clients` (
 --
 
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2020-04-12 23:12:40', '2020-04-12 23:12:40');
+(1, 1, '2020-04-17 01:58:36', '2020-04-17 01:58:36');
 
 -- --------------------------------------------------------
 
@@ -629,8 +644,16 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `uuid`, `userCode`, `phone`, `is_doctor_id`, `country_id`, `androidDeviceId`, `androidPushToken`, `iosDeviceId`, `iosPushToken`, `isVerified`, `verificationNonce`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'b4b5ad18-6887-4ba0-9a57-59770134ad42', 'UxYUs3Fj', '+919219592195', NULL, 102, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-12 23:12:40', '2020-04-12 23:12:40'),
-(2, '5aad656f-72a7-4d64-8599-a051d02cb78c', 'UvMroPMD', '+918943406910', 1, 102, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-12 23:12:40', '2020-04-12 23:12:40');
+(1, 'da42b977-9394-4bab-8444-368bba1d5fda', 'UxYUs3Fj', '+918943406910', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(2, 'e2d5fdb0-11b2-4ce5-8f41-6ceff7dba4b5', 'UzOPs34j', '+448219592198', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(3, 'cded4d71-0ffd-46d9-a95e-e3eab92f1558', 'UqOZs34e', '+447219592197', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(4, 'ed001153-e3c5-483b-9421-02d2b39cac25', 'UpOZsQP67', '+446219592196', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(5, '0cc80e8b-3ac1-4368-82b2-f1e5b920a037', 'UwOZsQP10', '+445219592195', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(6, '910f1caa-f345-4723-b987-989b1c09e2b6', 'GBRws5P10', '+444219592194', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(7, '30d8cc1a-6c10-4c79-8504-4d7a5aedb2ff', 'UgRws5Pdr', '+443219592193', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(8, '44c6ccf3-5b67-404e-a029-bb05477d1d8c', 'UgRwopr4x', '+442219592192', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(9, '1cea52b5-5854-4f73-9b57-664ff0b506ed', 'Uopr4xPdq', '+441219592191', NULL, 237, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(10, 'ae0a58f9-7bfb-4232-9d5c-f57c2d9228fe', 'UvMroPMD', '+449219592199', 1, 102, NULL, NULL, NULL, NULL, 1, NULL, NULL, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
 
 -- --------------------------------------------------------
 
@@ -640,6 +663,7 @@ INSERT INTO `users` (`id`, `uuid`, `userCode`, `phone`, `is_doctor_id`, `country
 
 CREATE TABLE `user_diagnosis_logs` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `patient_id` bigint(20) UNSIGNED NOT NULL,
   `disease_id` bigint(20) UNSIGNED NOT NULL,
   `diagnosisDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -652,9 +676,16 @@ CREATE TABLE `user_diagnosis_logs` (
 -- Dumping data for table `user_diagnosis_logs`
 --
 
-INSERT INTO `user_diagnosis_logs` (`id`, `patient_id`, `disease_id`, `diagnosisDateTime`, `stage`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, '2020-04-11 23:12:40', 1, '2020-04-12 23:12:40', '2020-04-12 23:12:40'),
-(2, 2, 2, '2020-04-13 23:12:40', 2, '2020-04-12 23:12:40', '2020-04-12 23:12:40');
+INSERT INTO `user_diagnosis_logs` (`id`, `uuid`, `patient_id`, `disease_id`, `diagnosisDateTime`, `stage`, `created_at`, `updated_at`) VALUES
+(1, '87656e29-dbc5-4035-a161-b7726b040a54', 1, 1, '2020-04-16 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(2, 'cc303c2f-4f2e-4c86-b7f1-0f95eec833b4', 2, 1, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(3, '7fa7a6f6-579c-4f9e-87b8-c9204c8fdb21', 3, 1, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(4, 'e50edb8e-f96b-4154-8c2b-f96d6378f9eb', 4, 2, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(5, '91954af6-5393-4cbb-98fd-a7ef9d9fe0a5', 5, 2, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(6, '123ebaa9-6639-4c03-a15d-7e8fce182645', 6, 1, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(7, '4ad341da-c0bd-4cf6-8030-dd15b5deec9c', 7, 2, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(8, '91938886-2df5-4820-937a-5b9d3dc784d4', 8, 2, '2020-04-17 01:58:35', 1, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(9, '8cea7572-e361-4ba4-a64e-c6da242a8d45', 9, 2, '2020-04-17 01:58:35', 4, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
 
 -- --------------------------------------------------------
 
@@ -665,9 +696,11 @@ INSERT INTO `user_diagnosis_logs` (`id`, `patient_id`, `disease_id`, `diagnosisD
 CREATE TABLE `user_location_logs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_diagnosis_log_id` bigint(20) UNSIGNED NOT NULL,
-  `reportedDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `latitude` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `longitude` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `isIgnored` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -676,10 +709,17 @@ CREATE TABLE `user_location_logs` (
 -- Dumping data for table `user_location_logs`
 --
 
-INSERT INTO `user_location_logs` (`id`, `user_diagnosis_log_id`, `reportedDateTime`, `latitude`, `longitude`, `created_at`, `updated_at`) VALUES
-(1, 1, '2020-04-11 23:12:40', '53.0', '-1.4', '2020-04-12 23:12:40', '2020-04-12 23:12:40'),
-(2, 1, '2020-04-12 23:12:40', '54.0', '-1.2', '2020-04-12 23:12:40', '2020-04-12 23:12:40'),
-(3, 2, '2020-04-13 23:12:40', '55.0', '-1.0', '2020-04-12 23:12:40', '2020-04-12 23:12:40');
+INSERT INTO `user_location_logs` (`id`, `user_diagnosis_log_id`, `dateTime`, `latitude`, `longitude`, `address`, `isIgnored`, `created_at`, `updated_at`) VALUES
+(1, 1, '2020-04-16 01:58:35', '51.528308', '-0.131847', '8-14 Eversholt St, Kings Cross, London NW1 1DG, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(2, 1, '2020-04-17 01:58:35', '51.533149', '-0.137069', '76 Oakley Square, London NW1 1NH, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(3, 2, '2020-04-17 01:58:35', '51.528390', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(4, 3, '2020-04-17 01:58:35', '51.528390', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(5, 4, '2020-04-17 01:58:35', '51.528380', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(6, 5, '2020-04-17 01:58:35', '51.528380', '-0.161886', '17 Outer Cir, Marylebone, London NW1 4RJ, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(7, 6, '2020-04-17 01:58:35', '51.529380', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(8, 7, '2020-04-17 01:58:35', '51.528490', '-0.151886', 'Regent\'s Park, Nursery Lodge, Inner Cir, London NW1 4NY, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(9, 8, '2020-04-17 01:58:35', '51.557843', '-0.115479', '25 Arthur Rd, London N7, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35'),
+(10, 9, '2020-04-17 01:58:35', '51.529374', '-0.136748', '43 Cardington St, Kings Cross, London NW1 2LR, UK', 0, '2020-04-17 01:58:35', '2020-04-17 01:58:35');
 
 --
 -- Indexes for dumped tables
@@ -705,7 +745,8 @@ ALTER TABLE `countries`
 ALTER TABLE `diseases`
   ADD PRIMARY KEY (`id`),
   ADD KEY `diseases_uuid_index` (`uuid`),
-  ADD KEY `diseases_diseasecode_index` (`diseaseCode`);
+  ADD KEY `diseases_diseasecode_index` (`diseaseCode`),
+  ADD KEY `diseases_health_institution_id_foreign` (`health_institution_id`);
 
 --
 -- Indexes for table `doctor_profiles`
@@ -730,7 +771,8 @@ ALTER TABLE `health_institutions`
 --
 ALTER TABLE `health_institution_profiles`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `health_institution_profiles_health_institution_id_foreign` (`health_institution_id`);
+  ADD KEY `health_institution_profiles_health_institution_id_foreign` (`health_institution_id`),
+  ADD KEY `health_institution_profiles_head_health_institution_id_foreign` (`head_health_institution_id`);
 
 --
 -- Indexes for table `license_subscriptions`
@@ -802,6 +844,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_diagnosis_logs`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `user_diagnosis_logs_uuid_index` (`uuid`),
   ADD KEY `user_diagnosis_logs_patient_id_foreign` (`patient_id`),
   ADD KEY `user_diagnosis_logs_disease_id_foreign` (`disease_id`);
 
@@ -838,31 +881,31 @@ ALTER TABLE `diseases`
 -- AUTO_INCREMENT for table `doctor_profiles`
 --
 ALTER TABLE `doctor_profiles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `health_institutions`
 --
 ALTER TABLE `health_institutions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `health_institution_profiles`
 --
 ALTER TABLE `health_institution_profiles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `license_subscriptions`
 --
 ALTER TABLE `license_subscriptions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -886,23 +929,29 @@ ALTER TABLE `oauth_personal_access_clients`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_diagnosis_logs`
 --
 ALTER TABLE `user_diagnosis_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user_location_logs`
 --
 ALTER TABLE `user_location_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `diseases`
+--
+ALTER TABLE `diseases`
+  ADD CONSTRAINT `diseases_health_institution_id_foreign` FOREIGN KEY (`health_institution_id`) REFERENCES `health_institutions` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `doctor_profiles`
@@ -920,6 +969,7 @@ ALTER TABLE `health_institutions`
 -- Constraints for table `health_institution_profiles`
 --
 ALTER TABLE `health_institution_profiles`
+  ADD CONSTRAINT `health_institution_profiles_head_health_institution_id_foreign` FOREIGN KEY (`head_health_institution_id`) REFERENCES `health_institutions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `health_institution_profiles_health_institution_id_foreign` FOREIGN KEY (`health_institution_id`) REFERENCES `health_institutions` (`id`) ON DELETE CASCADE;
 
 --

@@ -7,7 +7,7 @@
                     type: '{{ $notification }}',
                     title: '{{ Session::get($notification) }}',
                     showConfirmButton: true,
-                    timer: 2000
+                    timer: 2500
                 })
             });
         </script>
@@ -18,7 +18,7 @@
     @foreach ($errors->all() as $error)
         <script type="text/javascript">
             jQuery(document).ready(function() {
-                toastr.error("{{ $error }}" , "Error !", {timeOut: 2000});
+                toastr.error("{{ $error }}" , "Error !", {timeOut: 2500});
             });
         </script>
     @endforeach

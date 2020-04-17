@@ -14,14 +14,14 @@ class ConstantHelper {
     const STATUS_NOT_FOUND = 404;
     const STATUS_UNPROCESSABLE_ENTITY = 422;
 
-    const INSTITUTION_CREATE = 'Institution record has been created successfully';
+    const INSTITUTION_CREATE = 'Institution record has been created successfully. Login credentials have been sent to the registered Email';
     const INSTITUTION_CREATE_FAIL = 'Something went wrong. Institution record creation failed';
     const INSTITUTION_UPDATE = 'Institution record has been updated successfully';
     const INSTITUTION_UPDATE_FAIL = 'Something went wrong. Institution record updation failed';
     const INSTITUTION_DELETE = 'Institution record has been deleted successfully';
     const INSTITUTION_DELETE_FAIL = 'Something went wrong. Institution record deletion failed';
 
-    const DOCTOR_CREATE = 'Doctor record has been created successfully';
+    const DOCTOR_CREATE = 'Doctor record has been created successfully. Profile QR Code has been sent to the registered Email';
     const DOCTOR_CREATE_FAIL = 'Something went wrong. Doctor record creation failed';
     const DOCTOR_UPDATE = 'Doctor record has been updated successfully';
     const DOCTOR_UPDATE_FAIL = 'Something went wrong. Doctor record updation failed';
@@ -42,4 +42,11 @@ class ConstantHelper {
     const DISEASE_UPDATE_FAIL = 'Something went wrong. Disease record updation failed';
     const DISEASE_DELETE = 'Disease record has been deleted successfully';
     const DISEASE_DELETE_FAIL = 'Something went wrong. Disease record deletion failed';
+
+    const HEALTH_HEAD_CREATE = 'Health Head record has been created successfully. Login credentials have been sent to the registered Email';
+    const HEALTH_HEAD_CREATE_FAIL = 'Something went wrong. Health Head record creation failed';
+    const HEALTH_HEAD_DELETE = 'Health Head record has been deleted successfully';
+    const HEALTH_HEAD_DELETE_FAIL = 'Something went wrong. Health Head record deletion failed';
+    const HEALTH_HEAD_TOGGLE_STATUS = 'Health Head Status has been changed successfully';
+
 }

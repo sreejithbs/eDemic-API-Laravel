@@ -17,7 +17,7 @@ class HealthInstitutionTableSeeder extends Seeder
     {
         $institution_head = new HealthInstitution();
         $institution_head->name = 'Demo Country Head';
-        $institution_head->institutionCode = 'HIN0001';
+        $institution_head->institutionCode = 'CHHpqa3x';
         $institution_head->email = 'countryhead@demo.com';
         $institution_head->password = bcrypt('123456');
         $institution_head->isHead = 1;
@@ -34,7 +34,7 @@ class HealthInstitutionTableSeeder extends Seeder
 
         $institution = new HealthInstitution();
         $institution->name = 'Cosmo Hospital Institution';
-        $institution->institutionCode = 'HIN0002';
+        $institution->institutionCode = 'HIN53xOp';
         $institution->email = 'institution@demo.com';
         // $institution->password = bcrypt('123456');
         $institution->password = bcrypt('L7wMgpUh');

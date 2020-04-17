@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title> Health Institution Registration Successful | e-Demic </title>
+        <title> Health Head Registration Successful | e-Demic </title>
         <style type="text/css">
             img {
                 max-width: 100%;
@@ -85,13 +85,12 @@
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                Welcome to e-Demic. Your Health Institution account has been created successfully. Please purchase your License and Doctor Connections from your account to use e-Demic. <br><br>Here are your account details :
+                                                Welcome to e-Demic. Your Health Head account has been created successfully. Please purchase your License from your account to use e-Demic. <br><br>Here are your account details :
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                <strong>Health Institution Code</strong> : {{ $data['institution_code'] }} <br>
-                                                <strong>Parent Health Institution</strong> : {{ $data['parent_institution'] }} <br>
+                                                <strong>Health Head Code</strong> : {{ $data['institution_code'] }} <br>
                                                 <strong>Username</strong> : {{ $data['email'] }} <br>
                                                 <strong>Password</strong> : {{ $data['password'] }}
                                             </td>

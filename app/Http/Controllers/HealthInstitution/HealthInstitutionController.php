@@ -80,7 +80,6 @@ class HealthInstitutionController extends Controller
             event( new HealthInstitutionWasCreatedEvent($institution, $request->password) );
 
         } catch (\Exception $e) {
-            dd($e);
             DB::rollback();
             // return back()->withErrors(['error' => $e->getMessage()]);
             return back()->withErrors(['error' => ConstantHelper::INSTITUTION_CREATE_FAIL]);

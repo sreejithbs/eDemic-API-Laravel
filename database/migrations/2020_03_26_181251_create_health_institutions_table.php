@@ -21,6 +21,7 @@ class CreateHealthInstitutionsTable extends Migration
             $table->string('email');
             $table->string('password');
             $table->boolean('isHead')->default(0);
+            $table->boolean('isActive')->default(1);
             $table->unsignedBigInteger('country_id')->nullable();
             $table->rememberToken();
             $table->softDeletes();

@@ -23,10 +23,10 @@
                 </a>
             </li>
 
-            <li class="nav-item" >
-                <a href="javascript:void(0);">
+             <li class="nav-item {{ \StringHelper::setActive(['admin_health_heads.*']) }}" >
+                <a href="{{ route('admin_health_heads.list') }}">
                     <i class="la la-h-square"></i>
-                    <span class="menu-title">Health Head</span>
+                    <span class="menu-title">Health Heads</span>
                 </a>
             </li>
 

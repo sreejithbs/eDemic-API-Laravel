@@ -29,6 +29,14 @@ Route::group(['namespace' => 'Auth'], function(){
 // ************************* Start of ADMIN ROUTES ******************************
 Route::group(['prefix' => 'admin', 'as' => 'admin_', 'namespace' => 'Admin'], function(){
 	Route::get('/dashboard', 'DashboardController@index')->name('dashboard.show');
+
+	Route::group(['prefix' => 'health_heads', 'as' => 'health_heads.'], function(){
+	    Route::get('/all', 'HealthHeadController@index')->name('list');
+	    Route::get('/create', 'HealthHeadController@create')->name('create');
+	    Route::post('/store', 'HealthHeadController@store')->name('store');
+	    Route::delete('/delete/{uuid}', 'HealthHeadController@destroy')->name('delete');
+	    Route::get('/toggleStatus/{uuid}', 'HealthHeadController@toggleStatus')->name('toggleStatus');
+	});
 });
 
 

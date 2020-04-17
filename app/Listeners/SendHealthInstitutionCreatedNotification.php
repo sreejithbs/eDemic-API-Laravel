@@ -35,10 +35,7 @@ class SendHealthInstitutionCreatedNotification
         $info = array(
             'to' => $institution->email,
             'from' => env('MAIL_FROM_ADDRESS', 'no-reply@edemic.com'),
-            'subject' => 'Health Institution Registration Successful | e-Demic',
-            'template' => 'emails.institution_create',
             'data' => [
-                'parent_institution' => HealthInstitution::find($institution->health_institution_profile->head_health_institution_id)->name,
                 'institution_name' =>  $institution->name,
                 'institution_code' =>  $institution->institutionCode,
                 'email' => $institution->email,
@@ -46,6 +43,15 @@ class SendHealthInstitutionCreatedNotification
                 'login_url' => url('/')
             ]
         );
+
+        if($institution->isHead == 0){
+            $info['subject'] = 'Health Institution Registration Successful | e-Demic';
+            $info['template'] = 'emails.institution_create';
+            $info['data']['parent_institution'] = HealthInstitution::find($institution->health_institution_profile->head_health_institution_id)->name;
+        } else{
+            $info['subject'] = 'Health Head Registration Successful | e-Demic';
+            $info['template'] = 'emails.health_head_create';
+        }
 
         Mail::send($info['template'], ["data"=> $info['data']], function ($message) use ($info) {
             $message->to($info['to']);
