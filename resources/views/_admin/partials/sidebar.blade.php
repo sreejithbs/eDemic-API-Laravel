@@ -16,17 +16,17 @@
                 </a>
             </li>
 
-            <li class="nav-item" >
-                <a href="javascript:void(0);">
-                    <i class="ft-activity"></i>
-                    <span class="menu-title">Statistics</span>
-                </a>
-            </li>
-
              <li class="nav-item {{ \StringHelper::setActive(['admin_health_heads.*']) }}" >
                 <a href="{{ route('admin_health_heads.list') }}">
                     <i class="la la-h-square"></i>
                     <span class="menu-title">Health Heads</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ \StringHelper::setActive(['admin_statistics.*']) }}" >
+                <a href="{{ route('admin_statistics.list') }}">
+                    <i class="ft-activity"></i>
+                    <span class="menu-title">Statistics</span>
                 </a>
             </li>
 

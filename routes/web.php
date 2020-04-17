@@ -37,6 +37,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin_', 'namespace' => 'Admin'], fu
 	    Route::delete('/delete/{uuid}', 'HealthHeadController@destroy')->name('delete');
 	    Route::get('/toggleStatus/{uuid}', 'HealthHeadController@toggleStatus')->name('toggleStatus');
 	});
+
+	Route::group(['prefix' => 'statistics', 'as' => 'statistics.'], function(){
+	    Route::get('/all', 'StatisticsController@index')->name('list');
+	});
 });
 
 
@@ -99,5 +103,9 @@ Route::group(['prefix' => 'institution', 'as' => 'institution_', 'namespace' => 
 	    Route::get('/riskLevel/edit', 'DiseaseController@editRiskLevel')->name('editRiskLevel');
 	    Route::post('/riskLevel/fetch', 'DiseaseController@fetchRiskLevel')->name('fetchRiskLevel');
 	    Route::put('/riskLevel/update', 'DiseaseController@updateRiskLevel')->name('updateRiskLevel');
+	});
+
+	Route::group(['prefix' => 'statistics', 'as' => 'statistics.'], function(){
+	    Route::get('/all', 'StatisticsController@index')->name('list');
 	});
 });

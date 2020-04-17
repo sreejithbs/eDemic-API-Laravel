@@ -66,8 +66,8 @@
                     </li>
                 @endcan
 
-                <li class="nav-item" >
-                    <a href="javascript:void(0);">
+                <li class="nav-item {{ \StringHelper::setActive(['institution_statistics.*']) }}" >
+                    <a href="{{ route('institution_statistics.list') }}">
                         <i class="ft-activity"></i>
                         <span class="menu-title">Statistics</span>
                     </a>
