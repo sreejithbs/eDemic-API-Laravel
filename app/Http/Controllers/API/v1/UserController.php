@@ -157,18 +157,36 @@ class UserController extends Controller
     */
     public function fetchDoctorProfile($doctor_id)
     {
+        $user = Auth::user();
+
         $doctor = DoctorProfile::find($doctor_id);
-        if( $doctor ){
-            if( Auth::user()->is_doctor_id ){
-                return response()->json([
-                    'status' => ConstantHelper::STATUS_FORBIDDEN,
-                    'error' => [
-                        'code' => 1001,
-                        'message'=> 'User account is already mapped to a Doctor Profile.'
-                    ],
-                ], ConstantHelper::STATUS_FORBIDDEN);
+        if( $doctor )
+        {
+            if( $user->is_doctor_id )
+            {
+                if($user->is_doctor_id == $doctor->id)
+                {
+                    $data['id'] = $doctor->id;
+                    $data['name'] = $doctor->name;
+                    $data['health_institution'] = $doctor->health_institution->name;
+
+                    return response()->json([
+                        'status' => ConstantHelper::STATUS_OK,
+                        'message' => 'Doctor Profile',
+                        'data' => $data
+                    ], ConstantHelper::STATUS_OK);
+                }
+                else {
+                    return response()->json([
+                        'status' => ConstantHelper::STATUS_FORBIDDEN,
+                        'error' => [
+                            'code' => 1001,
+                            'message'=> 'User account is already mapped to another Doctor Profile.'
+                        ],
+                    ], ConstantHelper::STATUS_FORBIDDEN);
+                }
             }
-            else if( $doctor->user()->exists() ){
+            else if( $doctor->user()->exists() ) {
                 return response()->json([
                     'status' => ConstantHelper::STATUS_FORBIDDEN,
                     'error' => [
@@ -178,7 +196,6 @@ class UserController extends Controller
                 ], ConstantHelper::STATUS_FORBIDDEN);
             }
             else {
-                $user = Auth::user();
                 $user->is_doctor_id = $doctor_id;
                 $user->save();
 
@@ -192,7 +209,8 @@ class UserController extends Controller
                     'data' => $data
                 ], ConstantHelper::STATUS_OK);
             }
-        } else {
+        }
+        else {
             return response()->json([
                 'status' => ConstantHelper::STATUS_UNPROCESSABLE_ENTITY,
                 'error' => [
