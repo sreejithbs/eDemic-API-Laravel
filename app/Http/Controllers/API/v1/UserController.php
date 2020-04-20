@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1;
 
 // use Illuminate\Http\Request;
 use App\Http\Requests\API\DeviceTokenRequest;
+use App\Http\Requests\API\QuarantinedUserRequest;
 use App\Http\Requests\API\PatientDiagnosedRequest;
 use App\Http\Requests\API\UserLocationRequest;
 use App\Http\Controllers\Controller;
@@ -250,6 +251,79 @@ class UserController extends Controller
                 ],
             ], ConstantHelper::STATUS_UNPROCESSABLE_ENTITY);
         }
+    }
+
+    /**
+     * @OA\Post(path="/user/quarantinedLocation",
+     *     tags={"Users"},
+     *     summary="Update quarantine user details",
+     *     description="API to update quarantine user details to be saved in database.",
+     *     operationId="quarantinedLocation",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(property="disease_code", type="integer", example=6001),
+     *                 @OA\Property(property="quarantined_date_time", type="string", example="2020-04-08 07:23:37"),
+     *                 @OA\Property(property="location_date_time", type="string", example="2020-04-08 07:23:37"),
+     *                 @OA\Property(property="latitude", type="string", example="51.528308"),
+     *                 @OA\Property(property="longitude", type="string", example="-0.131847"),
+     *                 @OA\Property(property="address", type="string", example="8-14 Eversholt St, Kings Cross, London NW1 1DG, UK"),
+     *             ),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Successful Operation",
+     *         @OA\JsonContent()
+     *     ),
+     *     security={
+     *          {"api_key": {}}
+     *     },
+     * )
+     */
+    public function quarantinedLocation(QuarantinedUserRequest $request)
+    {
+        $user = Auth::user();
+        $disease_id = (int)$request->disease_code - 6000;
+        $stage = Disease::SELF_QUARANTINE_STATUS;
+
+        $match = UserDiagnosisLog::where([
+            [ 'patient_id', '=', $user->id ],
+            [ 'disease_id', '=', $disease_id ],
+            [ 'stage', '=', $stage ],
+        ])->first();
+
+        if($match){
+            return response()->json([
+                'status' => ConstantHelper::STATUS_FORBIDDEN,
+                'error' => [
+                    'code' => 1001,
+                    'message'=> 'User details with same disease and quarantine stage already exist in records'
+                ],
+            ], ConstantHelper::STATUS_FORBIDDEN);
+        }
+
+        $disease = Disease::find($disease_id);
+
+        $diagnosis_log = new UserDiagnosisLog();
+        $diagnosis_log->disease_id = $disease->id;
+        $diagnosis_log->diagnosisDateTime = Carbon::parse($request->quarantined_date_time)->format('Y-m-d H:i:s');
+        $diagnosis_log->stage = $stage;
+        $user->patients()->save($diagnosis_log);
+
+        $location_log = new UserLocationLog();
+        $location_log->dateTime = Carbon::parse($request->location_date_time)->format('Y-m-d H:i:s');
+        $location_log->latitude = $request->latitude;
+        $location_log->longitude = $request->longitude;
+        $location_log->address = $request->address;
+        $diagnosis_log->user_location_logs()->save($location_log);
+
+        return response()->json([
+            'status' => ConstantHelper::STATUS_OK,
+            'message' => 'Quarantined User details has been recorded successfully',
+        ], ConstantHelper::STATUS_OK);
     }
 
     /**

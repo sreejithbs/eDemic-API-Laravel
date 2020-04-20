@@ -58,8 +58,8 @@
                 </li>
 
                 @can('isCountryHead')
-                    <li class="nav-item {{ \StringHelper::setActive(['institution_diseases.editRiskLevel']) }}" >
-                        <a href="{{ route('institution_diseases.editRiskLevel') }}">
+                    <li class="nav-item {{ \StringHelper::setActive(['institution_risk_level.*']) }}" >
+                        <a href="{{ route('institution_risk_level.editRiskLevel') }}">
                             <i class="ft-alert-triangle"></i>
                             <span class="menu-title">Risk Level</span>
                         </a>

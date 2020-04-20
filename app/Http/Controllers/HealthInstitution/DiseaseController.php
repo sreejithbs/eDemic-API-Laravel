@@ -204,9 +204,9 @@ class DiseaseController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             // return back()->withErrors(['error' => $e->getMessage()]);
-            return back()->withErrors(['error' => ConstantHelper::DISEASE_UPDATE_FAIL]);
+            return back()->withErrors(['error' => ConstantHelper::RISK_LEVEL_UPDATE_FAIL]);
         }
 
-        return back()->with('success', ConstantHelper::DISEASE_UPDATE);
+        return back()->with('success', ConstantHelper::RISK_LEVEL_UPDATE);
     }
 }

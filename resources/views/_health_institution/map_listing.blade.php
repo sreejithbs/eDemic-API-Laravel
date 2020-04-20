@@ -174,7 +174,7 @@
                 var iw = new gm.InfoWindow();
 
                 markerSpiderfier.addListener('click', function(marker, e) {
-                    iw.setContent('<div class="marker-info"><h4>' +marker.title+ '</h4><hr><p>' +marker.content+ '</p></div>');
+                    iw.setContent('<div class="marker-info"><h4>' +marker.title+ '</h4><hr><p><strong><a href="tel:' +marker.content+ '">' +marker.content+ '</strong></p></div>');
                     iw.open(map, marker);
                 });
 

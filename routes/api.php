@@ -19,6 +19,7 @@ Route::group(['prefix' => 'v1'], function(){
 		Route::get('messages/{index}', 'API\v1\UserController@messages');
 
 		Route::post('user/updateDeviceToken', 'API\v1\UserController@updateDeviceToken');
+		Route::post('user/quarantinedLocation', 'API\v1\UserController@quarantinedLocation');
 		Route::post('user/diseaseDiagnosed', 'API\v1\UserController@diseaseDiagnosed');
 		Route::post('user/updateLastLocation', 'API\v1\UserController@updateLastLocation');
 

@@ -11,7 +11,7 @@
                 <div class="card-content">
                     <div class="card-body">
 
-                        <form method="post" action="{{ route('institution_diseases.updateRiskLevel') }}" class="form form-horizontal form-bordered" novalidate="" data-parsley-validate="" autocomplete="off">
+                        <form method="post" action="{{ route('institution_risk_level.updateRiskLevel') }}" class="form form-horizontal form-bordered" novalidate="" data-parsley-validate="" autocomplete="off">
                             {{ csrf_field() }}
                             {{ method_field('PUT') }}
 
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             <div class="form-actions right">
-                                <a href="{{ route('institution_diseases.editRiskLevel') }}" class="btn btn-secondary mr-1">
+                                <a href="{{ route('institution_risk_level.editRiskLevel') }}" class="btn btn-secondary mr-1">
                                     <i class="la la-close"></i> Cancel
                                 </a>
                                 <button type="submit" class="btn btn-success">
@@ -91,7 +91,7 @@
                 return;
             }
             $.ajax({
-                url: "{{ URL::route('institution_diseases.fetchRiskLevel') }}",
+                url: "{{ URL::route('institution_risk_level.fetchRiskLevel') }}",
                 dataType: 'json',
                 type: 'POST',
                 data: {

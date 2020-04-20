@@ -103,10 +103,12 @@ Route::group(['prefix' => 'institution', 'as' => 'institution_', 'namespace' => 
 	    Route::get('/edit/{uuid}', 'DiseaseController@edit')->name('edit');
 	    Route::patch('/update/{uuid}', 'DiseaseController@update')->name('update');
 	    Route::delete('/delete/{uuid}', 'DiseaseController@destroy')->name('delete');
+	});
 
-	    Route::get('/riskLevel/edit', 'DiseaseController@editRiskLevel')->name('editRiskLevel');
-	    Route::post('/riskLevel/fetch', 'DiseaseController@fetchRiskLevel')->name('fetchRiskLevel');
-	    Route::put('/riskLevel/update', 'DiseaseController@updateRiskLevel')->name('updateRiskLevel');
+	Route::group(['prefix' => 'risk_level', 'as' => 'risk_level.'], function(){
+		Route::get('/edit', 'DiseaseController@editRiskLevel')->name('editRiskLevel');
+		Route::post('/fetch', 'DiseaseController@fetchRiskLevel')->name('fetchRiskLevel');
+		Route::put('/update', 'DiseaseController@updateRiskLevel')->name('updateRiskLevel');
 	});
 
 	Route::group(['prefix' => 'statistics', 'as' => 'statistics.'], function(){

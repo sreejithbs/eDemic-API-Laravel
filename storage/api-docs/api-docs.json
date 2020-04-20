@@ -246,6 +246,67 @@
                 ]
             }
         },
+        "/user/quarantinedLocation": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update quarantine user details",
+                "description": "API to update quarantine user details to be saved in database.",
+                "operationId": "quarantinedLocation",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "disease_code": {
+                                        "type": "integer",
+                                        "example": 6001
+                                    },
+                                    "quarantined_date_time": {
+                                        "type": "string",
+                                        "example": "2020-04-08 07:23:37"
+                                    },
+                                    "location_date_time": {
+                                        "type": "string",
+                                        "example": "2020-04-08 07:23:37"
+                                    },
+                                    "latitude": {
+                                        "type": "string",
+                                        "example": "51.528308"
+                                    },
+                                    "longitude": {
+                                        "type": "string",
+                                        "example": "-0.131847"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "8-14 Eversholt St, Kings Cross, London NW1 1DG, UK"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
         "/user/diseaseDiagnosed": {
             "post": {
                 "tags": [

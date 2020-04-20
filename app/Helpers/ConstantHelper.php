@@ -21,7 +21,7 @@ class ConstantHelper {
     const INSTITUTION_DELETE = 'Institution record has been deleted successfully';
     const INSTITUTION_DELETE_FAIL = 'Something went wrong. Institution record deletion failed';
 
-    const DOCTOR_CREATE = 'Doctor record has been created successfully. Profile QR Code has been sent to the registered Email';
+    const DOCTOR_CREATE = 'Doctor record has been created successfully. Profile QR code has been sent to the registered Email';
     const DOCTOR_CREATE_FAIL = 'Something went wrong. Doctor record creation failed';
     const DOCTOR_UPDATE = 'Doctor record has been updated successfully';
     const DOCTOR_UPDATE_FAIL = 'Something went wrong. Doctor record updation failed';
@@ -42,6 +42,9 @@ class ConstantHelper {
     const DISEASE_UPDATE_FAIL = 'Something went wrong. Disease record updation failed';
     const DISEASE_DELETE = 'Disease record has been deleted successfully';
     const DISEASE_DELETE_FAIL = 'Something went wrong. Disease record deletion failed';
+
+    const RISK_LEVEL_UPDATE = 'Disease risk level has been updated successfully';
+    const RISK_LEVEL_UPDATE_FAIL = 'Something went wrong. Disease risk level updation failed';
 
     const HEALTH_HEAD_CREATE = 'Health Head record has been created successfully. Login credentials have been sent to the registered Email';
     const HEALTH_HEAD_CREATE_FAIL = 'Something went wrong. Health Head record creation failed';
