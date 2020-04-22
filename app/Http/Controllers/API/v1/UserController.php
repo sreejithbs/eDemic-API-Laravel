@@ -394,21 +394,21 @@ class UserController extends Controller
         $disease_id = (int)$request->disease_code - 6000;
         $stage = (int)$request->stage_code - 5000;
 
-        $match = UserDiagnosisLog::where([
-            [ 'patient_id', '=', $user->id ],
-            [ 'disease_id', '=', $disease_id ],
-            [ 'stage', '=', $stage ],
-        ])->first();
+        // $match = UserDiagnosisLog::where([
+        //     [ 'patient_id', '=', $user->id ],
+        //     [ 'disease_id', '=', $disease_id ],
+        //     [ 'stage', '=', $stage ],
+        // ])->first();
 
-        if($match){
-            return response()->json([
-                'status' => ConstantHelper::STATUS_FORBIDDEN,
-                'error' => [
-                    'code' => 1001,
-                    'message'=> 'Patient details with same disease and stage already exist in records'
-                ],
-            ], ConstantHelper::STATUS_FORBIDDEN);
-        }
+        // if($match){
+        //     return response()->json([
+        //         'status' => ConstantHelper::STATUS_FORBIDDEN,
+        //         'error' => [
+        //             'code' => 1001,
+        //             'message'=> 'Patient details with same disease and stage already exist in records'
+        //         ],
+        //     ], ConstantHelper::STATUS_FORBIDDEN);
+        // }
 
         $disease = Disease::find($disease_id);
 
