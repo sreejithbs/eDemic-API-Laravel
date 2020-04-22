@@ -307,20 +307,36 @@ class UserController extends Controller
         $disease_id = (int)$request->disease_code - 6000;
         $stage = Disease::SELF_QUARANTINE_STATUS;
 
-        $match = UserDiagnosisLog::where([
+        // Fetch last similar entry
+        $check_diagnosis_log = UserDiagnosisLog::where([
             [ 'patient_id', '=', $user->id ],
             [ 'disease_id', '=', $disease_id ],
-            [ 'stage', '=', $stage ],
-        ])->first();
+        ])->latest('id')->first();
 
-        if($match){
-            return response()->json([
-                'status' => ConstantHelper::STATUS_FORBIDDEN,
-                'error' => [
-                    'code' => 1001,
-                    'message'=> 'User details with same disease and quarantine stage already exist in records'
-                ],
-            ], ConstantHelper::STATUS_FORBIDDEN);
+        if($check_diagnosis_log){
+            $existingStage = $check_diagnosis_log->stage;
+            if( $existingStage == $stage ) {
+                return response()->json([
+                    'status' => ConstantHelper::STATUS_FORBIDDEN,
+                    'error' => [
+                        'code' => 1001,
+                        'message'=> 'Self Quaratine details for same disease already exists in records'
+                    ],
+                ], ConstantHelper::STATUS_FORBIDDEN);
+            }
+            else {
+                if( $existingStage == Disease::RECOVERED_STATUS) {
+                    //
+                } else {
+                    return response()->json([
+                        'status' => ConstantHelper::STATUS_FORBIDDEN,
+                        'error' => [
+                            'code' => 1001,
+                            'message'=> 'Updating existing Self Quaratine details with provided disease failed'
+                        ],
+                    ], ConstantHelper::STATUS_FORBIDDEN);
+                }
+            }
         }
 
         $disease = Disease::find($disease_id);
@@ -394,21 +410,51 @@ class UserController extends Controller
         $disease_id = (int)$request->disease_code - 6000;
         $stage = (int)$request->stage_code - 5000;
 
-        // $match = UserDiagnosisLog::where([
-        //     [ 'patient_id', '=', $user->id ],
-        //     [ 'disease_id', '=', $disease_id ],
-        //     [ 'stage', '=', $stage ],
-        // ])->first();
+        // Fetch last similar entry
+        $check_diagnosis_log = UserDiagnosisLog::where([
+            [ 'patient_id', '=', $user->id ],
+            [ 'disease_id', '=', $disease_id ],
+        ])->latest('id')->first();
 
-        // if($match){
-        //     return response()->json([
-        //         'status' => ConstantHelper::STATUS_FORBIDDEN,
-        //         'error' => [
-        //             'code' => 1001,
-        //             'message'=> 'Patient details with same disease and stage already exist in records'
-        //         ],
-        //     ], ConstantHelper::STATUS_FORBIDDEN);
-        // }
+        if($check_diagnosis_log){
+            $existingStage = $check_diagnosis_log->stage;
+            if( $existingStage == $stage ) {
+                return response()->json([
+                    'status' => ConstantHelper::STATUS_FORBIDDEN,
+                    'error' => [
+                        'code' => 1001,
+                        'message'=> 'Patient details with same disease and stage already exist in records'
+                    ],
+                ], ConstantHelper::STATUS_FORBIDDEN);
+            }
+            else {
+
+                // NEW STAGE           PERMITTED EXISTING STAGE/S
+
+                // Infection       :   Recovered, Self Quarantine
+                // Recovered       :   Infection, Self Quarantine
+                // Dead            :   Infection, Self Quarantine
+                // Self Quarantine :   Recovered
+
+                if( $stage == Disease::INFECTION_STATUS && in_array($existingStage, [Disease::RECOVERED_STATUS, Disease::SELF_QUARANTINE_STATUS]) ) {
+                    //
+                } else if( $stage == Disease::RECOVERED_STATUS && in_array($existingStage, [Disease::INFECTION_STATUS, Disease::SELF_QUARANTINE_STATUS]) ) {
+                    //
+                } else if( $stage == Disease::DEAD_STATUS && in_array($existingStage, [Disease::INFECTION_STATUS, Disease::SELF_QUARANTINE_STATUS]) ) {
+                    //
+                } else if( $stage == Disease::SELF_QUARANTINE_STATUS && $existingStage == Disease::RECOVERED_STATUS) {
+                    //
+                } else{
+                    return response()->json([
+                        'status' => ConstantHelper::STATUS_FORBIDDEN,
+                        'error' => [
+                            'code' => 1001,
+                            'message'=> 'Updating existing Patient details with provided disease stage failed'
+                        ],
+                    ], ConstantHelper::STATUS_FORBIDDEN);
+                }
+            }
+        }
 
         $disease = Disease::find($disease_id);
 
