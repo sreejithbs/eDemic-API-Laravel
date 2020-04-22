@@ -83,11 +83,11 @@
                                                     <div class="card-deck-wrapper">
                                                         <div class="card-deck">
                                                             <figure class="card card-img-top border-grey border-lighten-2">
-                                                                <img class="gallery-thumbnail card-img-top" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->color(255, 0, 0)->errorCorrection('H')->generate('Infection QRCode')) !!}" alt="QrCode" />
+                                                                <img class="gallery-thumbnail card-img-top" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->color(0, 0, 0)->errorCorrection('H')->generate('Infection QRCode')) !!}" alt="QrCode" />
                                                                 <h4 class="card-title">Infection</h4>
                                                             </figure>
                                                             <figure class="card card-img-top border-grey border-lighten-2">
-                                                                <img class="gallery-thumbnail card-img-top" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->color(0, 255, 0)->errorCorrection('H')->generate('Recovered QRCode')) !!}" alt="QrCode" />
+                                                                <img class="gallery-thumbnail card-img-top" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->color(0, 0, 0)->errorCorrection('H')->generate('Recovered QRCode')) !!}" alt="QrCode" />
                                                                 <h4 class="card-title">Recovered</h4>
                                                             </figure>
                                                             <figure class="card card-img-top border-grey border-lighten-2">
@@ -95,7 +95,7 @@
                                                                 <h4 class="card-title">Dead</h4>
                                                             </figure>
                                                             <figure class="card card-img-top border-grey border-lighten-2">
-                                                                <img class="gallery-thumbnail card-img-top" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->color(255, 165, 0)->errorCorrection('H')->generate('Self Quarantine QRCode')) !!}" alt="QrCode" />
+                                                                <img class="gallery-thumbnail card-img-top" src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->color(0, 0, 0)->errorCorrection('H')->generate('Self Quarantine QRCode')) !!}" alt="QrCode" />
                                                                 <h4 class="card-title">Self Quarantine</h4>
                                                             </figure>
                                                         </div>

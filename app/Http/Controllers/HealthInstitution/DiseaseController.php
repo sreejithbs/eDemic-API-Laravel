@@ -68,10 +68,10 @@ class DiseaseController extends Controller
 
             $id_code = $disease->id + 6000;
             $stages = array(
-                array( 'code' => 5001, 'name' => Disease::INFECTION, 'color' => array(255, 0, 0) ),
-                array( 'code' => 5002, 'name' => Disease::RECOVERED, 'color' => array(0, 255, 0) ),
+                array( 'code' => 5001, 'name' => Disease::INFECTION, 'color' => array(0, 0, 0) ),
+                array( 'code' => 5002, 'name' => Disease::RECOVERED, 'color' => array(0, 0, 0) ),
                 array( 'code' => 5003, 'name' => Disease::DEAD, 'color' => array(0, 0, 0) ),
-                array( 'code' => 5004, 'name' => Disease::SELF_QUARANTINE, 'color' => array(255, 165, 0) )
+                array( 'code' => 5004, 'name' => Disease::SELF_QUARANTINE, 'color' => array(0, 0, 0) )
             );
 
             foreach ($stages as $key => $stage)
