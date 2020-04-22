@@ -16,10 +16,17 @@
                 </a>
             </li>
 
-             <li class="nav-item {{ \StringHelper::setActive(['admin_health_heads.*']) }}" >
+            <li class="nav-item {{ \StringHelper::setActive(['admin_health_heads.*']) }}" >
                 <a href="{{ route('admin_health_heads.list') }}">
                     <i class="la la-h-square"></i>
                     <span class="menu-title">Health Heads</span>
+                </a>
+            </li>
+
+            <li class="nav-item {{ \StringHelper::setActive(['admin_health_institutions.*']) }}" >
+                <a href="{{ route('admin_health_institutions.list') }}">
+                    <i class="la la-hospital-o"></i>
+                    <span class="menu-title">Health Institutions</span>
                 </a>
             </li>
 

@@ -52,4 +52,6 @@ class ConstantHelper {
     const HEALTH_HEAD_DELETE_FAIL = 'Something went wrong. Health Head record deletion failed';
     const HEALTH_HEAD_TOGGLE_STATUS = 'Health Head Status has been changed successfully';
 
+    const HEALTH_INSTITUTION_TOGGLE_STATUS = 'Health Institution Status has been changed successfully';
+
 }

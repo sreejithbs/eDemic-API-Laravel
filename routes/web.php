@@ -38,6 +38,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin_', 'namespace' => 'Admin'], fu
 	    Route::get('/toggleStatus/{uuid}', 'HealthHeadController@toggleStatus')->name('toggleStatus');
 	});
 
+	Route::group(['prefix' => 'health_institutions', 'as' => 'health_institutions.'], function(){
+	    Route::get('/all', 'HealthInstitutionController@index')->name('list');
+	    Route::get('/toggleStatus/{uuid}', 'HealthInstitutionController@toggleStatus')->name('toggleStatus');
+	});
+
 	Route::group(['prefix' => 'statistics', 'as' => 'statistics.'], function(){
 	    Route::get('/all', 'StatisticsController@index')->name('list');
 	});

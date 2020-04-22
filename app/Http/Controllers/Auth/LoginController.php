@@ -67,9 +67,10 @@ class LoginController extends Controller
         {
             if (Auth::guard('health_institution')->user()->isActive == 0)
             {
+                $type = Auth::guard('health_institution')->user()->isHead == 1 ? 'Head' : 'Institution';
                 Auth::guard('health_institution')->logout($request);
                 return redirect()->back()->withInput($request->only('email', 'remember'))
-                        ->withErrors(['error' => 'Your Health Head account has been deactivated. Please contact Site Administrator.']);
+                        ->withErrors(['error' => 'Your Health '.$type.' account has been deactivated. Please contact Site Administrator.']);
             }
             return redirect()->intended('/institution/dashboard');
         }
