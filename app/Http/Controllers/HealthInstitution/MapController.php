@@ -28,7 +28,7 @@ class MapController extends Controller
     public function index()
     {
         $outerArr = array();
-        foreach (UserDiagnosisLog::all() as $diagnosis_log) {
+        foreach (UserDiagnosisLog::with('user_location_logs')->has('user_location_logs')->get() as $diagnosis_log) {
 
             $risk_level = $diagnosis_log->disease->riskLevel;
             if( $risk_level == 0) continue;

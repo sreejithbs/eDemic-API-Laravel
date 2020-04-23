@@ -26,9 +26,12 @@ class StatisticsController extends Controller
      */
     public function index()
     {
-        $diagnosis_logs = UserDiagnosisLog::latest('id')->get()->groupBy(['disease_id', function ($item) {
-            return $item['stage'];
-        }], $preserveKeys = false);
+        $diagnosis_logs = UserDiagnosisLog::with('user_location_logs')
+            ->has('user_location_logs')
+            ->latest('id')->get()
+            ->groupBy(['disease_id', function ($item) {
+                return $item['stage'];
+            }], $preserveKeys = false);
 
         return view('_admin.statistics_listing', compact('diagnosis_logs'));
     }

@@ -30,7 +30,7 @@ class PatientDiagnosedRequest extends FormRequest
             'disease_code' => 'required|max:4',
             'stage_code' => 'required|max:4',
             'diagnosed_date_time' => 'required|string',
-            'location_logs' => 'present|array',
+            "location_logs" => 'required|array|min:1',
             'location_logs.*.date_time' => 'required|string',
             'location_logs.*.latitude' => 'required|string',
             'location_logs.*.longitude' => 'required|string',

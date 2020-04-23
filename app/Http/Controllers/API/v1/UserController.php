@@ -548,7 +548,7 @@ class UserController extends Controller
     public function patients()
     {
         $dataArr = array();
-        foreach (UserDiagnosisLog::all() as $diagnosis_log) {
+        foreach (UserDiagnosisLog::with('user_location_logs')->has('user_location_logs')->get() as $diagnosis_log) {
 
             $stage = $diagnosis_log->stage;
             if( $stage != Disease::INFECTION_STATUS) continue;

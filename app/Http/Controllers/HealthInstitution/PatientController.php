@@ -28,8 +28,8 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $diagnosis_logs = UserDiagnosisLog::whereIn('stage', [
-            Disease::INFECTION_STATUS, Disease::RECOVERED_STATUS, Disease::DEAD_STATUS,
+        $diagnosis_logs = UserDiagnosisLog::with('user_location_logs')->has('user_location_logs')->whereIn('stage', [
+                Disease::INFECTION_STATUS, Disease::RECOVERED_STATUS, Disease::DEAD_STATUS,
         ])->with(['user'])->latest('diagnosisDateTime')->get();
         return view('_health_institution.patient_listing', compact('diagnosis_logs'));
     }
@@ -53,7 +53,8 @@ class PatientController extends Controller
      */
     public function listQuarantine()
     {
-        $diagnosis_logs = UserDiagnosisLog::where('stage', Disease::SELF_QUARANTINE_STATUS)->with(['user'])->latest('diagnosisDateTime')->get();
+        $diagnosis_logs = UserDiagnosisLog::with(['user', 'user_location_logs'])->has('user_location_logs')
+            ->where('stage', Disease::SELF_QUARANTINE_STATUS)->latest('diagnosisDateTime')->get();
         return view('_health_institution.quarantine_listing', compact('diagnosis_logs'));
     }
 
