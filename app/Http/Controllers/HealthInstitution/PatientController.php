@@ -28,9 +28,13 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $diagnosis_logs = UserDiagnosisLog::with('user_location_logs')->has('user_location_logs')->whereIn('stage', [
-                Disease::INFECTION_STATUS, Disease::RECOVERED_STATUS, Disease::DEAD_STATUS,
-        ])->with(['user'])->latest('diagnosisDateTime')->get();
+        $diagnosis_logs = UserDiagnosisLog::whereRaw('id IN (SELECT MAX(id) FROM user_diagnosis_logs GROUP BY patient_id, disease_id)')
+                            ->where('stage', Disease::INFECTION_STATUS)
+                            ->has('user_location_logs')
+                            ->with(['user', 'user_location_logs'])
+                            ->latest('id')
+                            ->get();
+
         return view('_health_institution.patient_listing', compact('diagnosis_logs'));
     }
 
@@ -53,8 +57,13 @@ class PatientController extends Controller
      */
     public function listQuarantine()
     {
-        $diagnosis_logs = UserDiagnosisLog::with(['user', 'user_location_logs'])->has('user_location_logs')
-            ->where('stage', Disease::SELF_QUARANTINE_STATUS)->latest('diagnosisDateTime')->get();
+        $diagnosis_logs = UserDiagnosisLog::whereRaw('id IN (SELECT MAX(id) FROM user_diagnosis_logs GROUP BY patient_id, disease_id)')
+                            ->where('stage', Disease::SELF_QUARANTINE_STATUS)
+                            ->has('user_location_logs')
+                            ->with(['user', 'user_location_logs'])
+                            ->latest('id')
+                            ->get();
+
         return view('_health_institution.quarantine_listing', compact('diagnosis_logs'));
     }
 

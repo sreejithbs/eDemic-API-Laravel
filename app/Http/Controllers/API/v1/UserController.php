@@ -548,10 +548,16 @@ class UserController extends Controller
     public function patients()
     {
         $dataArr = array();
-        foreach (UserDiagnosisLog::with('user_location_logs')->has('user_location_logs')->get() as $diagnosis_log) {
+        $diagnosis_logs = UserDiagnosisLog::whereRaw('id IN (SELECT MAX(id) FROM user_diagnosis_logs GROUP BY patient_id, disease_id)')
+                            ->where('stage', Disease::INFECTION_STATUS)
+                            ->has('user_location_logs')
+                            ->with(['user_location_logs'])
+                            ->latest('id')
+                            ->get();
+
+        foreach ($diagnosis_logs as $diagnosis_log) {
 
             $stage = $diagnosis_log->stage;
-            if( $stage != Disease::INFECTION_STATUS) continue;
 
             $innerArr = array();
             $innerArr = array(
@@ -625,7 +631,15 @@ class UserController extends Controller
      */
     public function updateLastLocation(UserLocationRequest $request)
     {
-        $diagnosis_logs = Auth::user()->patients()->get();
+        $diagnosis_logs = UserDiagnosisLog::whereRaw('id IN (SELECT MAX(id) FROM user_diagnosis_logs GROUP BY patient_id, disease_id)')
+                            ->where('patient_id', Auth::id())
+                            ->where('stage', Disease::INFECTION_STATUS)
+                            ->has('user_location_logs')
+                            ->with(['user_location_logs'])
+                            ->latest('id')
+                            ->get();
+
+
         if($diagnosis_logs->isNotEmpty())
         {
             foreach ($diagnosis_logs as $diagnosis_log){
@@ -636,11 +650,20 @@ class UserController extends Controller
                 $location_log->address = $request->address;
                 $diagnosis_log->user_location_logs()->save($location_log);
             }
-        }
 
-        return response()->json([
-            'status' => ConstantHelper::STATUS_OK,
-            'message' => 'User\'s last location details has been recorded successfully',
-        ], ConstantHelper::STATUS_OK);
+            return response()->json([
+                'status' => ConstantHelper::STATUS_OK,
+                'message' => 'User\'s last location details has been recorded successfully',
+            ], ConstantHelper::STATUS_OK);
+        }
+        else {
+            return response()->json([
+                'status' => ConstantHelper::STATUS_FORBIDDEN,
+                'error' => [
+                    'code' => 1001,
+                    'message'=> 'No matching patient record exists for corresponding user'
+                ],
+            ], ConstantHelper::STATUS_FORBIDDEN);
+        }
     }
 }

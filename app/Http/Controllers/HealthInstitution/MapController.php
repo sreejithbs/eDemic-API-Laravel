@@ -28,7 +28,13 @@ class MapController extends Controller
     public function index()
     {
         $outerArr = array();
-        foreach (UserDiagnosisLog::with('user_location_logs')->has('user_location_logs')->get() as $diagnosis_log) {
+        $diagnosis_logs = UserDiagnosisLog::whereRaw('id IN (SELECT MAX(id) FROM user_diagnosis_logs GROUP BY patient_id, disease_id)')
+                            ->has('user_location_logs')
+                            ->with(['user_location_logs'])
+                            ->latest('id')
+                            ->get();
+
+        foreach ($diagnosis_logs as $diagnosis_log) {
 
             $risk_level = $diagnosis_log->disease->riskLevel;
             if( $risk_level == 0) continue;

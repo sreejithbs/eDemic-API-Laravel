@@ -17,6 +17,7 @@ use Twilio\Exceptions\TwilioException;
 
 use App\Models\User;
 use App\Models\Disease;
+use App\Models\UserDiagnosisLog;
 
 class AuthController extends Controller
 {
@@ -174,7 +175,14 @@ class AuthController extends Controller
                 $data['token'] = $objToken->accessToken;
                 $data['codes'] = array_merge(config('app-status-codes'), Disease::fetchAllDiseasesApi());
 
-                $user_diagnosis_logs = $user->patients()->get();
+                $user_diagnosis_logs = UserDiagnosisLog::whereRaw('id IN (SELECT MAX(id) FROM user_diagnosis_logs GROUP BY patient_id, disease_id)')
+                                    ->where('patient_id', $user->id)
+                                    ->where('stage', Disease::INFECTION_STATUS)
+                                    ->has('user_location_logs')
+                                    ->with(['user_location_logs'])
+                                    ->latest('id')
+                                    ->get();
+
                 if($user_diagnosis_logs->isNotEmpty()){
                     foreach ($user_diagnosis_logs as $user_diagnosis_log) {
 

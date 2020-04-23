@@ -28,8 +28,8 @@
                                 @foreach($diagnosis_logs as $diagnosis_log)
                                     <tr>
                                         <td> {{ $diagnosis_log->user->userCode }} </td>
-                                        <td> {{ $diagnosis_log->user_location_logs()->get()->last()->address }} </td>
-                                        <td> {{ $diagnosis_log->user_location_logs()->get()->last()->date_time_formatted }} </td>
+                                        <td> {{ $diagnosis_log->user_location_logs()->latest('id')->first()->address }} </td>
+                                        <td> {{ $diagnosis_log->user_location_logs()->latest('id')->first()->date_time_formatted }} </td>
                                         <td> {{ $diagnosis_log->user->phone }} </td>
                                         <td> {{ $diagnosis_log->disease->name }} </td>
                                         <td>
