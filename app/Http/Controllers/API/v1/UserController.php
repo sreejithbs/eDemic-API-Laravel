@@ -46,7 +46,7 @@ class UserController extends Controller
     *       @OA\JsonContent()
     *   ),
     *   security={
-    *       {"api_key": {}}
+    *       {"Bearer_Token_Auth": {}}
     *   },
     * )
     */
@@ -106,7 +106,7 @@ class UserController extends Controller
      *         @OA\JsonContent()
      *     ),
      *     security={
-     *          {"api_key": {}}
+     *          {"Bearer_Token_Auth": {}}
      *     },
      * )
      */
@@ -151,7 +151,7 @@ class UserController extends Controller
     *       @OA\JsonContent()
     *   ),
     *   security={
-    *       {"api_key": {}}
+    *       {"Bearer_Token_Auth": {}}
     *   },
     * )
     */
@@ -233,7 +233,7 @@ class UserController extends Controller
     *       @OA\JsonContent()
     *   ),
     *   security={
-    *       {"api_key": {}}
+    *       {"Bearer_Token_Auth": {}}
     *   },
     * )
     */
@@ -297,7 +297,7 @@ class UserController extends Controller
      *         @OA\JsonContent()
      *     ),
      *     security={
-     *          {"api_key": {}}
+     *          {"Bearer_Token_Auth": {}}
      *     },
      * )
      */
@@ -400,7 +400,7 @@ class UserController extends Controller
      *         @OA\JsonContent()
      *     ),
      *     security={
-     *          {"api_key": {}}
+     *          {"Bearer_Token_Auth": {}}
      *     },
      * )
      */
@@ -541,7 +541,7 @@ class UserController extends Controller
      *       @OA\JsonContent()
      *   ),
      *   security={
-     *       {"api_key": {}}
+     *       {"Bearer_Token_Auth": {}}
      *   },
      * )
      */
@@ -625,7 +625,7 @@ class UserController extends Controller
      *         @OA\JsonContent()
      *     ),
      *     security={
-     *          {"api_key": {}}
+     *          {"Bearer_Token_Auth": {}}
      *     },
      * )
      */

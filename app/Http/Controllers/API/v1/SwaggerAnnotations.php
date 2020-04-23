@@ -24,15 +24,6 @@ namespace App\Http\Requests\API;
  */
 
 /**
- * @OA\SecurityScheme(
- *     type="apiKey",
- *     in="header",
- *     securityScheme="api_key",
- *     name="Authorization"
- * )
- */
-
-/**
  * @OA\Tag(
  *     name="Authentication",
  *     description="API Endpoints for Authentication",

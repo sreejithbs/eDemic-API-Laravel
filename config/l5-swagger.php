@@ -132,6 +132,21 @@ return [
     |--------------------------------------------------------------------------
     */
     'security' => [
+        // 'Bearer_JWT_Auth' => [
+        //     'type' => 'http',
+        //     'scheme' => 'bearer',
+        //     'bearerFormat' => 'JWT',
+        //     'description' => 'Bearer Token security scheme',
+        //     'name' => 'api_key',
+        //     'in' => 'header',
+        // ],
+        'Bearer_Token_Auth' => [
+            'type' => 'apiKey',
+            'description' => 'Format : `Bearer <token>` <br><br>',
+            'name' => 'Authorization',
+            'in' => 'header',
+        ],
+
         /*
         |--------------------------------------------------------------------------
         | Examples of Security definitions
