@@ -117,9 +117,11 @@ class UserController extends Controller
         if($request->has('android_device_token')){
             $user->androidPushToken = $request->android_device_token;
             $user->iosPushToken = null;
+            $user->iosDeviceId = null;
         } else{
             $user->iosPushToken = $request->ios_device_token;
             $user->androidPushToken = null;
+            $user->androidDeviceId = null;
         }
         $user->save();
 
