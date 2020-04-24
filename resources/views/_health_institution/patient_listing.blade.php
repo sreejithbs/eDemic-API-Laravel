@@ -13,7 +13,7 @@
                         <table class="table table-striped table-bordered table-responsive dtTable">
                             <thead>
                                 <tr>
-                                    <th rowspan="2">Code</th>
+                                    <th rowspan="2">User Code</th>
                                     <th colspan="2">Last Reported</th>
                                     <th rowspan="2">Phone Number</th>
                                     <th rowspan="2">Disease</th>

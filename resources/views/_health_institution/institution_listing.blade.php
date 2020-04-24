@@ -24,7 +24,7 @@
                         <table class="table table-striped table-bordered dtTable">
                             <thead>
                                 <tr>
-                                    <th>Code</th>
+                                    <th>Institution Code</th>
                                     <th>Health Institution</th>
                                     <th>Email ID</th>
                                     <th>Phone Number</th>

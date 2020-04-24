@@ -131,7 +131,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "Bearer_Token_Auth": []
                     }
                 ]
             }
@@ -178,7 +178,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "Bearer_Token_Auth": []
                     }
                 ]
             }
@@ -216,7 +216,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "Bearer_Token_Auth": []
                     }
                 ]
             }
@@ -241,80 +241,19 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "Bearer_Token_Auth": []
                     }
                 ]
             }
         },
-        "/user/quarantinedLocation": {
+        "/user/diseaseQRCodeScanned": {
             "post": {
                 "tags": [
                     "Users"
                 ],
-                "summary": "Update quarantine user details",
-                "description": "API to update quarantine user details to be saved in database.",
-                "operationId": "quarantinedLocation",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "disease_code": {
-                                        "type": "integer",
-                                        "example": 6001
-                                    },
-                                    "quarantined_date_time": {
-                                        "type": "string",
-                                        "example": "2020-04-08 07:23:37"
-                                    },
-                                    "location_date_time": {
-                                        "type": "string",
-                                        "example": "2020-04-08 07:23:37"
-                                    },
-                                    "latitude": {
-                                        "type": "string",
-                                        "example": "51.528308"
-                                    },
-                                    "longitude": {
-                                        "type": "string",
-                                        "example": "-0.131847"
-                                    },
-                                    "address": {
-                                        "type": "string",
-                                        "example": "8-14 Eversholt St, Kings Cross, London NW1 1DG, UK"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "api_key": []
-                    }
-                ]
-            }
-        },
-        "/user/diseaseDiagnosed": {
-            "post": {
-                "tags": [
-                    "Users"
-                ],
-                "summary": "Submit disease diagnosed patient details",
-                "description": "API to submit disease diagnosed patient details to be saved in database.",
-                "operationId": "diseaseDiagnosed",
+                "summary": "Submit disease QR code scanned user details",
+                "description": "API to submit disease QR code scanned user details to be saved in database.",
+                "operationId": "diseaseQRCodeScanned",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -329,7 +268,7 @@
                                         "type": "integer",
                                         "example": 5001
                                     },
-                                    "diagnosed_date_time": {
+                                    "scan_date_time": {
                                         "type": "string",
                                         "example": "2020-04-08 07:23:37"
                                     },
@@ -369,7 +308,60 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "Bearer_Token_Auth": []
+                    }
+                ]
+            }
+        },
+        "/user/setQuarantineLocation": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Set/update user's quarantine location details",
+                "description": "API to set/update user's quarantine location details to be saved in database.",
+                "operationId": "setQuarantineLocation",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "date_time": {
+                                        "type": "string",
+                                        "example": "2020-04-08 07:23:37"
+                                    },
+                                    "latitude": {
+                                        "type": "string",
+                                        "example": "51.528308"
+                                    },
+                                    "longitude": {
+                                        "type": "string",
+                                        "example": "-0.131847"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "9-14 Eversholt St, Kings Cross, London NW1 1DG, UK"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer_Token_Auth": []
                     }
                 ]
             }
@@ -394,7 +386,7 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "Bearer_Token_Auth": []
                     }
                 ]
             }
@@ -449,18 +441,9 @@
                 },
                 "security": [
                     {
-                        "api_key": []
+                        "Bearer_Token_Auth": []
                     }
                 ]
-            }
-        }
-    },
-    "components": {
-        "securitySchemes": {
-            "api_key": {
-                "type": "apiKey",
-                "name": "Authorization",
-                "in": "header"
             }
         }
     },
@@ -489,5 +472,15 @@
             "name": "Map",
             "description": "API Endpoints for Map"
         }
-    ]
+    ],
+    "components": {
+        "securitySchemes": {
+            "Bearer_Token_Auth": {
+                "type": "apiKey",
+                "description": "Format : `Bearer <token>` <br><br>",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
 }

@@ -11,6 +11,7 @@ use App\Traits\UuidTrait;
 
 use App\Models\DoctorProfile;
 use App\Models\UserDiagnosisLog;
+use App\Models\QuarantineLog;
 
 class User extends Authenticatable
 {
@@ -50,4 +51,11 @@ class User extends Authenticatable
     // public function doctors(){
     //     return $this->hasMany(UserDiagnosisLog::class, 'doctor_id');
     // }
+
+    /**
+     * The quarantine that belong to the user.
+     */
+    public function quarantine(){
+        return $this->hasOne(QuarantineLog::class, 'user_id');
+    }
 }

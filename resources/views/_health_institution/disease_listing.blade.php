@@ -25,7 +25,7 @@
                         <table class="table table-striped table-bordered dtTable">
                             <thead>
                                 <tr>
-                                    <th>Code</th>
+                                    <th>Disease Code</th>
                                     <th>Disease Name</th>
                                     <th>Risk Level</th>
                                     @can('isCountryHead')

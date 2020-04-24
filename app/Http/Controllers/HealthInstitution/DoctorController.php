@@ -32,7 +32,7 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = DoctorProfile::all();
+        $doctors = DoctorProfile::latest('id')->get();
         return view('_health_institution.doctor_listing', compact('doctors'));
     }
 

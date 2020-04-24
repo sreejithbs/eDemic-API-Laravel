@@ -5,7 +5,7 @@ namespace App\Http\Requests\API;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\API\FailedValidateTrait;
 
-class QuarantinedUserRequest extends FormRequest
+class QuarantineUserRequest extends FormRequest
 {
     use FailedValidateTrait;
 
@@ -27,9 +27,7 @@ class QuarantinedUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'disease_code' => 'required|max:4',
-            'quarantined_date_time' => 'required|string',
-            'location_date_time' => 'required|string',
+            'date_time' => 'required|string',
             'latitude' => 'required|string',
             'longitude' => 'required|string',
             'address' => 'required|string',

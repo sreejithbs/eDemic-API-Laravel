@@ -5,6 +5,7 @@ namespace App\Http\Controllers\HealthInstitution;
 use App\Http\Controllers\Controller;
 use DB;
 
+use App\Models\Disease;
 use App\Models\UserDiagnosisLog;
 
 class MapController extends Controller
@@ -29,6 +30,7 @@ class MapController extends Controller
     {
         $outerArr = array();
         $diagnosis_logs = UserDiagnosisLog::whereRaw('id IN (SELECT MAX(id) FROM user_diagnosis_logs GROUP BY patient_id, disease_id)')
+                            ->where('stage', Disease::INFECTION_STATUS)
                             ->has('user_location_logs')
                             ->with(['user_location_logs'])
                             ->latest('id')

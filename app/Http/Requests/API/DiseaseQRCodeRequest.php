@@ -5,7 +5,7 @@ namespace App\Http\Requests\API;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Traits\API\FailedValidateTrait;
 
-class PatientDiagnosedRequest extends FormRequest
+class DiseaseQRCodeRequest extends FormRequest
 {
     use FailedValidateTrait;
 
@@ -29,7 +29,7 @@ class PatientDiagnosedRequest extends FormRequest
         return [
             'disease_code' => 'required|max:4',
             'stage_code' => 'required|max:4',
-            'diagnosed_date_time' => 'required|string',
+            'scan_date_time' => 'required|string',
             "location_logs" => 'required|array|min:1',
             'location_logs.*.date_time' => 'required|string',
             'location_logs.*.latitude' => 'required|string',
