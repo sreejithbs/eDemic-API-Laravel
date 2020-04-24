@@ -40,13 +40,13 @@
                                         <td> {{ $disease->name }}</td>
                                         <td>
                                             @if( $disease->riskLevel == 0 )
-                                                None
+                                                -- None --
                                             @elseif( $disease->riskLevel == 1 )
-                                                <span class="badge badge-danger"> Level 1 </span>
+                                                <span class="badge bg-yellow bg-darken-1"> Level 1 </span>
                                             @elseif( $disease->riskLevel == 2 )
                                                 <span class="badge badge-warning"> Level 2 </span>
                                             @elseif( $disease->riskLevel == 3 )
-                                                <span class="badge badge-info"> Level 3 </span>
+                                                <span class="badge badge-danger"> Level 3 </span>
                                             @endif
                                         </td>
                                         @can('isCountryHead')

@@ -42,7 +42,7 @@ class MapController extends Controller
             if( $risk_level == 0) continue;
 
             $innerArr = array();
-            $risk_levelArr = array(1 => 'images/red.png', 2 => 'images/orange.png', 3 => 'images/yellow.png');
+            $risk_levelArr = array(1 => 'images/pins/yellow.png', 2 => 'images/pins/orange.png', 3 => 'images/pins/red.png');
 
             $recent_location_log = $diagnosis_log->user_location_logs()->latest('id')->first();
             $innerArr['lat'] = $recent_location_log->latitude;

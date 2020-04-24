@@ -170,6 +170,7 @@ class AuthController extends Controller
                 Auth::loginUsingId($user->id);
                 $objToken = $user->createToken('API Access Token');
 
+                $data['user_id'] = $user->id;
                 $data['token_type'] = "Bearer";
                 $data['token_expiry'] = $objToken->token->expires_at->format('Y-m-d H:i:s');
                 $data['token'] = $objToken->accessToken;

@@ -38,7 +38,7 @@
                                     <h5><strong> Disease Risk Level 1 </strong></h5>
                                 </div>
                                 <div class="progress progress-sm mt-1 mb-0">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%"></div>
+                                    <div class="progress-bar bg-yellow bg-darken-1" role="progressbar" style="width: 100%"></div>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                                     <h5><strong> Disease Risk Level 3 </strong></h5>
                                 </div>
                                 <div class="progress progress-sm mt-1 mb-0">
-                                    <div class="progress-bar bg-yellow bg-darken-1" role="progressbar" style="width: 100%"></div>
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 100%"></div>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,11 @@
                     zoom: {!! config('gmaps-oms')['zoom'] !!},
                     center: new gm.LatLng(config.lat, config.lng),
                     streetViewControl: false,
-                    mapTypeControl: false,
+                    mapTypeControl: true,
+                    // mapTypeControlOptions: {
+                    //     style: google.maps.MapTypeControlStyle.DEFAULT,
+                    //     mapTypeIds: ['roadmap', 'satellite', 'terrain']
+                    // },
                     scrollWheelZoom: true,
                     scaleControl: true,
                     mapTypeId: google.maps.MapTypeId.{!! config('gmaps-oms')['type'] !!}
