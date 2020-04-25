@@ -44,7 +44,7 @@ class Disease extends Model
     {
         $diseasesArr = array();
         foreach (self::all() as $disease){
-            $diseasesArr[] = array( 'code' => $disease->apiStatusCode, 'name' => $disease->name );
+            $diseasesArr[] = array( 'code' => $disease->apiStatusCode, 'uid' => $disease->diseaseCode, 'name' => $disease->name );
         }
     	return array("diseases" => $diseasesArr);
     }
