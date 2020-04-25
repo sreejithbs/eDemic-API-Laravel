@@ -631,7 +631,7 @@ class UserController extends Controller
     {
         $diagnosis_logs = UserDiagnosisLog::whereRaw('id IN (SELECT MAX(id) FROM user_diagnosis_logs GROUP BY patient_id, disease_id)')
                             ->where('patient_id', Auth::id())
-                            ->where('stage', Disease::INFECTION_STATUS)
+                            // ->where('stage', Disease::INFECTION_STATUS)
                             ->has('user_location_logs')
                             ->with(['user_location_logs'])
                             ->latest('id')
